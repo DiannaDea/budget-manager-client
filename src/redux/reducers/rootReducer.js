@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-// import spoolReducer from './spooler/spoolReducer'
+import banksReducer from './banks';
 
 const reducer = combineReducers({
-  // spoolerInfo: spoolReducer,
+  banks: banksReducer,
 });
 
 export default reducer;

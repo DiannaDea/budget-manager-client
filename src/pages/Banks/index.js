@@ -1,3 +1,3 @@
-import Banks from './Banks';
+import Banks from './Banks.container';
 
 export default Banks;
