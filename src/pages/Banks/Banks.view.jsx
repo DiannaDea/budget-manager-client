@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import BankCard from '../../components/BankCard';
+import ConnectCardModal from '../../components/ConnectCardModal';
 
 export default class BanksView extends Component {
   render() {
@@ -12,6 +13,11 @@ export default class BanksView extends Component {
         <Grid.Row columns={1} textAlign="center">
           <Grid.Column>
             <Header as="h2">Banks</Header>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={1} textAlign="center">
+          <Grid.Column>
+            <ConnectCardModal />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={3} centered>
