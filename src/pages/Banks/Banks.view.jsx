@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Segment } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import BankCard from '../../components/BankCard';
 
 export default class BanksView extends Component {
@@ -8,11 +8,22 @@ export default class BanksView extends Component {
     const { banks } = this.props;
 
     return (
-      <Segment>
-        {
-          banks.map((bank) => <BankCard bank={bank} />)
+      <Grid>
+        <Grid.Row columns={1} textAlign="center">
+          <Grid.Column>
+            <Header as="h2">Banks</Header>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={3} centered>
+          {
+          banks.map((bank) => (
+            <Grid.Column>
+              <BankCard bank={bank} />
+            </Grid.Column>
+          ))
         }
-      </Segment>
+        </Grid.Row>
+      </Grid>
     );
   }
 }
