@@ -47,7 +47,7 @@ export default class ConnectCardModal extends Component {
         onClose={this.handleModalClose}
         size="small"
       >
-        <Modal.Header>Select a Photo</Modal.Header>
+        <Modal.Header>Connect your card</Modal.Header>
         <Modal.Content>
           <ConnectCardStep activeStep={activeStep} />
           <Modal.Description>
