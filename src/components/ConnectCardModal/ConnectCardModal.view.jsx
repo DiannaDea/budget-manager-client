@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Button, Icon, Modal } from 'semantic-ui-react';
 import ConnectCardStep from '../ConnectCardStep';
 import BankForm from './forms/BankForm';
+import ChooseGroupForm from './forms/ChooseGroupForm';
 
 const MODAL_CONTENT = {
   1: ({ currentBank, handleBankChange, validateCard }) => (
@@ -12,7 +13,7 @@ const MODAL_CONTENT = {
       validateCard={validateCard}
     />
   ),
-  2: () => <p>Step 2</p>,
+  2: () => <ChooseGroupForm />,
 };
 
 export default class ConnectCardModal extends Component {
