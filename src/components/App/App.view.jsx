@@ -16,7 +16,7 @@ export default class App extends React.Component {
       <div>
         <Router>
           <NavBar />
-          <Grid>
+          <Grid padded relaxed>
             <Grid.Column width={3} stretched>
               <SideBar />
             </Grid.Column>
