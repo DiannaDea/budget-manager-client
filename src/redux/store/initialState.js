@@ -4,6 +4,7 @@ export default {
     error: null,
   },
   cards: {
+    newCardAdded: false,
     auth: {
       data: null,
       error: null,

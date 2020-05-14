@@ -26,6 +26,7 @@ const MonobankForm = ({
         control={Input}
         label="Access token"
         placeholder="Access token"
+        type="password"
         defaultValue={token}
         onChange={(e, { value }) => handleInputChange('token', value)}
         {...(errorField === 'token' ? { error } : {})}

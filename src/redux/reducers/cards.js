@@ -15,6 +15,7 @@ export default (state = initialState.cards, action = {}) => {
   const typeToFunc = {
     [AUTH_CARD_REQUEST]: () => ({
       ...state,
+      newCardAdded: false,
       isFetching: true,
     }),
     [AUTH_CARD_SUCCESS]: () => ({
@@ -40,6 +41,7 @@ export default (state = initialState.cards, action = {}) => {
     [SAVE_CARD_SUCCESS]: () => ({
       ...state,
       isFetching: false,
+      newCardAdded: true,
       savedCard: {
         data: action.payload,
         error: null,

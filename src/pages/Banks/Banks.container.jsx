@@ -6,8 +6,15 @@ import { getBanksRequest } from '../../redux/actions/banks';
 class BanksContainer extends Component {
   componentDidMount() {
     const { getBanks } = this.props;
-
     getBanks({ groupIds: '1,2' });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { getBanks, newCardAdded } = this.props;
+
+    if (prevProps.newCardAdded !== newCardAdded && newCardAdded) {
+      getBanks({ groupIds: '1,2' });
+    }
   }
 
   render() {
@@ -24,10 +31,14 @@ const mapStateToProps = (state) => {
     banks: {
       data: banks,
     },
+    cards: {
+      newCardAdded,
+    },
   } = state;
 
   return {
     banks,
+    newCardAdded,
   };
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
@@ -22,8 +23,8 @@ export default class BanksView extends Component {
         </Grid.Row>
         <Grid.Row columns={3} centered>
           {
-          banks.map((bank) => (
-            <Grid.Column>
+          banks.map((bank, id) => (
+            <Grid.Column key={id}>
               <BankCard bank={bank} />
             </Grid.Column>
           ))

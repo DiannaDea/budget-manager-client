@@ -36,6 +36,7 @@ const PrivatBankForm = ({
         label="Merchant password"
         placeholder="Merchant password"
         defaultValue={password}
+        type="password"
         onChange={(e, { value }) => handleInputChange('password', value)}
         {...(errorField === 'password' ? { error } : {})}
       />
