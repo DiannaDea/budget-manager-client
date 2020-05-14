@@ -43,7 +43,7 @@ const ChooseGroupForm = ({ cardAuth, saveCardInfo, ...props }) => (
     <Form.Group inline>
       <GroupsSelect {...props} />
     </Form.Group>
-    <Button disabled={props.savedCard} onClick={saveCardInfo}>Save</Button>
+    <Button disabled={!!props.savedCard} onClick={saveCardInfo}>Save</Button>
   </Form>
 );
 

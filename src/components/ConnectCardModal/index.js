@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
     cards: {
       auth: {
         data: cardAuth,
+        error: cardAuthError,
       },
       savedCard: {
         data: savedCard,
@@ -17,6 +18,7 @@ const mapStateToProps = (state) => {
 
   return {
     cardAuth,
+    cardAuthError,
     savedCard,
     savedCardError,
   };

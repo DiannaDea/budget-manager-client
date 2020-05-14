@@ -1,6 +1,10 @@
+/* eslint-disable react/no-did-update-set-state */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
-import { Button, Icon, Modal } from 'semantic-ui-react';
+import {
+  Button, Icon, Modal, Message,
+} from 'semantic-ui-react';
 import ConnectCardStep from '../ConnectCardStep';
 import BankForm from './forms/BankForm';
 import ChooseGroupForm from './forms/ChooseGroupForm';
@@ -38,6 +42,12 @@ export default class ConnectCardModal extends Component {
     selectedGroup: 'group1',
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.cardAuth !== this.props.cardAuth) {
+      this.setState({ activeStep: prevState.activeStep + 1 });
+    }
+  }
+
   handleModalOpen = () => this.setState({ modalOpen: true })
 
   handleModalClose = () => this.setState({
@@ -46,14 +56,13 @@ export default class ConnectCardModal extends Component {
     currentBank: 'privatbank',
   })
 
-  validateCard = (activeStep) => {
+  validateCard = () => {
     const { authCard } = this.props;
     const { currentBank, cardInfo } = this.state;
 
     authCard({
       [currentBank]: cardInfo[currentBank],
     });
-    this.setState({ activeStep });
   }
 
   handleBankChange = (event, { value: bank }) => {
@@ -95,7 +104,7 @@ export default class ConnectCardModal extends Component {
     const {
       modalOpen, activeStep, currentBank, cardInfo, selectedGroup,
     } = this.state;
-    const { cardAuth, savedCard } = this.props;
+    const { cardAuth, savedCard, cardAuthError } = this.props;
 
     return (
       <Modal
@@ -107,6 +116,17 @@ export default class ConnectCardModal extends Component {
         <Modal.Header>Connect your card</Modal.Header>
         <Modal.Content>
           <ConnectCardStep activeStep={activeStep} savedCard={savedCard} />
+          {
+            (cardAuthError)
+              ? (
+                <Message
+                  negative
+                  header="Ooops!"
+                  content="Bank can not validate card. Please try again"
+                />
+              )
+              : null
+          }
           <Modal.Description>
             {
               MODAL_CONTENT[activeStep]({

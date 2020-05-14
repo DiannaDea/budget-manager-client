@@ -10,7 +10,7 @@ const ConnectCardStep = ({ activeStep, savedCard }) => (
       </Step.Content>
     </Step>
 
-    <Step active={activeStep === 2} completed={savedCard}>
+    <Step active={activeStep === 2} completed={!!savedCard}>
       <Step.Content>
         <Step.Title>Choose group</Step.Title>
         <Step.Description>Enter groups information</Step.Description>
