@@ -8,5 +8,9 @@ export default {
       data: null,
       error: null,
     },
+    savedCard: {
+      data: null,
+      error: null,
+    },
   },
 };

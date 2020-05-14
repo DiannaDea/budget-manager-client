@@ -5,6 +5,7 @@ import {
   SAVE_CARD_REQUEST,
   SAVE_CARD_SUCCESS,
   SAVE_CARD_ERROR,
+  RESET_AUTHED_CARD,
 } from './types';
 
 export const authCardRequest = (payload = {}) => ({
@@ -34,5 +35,10 @@ export const saveCardSuccess = (payload = {}) => ({
 
 export const saveCardError = (payload = {}) => ({
   type: SAVE_CARD_ERROR,
+  payload,
+});
+
+export const resetAuthedCard = (payload = {}) => ({
+  type: RESET_AUTHED_CARD,
   payload,
 });

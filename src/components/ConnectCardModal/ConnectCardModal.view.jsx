@@ -119,15 +119,16 @@ export default class ConnectCardModal extends Component {
                 handleInputChange: this.handleInputChange,
                 ...cardInfo[currentBank],
                 cardAuth,
+                ...this.props,
               })
             }
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button color="green" onClick={this.handleModalClose} inverted>
+          <Button color="green" onClick={this.handleModalClose} primary>
             <Icon name="checkmark" />
             {' '}
-            Got it
+            Close
           </Button>
         </Modal.Actions>
       </Modal>
