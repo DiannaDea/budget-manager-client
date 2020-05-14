@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import * as Yup from 'yup';
-import { Button } from 'semantic-ui-react';
+import { Button, Form, Icon } from 'semantic-ui-react';
 import BankSelect from '../BankSelect';
 import MonobankForm from './MonobankForm';
 import PrivatBankForm from './PrivatBankForm';
@@ -60,11 +60,15 @@ class BankForm extends React.Component {
     };
 
     return (
-      <>
+      <Form>
         <BankSelect currentBank={currentBank} handleBankChange={handleBankChange} />
         { BANK_FORM[currentBank] }
-        <Button onClick={this.validateForm}>Validate card</Button>
-      </>
+        <Button fluid onClick={this.validateForm} primary>
+          <Icon name="checkmark" />
+          {' '}
+          Validate card
+        </Button>
+      </Form>
     );
   }
 }

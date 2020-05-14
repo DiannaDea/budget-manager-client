@@ -8,18 +8,15 @@ const bankOptions = [
 ];
 
 const GroupsSelect = ({ selectedGroup, handleGroupSelect }) => (
-  <Form.Group inline>
-    <label>Select group</label>
-    <Form.Field>
-      <Dropdown
-        onChange={handleGroupSelect}
-        options={bankOptions}
-        placeholder="Choose group"
-        selection
-        value={selectedGroup}
-      />
-    </Form.Field>
-  </Form.Group>
+  <Form.Field
+    control={Dropdown}
+    label="Group"
+    onChange={handleGroupSelect}
+    options={bankOptions}
+    placeholder="Choose group"
+    selection
+    value={selectedGroup}
+  />
 );
 
 export default GroupsSelect;

@@ -12,7 +12,7 @@ const PrivatBankForm = ({
   };
 
   return (
-    <Form>
+    <>
       <Form.Field
         control={Input}
         label="Card number"
@@ -40,7 +40,7 @@ const PrivatBankForm = ({
         {...(errorField === 'password' ? { error } : {})}
       />
 
-    </Form>
+    </>
   );
 };
 

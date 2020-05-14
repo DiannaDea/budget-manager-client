@@ -12,7 +12,7 @@ const MonobankForm = ({
   };
 
   return (
-    <Form>
+    <>
       <Form.Field
         control={Input}
         label="Card number"
@@ -31,7 +31,7 @@ const MonobankForm = ({
         {...(errorField === 'token' ? { error } : {})}
       />
 
-    </Form>
+    </>
   );
 };
 

@@ -145,8 +145,8 @@ export default class ConnectCardModal extends Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button color="green" onClick={this.handleModalClose} primary>
-            <Icon name="checkmark" />
+          <Button onClick={this.handleModalClose} color="grey">
+            <Icon name="close" />
             {' '}
             Close
           </Button>

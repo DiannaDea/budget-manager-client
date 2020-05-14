@@ -2,7 +2,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { Form, Message, Button } from 'semantic-ui-react';
+import {
+  Form, Message, Button, Icon,
+} from 'semantic-ui-react';
 import GroupsSelect from '../GroupsSelect';
 
 const ChooseGroupForm = ({ cardAuth, saveCardInfo, ...props }) => (
@@ -40,10 +42,12 @@ const ChooseGroupForm = ({ cardAuth, saveCardInfo, ...props }) => (
         )
         : null
     }
-    <Form.Group inline>
-      <GroupsSelect {...props} />
-    </Form.Group>
-    <Button disabled={!!props.savedCard} onClick={saveCardInfo}>Save</Button>
+    <GroupsSelect {...props} />
+    <Button fluid primary disabled={!!props.savedCard} onClick={saveCardInfo}>
+      <Icon name="check" />
+      {' '}
+      Save card
+    </Button>
   </Form>
 );
 
