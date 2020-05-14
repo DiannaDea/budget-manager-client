@@ -1,28 +1,33 @@
 import initialState from '../store/initialState';
 import {
-  GET_BANKS_REQUEST,
-  GET_BANKS_SUCCESS,
-  GET_BANKS_ERROR,
+  AUTH_CARD_REQUEST,
+  AUTH_CARD_SUCCESS,
+  AUTH_CARD_ERROR,
 } from '../actions/types';
 
-export default (state = initialState.banks, action = {}) => {
+export default (state = initialState.cards, action = {}) => {
   const { type } = action;
 
   const typeToFunc = {
-    [GET_BANKS_REQUEST]: () => ({
+    [AUTH_CARD_REQUEST]: () => ({
       ...state,
       isFetching: true,
     }),
-    [GET_BANKS_SUCCESS]: () => ({
+    [AUTH_CARD_SUCCESS]: () => ({
       ...state,
       isFetching: false,
-      data: action.payload,
+      auth: {
+        data: action.payload,
+        error: null,
+      },
     }),
-    [GET_BANKS_ERROR]: () => ({
+    [AUTH_CARD_ERROR]: () => ({
       ...state,
       isFetching: false,
-      data: null,
-      error: action.payload,
+      auth: {
+        data: null,
+        error: action.payload,
+      },
     }),
   };
 

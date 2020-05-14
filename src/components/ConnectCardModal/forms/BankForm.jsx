@@ -36,7 +36,9 @@ class BankForm extends React.Component {
     const { validateCard, currentBank } = this.props;
 
     VALIDATION_SCHEMAS[currentBank].validate(this.props)
-      .then(() => validateCard())
+      .then(() => {
+        validateCard();
+      })
       .catch((err) => {
         this.setState({
           errorField: err.path,

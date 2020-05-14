@@ -7,16 +7,16 @@ const bankOptions = [
   { key: 'group2', value: 'group2', text: 'Group 2' },
 ];
 
-const GroupsSelect = () => (
+const GroupsSelect = ({ selectedGroup, handleGroupSelect }) => (
   <Form.Group inline>
     <label>Select group</label>
     <Form.Field>
       <Dropdown
-          // onChange={handleBankChange}
+        onChange={handleGroupSelect}
         options={bankOptions}
         placeholder="Choose group"
         selection
-        // value="group1"
+        value={selectedGroup}
       />
     </Form.Field>
   </Form.Group>

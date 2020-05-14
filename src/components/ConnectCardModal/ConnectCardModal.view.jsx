@@ -16,7 +16,7 @@ const MODAL_CONTENT = {
       {...props}
     />
   ),
-  2: () => <ChooseGroupForm />,
+  2: (props) => <ChooseGroupForm {...props} />,
 };
 
 export default class ConnectCardModal extends Component {
@@ -35,6 +35,7 @@ export default class ConnectCardModal extends Component {
         cardNumber: '',
       },
     },
+    selectedGroup: 'group1',
   }
 
   handleModalOpen = () => this.setState({ modalOpen: true })
@@ -45,7 +46,15 @@ export default class ConnectCardModal extends Component {
     currentBank: 'privatbank',
   })
 
-  validateCard = (activeStep) => this.setState({ activeStep })
+  validateCard = (activeStep) => {
+    const { authCard } = this.props;
+    const { currentBank, cardInfo } = this.state;
+
+    authCard({
+      [currentBank]: cardInfo[currentBank],
+    });
+    this.setState({ activeStep });
+  }
 
   handleBankChange = (event, { value: bank }) => {
     this.setState({ currentBank: bank });
@@ -65,10 +74,28 @@ export default class ConnectCardModal extends Component {
     });
   }
 
+  handleGroupSelect = (event, { value: group }) => {
+    this.setState({ selectedGroup: group });
+  }
+
+  saveCardInfo = () => {
+    const { saveCard, cardAuth } = this.props;
+    // TODO: get groups from API
+    // const { selectedGroup } = this.state;
+
+    saveCard({
+      groupId: '1', // selectedGroup
+      cardNumber: cardAuth.cardNumber,
+      bankId: cardAuth.bankId,
+      authId: cardAuth.authId,
+    });
+  }
+
   render() {
     const {
-      modalOpen, activeStep, currentBank, cardInfo,
+      modalOpen, activeStep, currentBank, cardInfo, selectedGroup,
     } = this.state;
+    const { cardAuth } = this.props;
 
     return (
       <Modal
@@ -84,10 +111,14 @@ export default class ConnectCardModal extends Component {
             {
               MODAL_CONTENT[activeStep]({
                 currentBank,
+                selectedGroup,
                 handleBankChange: this.handleBankChange,
+                handleGroupSelect: this.handleGroupSelect,
                 validateCard: () => this.validateCard(2),
+                saveCardInfo: this.saveCardInfo,
                 handleInputChange: this.handleInputChange,
                 ...cardInfo[currentBank],
+                cardAuth,
               })
             }
           </Modal.Description>
