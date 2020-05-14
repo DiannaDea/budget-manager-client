@@ -95,7 +95,7 @@ export default class ConnectCardModal extends Component {
     const {
       modalOpen, activeStep, currentBank, cardInfo, selectedGroup,
     } = this.state;
-    const { cardAuth } = this.props;
+    const { cardAuth, savedCard } = this.props;
 
     return (
       <Modal
@@ -106,7 +106,7 @@ export default class ConnectCardModal extends Component {
       >
         <Modal.Header>Connect your card</Modal.Header>
         <Modal.Content>
-          <ConnectCardStep activeStep={activeStep} />
+          <ConnectCardStep activeStep={activeStep} savedCard={savedCard} />
           <Modal.Description>
             {
               MODAL_CONTENT[activeStep]({

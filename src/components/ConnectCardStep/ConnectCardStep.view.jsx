@@ -1,7 +1,7 @@
 import React from 'react';
 import { Step } from 'semantic-ui-react';
 
-const ConnectCardStep = ({ activeStep }) => (
+const ConnectCardStep = ({ activeStep, savedCard }) => (
   <Step.Group ordered fluid size="mini">
     <Step active={activeStep === 1} completed={activeStep > 1}>
       <Step.Content>
@@ -10,7 +10,7 @@ const ConnectCardStep = ({ activeStep }) => (
       </Step.Content>
     </Step>
 
-    <Step active={activeStep === 2}>
+    <Step active={activeStep === 2} completed={savedCard}>
       <Step.Content>
         <Step.Title>Choose group</Step.Title>
         <Step.Description>Enter groups information</Step.Description>
