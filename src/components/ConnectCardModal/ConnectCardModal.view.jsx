@@ -23,38 +23,40 @@ const MODAL_CONTENT = {
   2: (props) => <ChooseGroupForm {...props} />,
 };
 
-export default class ConnectCardModal extends Component {
-  state = {
-    modalOpen: false,
-    activeStep: 1,
-    currentBank: 'privatbank',
-    cardInfo: {
-      privatbank: {
-        merchantId: '',
-        password: '',
-        cardNumber: '',
-      },
-      monobank: {
-        token: '',
-        cardNumber: '',
-      },
+const initialState = {
+  modalOpen: false,
+  activeStep: 1,
+  currentBank: 'privatbank',
+  cardInfo: {
+    privatbank: {
+      merchantId: '',
+      password: '',
+      cardNumber: '',
     },
-    selectedGroup: 'group1',
-  }
+    monobank: {
+      token: '',
+      cardNumber: '',
+    },
+  },
+  selectedGroup: 'group1',
+};
+
+export default class ConnectCardModal extends Component {
+  state = initialState
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.cardAuth !== this.props.cardAuth) {
+    if (prevProps.cardAuth !== this.props.cardAuth && this.props.cardAuth) {
       this.setState({ activeStep: prevState.activeStep + 1 });
     }
   }
 
   handleModalOpen = () => this.setState({ modalOpen: true })
 
-  handleModalClose = () => this.setState({
-    modalOpen: false,
-    activeStep: 1,
-    currentBank: 'privatbank',
-  })
+  handleModalClose = () => {
+    const { resetAuthedCard } = this.props;
+    resetAuthedCard();
+    this.setState(initialState);
+  }
 
   validateCard = () => {
     const { authCard } = this.props;
