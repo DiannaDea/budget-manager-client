@@ -1,13 +1,16 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import BankSelect from '../BankSelect';
 import MonobankForm from './MonobankForm';
 import PrivatBankForm from './PrivatBankForm';
 
-const BankForm = ({ currentBank, handleBankChange, validateCard }) => {
+const BankForm = ({
+  currentBank, handleBankChange, validateCard, ...props
+}) => {
   const BANK_FORM = {
-    privatbank: <PrivatBankForm />,
-    monobank: <MonobankForm />,
+    privatbank: <PrivatBankForm {...props} />,
+    monobank: <MonobankForm {...props} />,
   };
 
   return (

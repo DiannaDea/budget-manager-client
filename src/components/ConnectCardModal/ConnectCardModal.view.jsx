@@ -6,11 +6,14 @@ import BankForm from './forms/BankForm';
 import ChooseGroupForm from './forms/ChooseGroupForm';
 
 const MODAL_CONTENT = {
-  1: ({ currentBank, handleBankChange, validateCard }) => (
+  1: ({
+    currentBank, handleBankChange, validateCard, ...props
+  }) => (
     <BankForm
       currentBank={currentBank}
       handleBankChange={handleBankChange}
       validateCard={validateCard}
+      {...props}
     />
   ),
   2: () => <ChooseGroupForm />,
@@ -21,6 +24,17 @@ export default class ConnectCardModal extends Component {
     modalOpen: false,
     activeStep: 1,
     currentBank: 'privatbank',
+    cardInfo: {
+      privatbank: {
+        merchantId: '',
+        password: '',
+        cardNumber: '',
+      },
+      monobank: {
+        token: '',
+        cardNumber: '',
+      },
+    },
   }
 
   handleModalOpen = () => this.setState({ modalOpen: true })
@@ -37,8 +51,24 @@ export default class ConnectCardModal extends Component {
     this.setState({ currentBank: bank });
   }
 
+  handleInputChange = (field, value) => {
+    const { currentBank, cardInfo } = this.state;
+
+    this.setState({
+      cardInfo: {
+        ...cardInfo,
+        [currentBank]: {
+          ...cardInfo[currentBank],
+          [field]: value,
+        },
+      },
+    });
+  }
+
   render() {
-    const { modalOpen, activeStep, currentBank } = this.state;
+    const {
+      modalOpen, activeStep, currentBank, cardInfo,
+    } = this.state;
 
     return (
       <Modal
@@ -56,6 +86,8 @@ export default class ConnectCardModal extends Component {
                 currentBank,
                 handleBankChange: this.handleBankChange,
                 validateCard: () => this.validateCard(2),
+                handleInputChange: this.handleInputChange,
+                ...cardInfo[currentBank],
               })
             }
           </Modal.Description>
