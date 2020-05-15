@@ -5,9 +5,15 @@ import React, { Component } from 'react';
 import {
   Button, Icon, Modal, Message,
 } from 'semantic-ui-react';
+import * as Yup from 'yup';
 import ConnectCardStep from '../ConnectCardStep';
 import BankForm from './forms/BankForm';
 import ChooseGroupForm from './forms/ChooseGroupForm';
+
+const groupsValidation = Yup.object().shape({
+  groupId: Yup.string()
+    .required('Group is required'),
+});
 
 const MODAL_CONTENT = {
   1: ({
@@ -38,7 +44,8 @@ const initialState = {
       cardNumber: '',
     },
   },
-  selectedGroup: 'group1',
+  selectedGroup: '',
+  selectGroupError: null,
 };
 
 export default class ConnectCardModal extends Component {
@@ -91,22 +98,34 @@ export default class ConnectCardModal extends Component {
 
   saveCardInfo = () => {
     const { saveCard, cardAuth } = this.props;
-    // TODO: get groups from API
-    // const { selectedGroup } = this.state;
+    const { selectedGroup } = this.state;
 
-    saveCard({
-      groupId: '1', // selectedGroup
-      cardNumber: cardAuth.cardNumber,
-      bankId: cardAuth.bankId,
-      authId: cardAuth.authId,
-    });
+    groupsValidation.validate({ groupId: selectedGroup })
+      .then(() => {
+        saveCard({
+          groupId: selectedGroup,
+          cardNumber: cardAuth.cardNumber,
+          bankId: cardAuth.bankId,
+          authId: cardAuth.authId,
+        });
+        this.setState({
+          selectGroupError: null,
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          selectGroupError: err.message,
+        });
+      });
   }
 
   render() {
     const {
-      modalOpen, activeStep, currentBank, cardInfo, selectedGroup,
+      modalOpen, activeStep, currentBank, cardInfo, selectedGroup, selectGroupError,
     } = this.state;
-    const { cardAuth, savedCard, cardAuthError } = this.props;
+    const {
+      cardAuth, savedCard, cardAuthError,
+    } = this.props;
 
     return (
       <Modal
@@ -147,6 +166,7 @@ export default class ConnectCardModal extends Component {
                 ...cardInfo[currentBank],
                 cardAuth,
                 ...this.props,
+                selectGroupError,
               })
             }
           </Modal.Description>

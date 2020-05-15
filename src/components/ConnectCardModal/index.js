@@ -14,6 +14,9 @@ const mapStateToProps = (state) => {
         error: savedCardError,
       },
     },
+    groups: {
+      data: groups,
+    },
   } = state;
 
   return {
@@ -21,6 +24,7 @@ const mapStateToProps = (state) => {
     cardAuthError,
     savedCard,
     savedCardError,
+    groups,
   };
 };
 

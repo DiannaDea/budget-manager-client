@@ -1,22 +1,58 @@
+/* eslint-disable react/prefer-stateless-function */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import { connect } from 'react-redux';
 import React from 'react';
 import { Dropdown, Form } from 'semantic-ui-react';
 
-const bankOptions = [
-  { key: 'group1', value: 'group1', text: 'Group 1' },
-  { key: 'group2', value: 'group2', text: 'Group 2' },
-];
+class GroupsSelect extends React.Component {
+  transformGroups = () => {
+    const { groups } = this.props;
+    if (!groups) {
+      return [];
+    }
+    return groups.map((group) => ({
+      key: group.id,
+      value: group.id,
+      text: group.name,
+    }));
+  }
 
-const GroupsSelect = ({ selectedGroup, handleGroupSelect }) => (
-  <Form.Field
-    control={Dropdown}
-    label="Group"
-    onChange={handleGroupSelect}
-    options={bankOptions}
-    placeholder="Choose group"
-    selection
-    value={selectedGroup}
-  />
-);
+  render() {
+    const { selectedGroup, handleGroupSelect, selectGroupError } = this.props;
+    const groupOptions = this.transformGroups();
 
-export default GroupsSelect;
+    const error = selectGroupError ? {
+      content: selectGroupError,
+      pointing: 'above',
+    } : null;
+
+    return (
+      <Form.Field
+        control={Dropdown}
+        label="Group"
+        onChange={handleGroupSelect}
+        options={groupOptions}
+        placeholder="Choose group"
+        selection
+        value={selectedGroup}
+        error={error}
+      />
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  const {
+    groups: {
+      data: groups,
+    },
+  } = state;
+
+  return {
+    groups,
+  };
+};
+
+const mapDispatchToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GroupsSelect);
