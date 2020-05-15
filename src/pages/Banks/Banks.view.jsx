@@ -23,8 +23,8 @@ export default class BanksView extends Component {
         </Grid.Row>
         <Grid.Row columns={3} centered>
           {
-          banks.map((bank, id) => (
-            <Grid.Column key={id}>
+          banks.map((bank) => (
+            <Grid.Column key={bank.bank.id}>
               <BankCard bank={bank} viewCards={viewCards} />
             </Grid.Column>
           ))

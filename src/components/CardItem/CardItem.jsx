@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-tag-spacing */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { DateTime } from 'luxon';
@@ -6,6 +8,8 @@ import {
   Card, Button, Grid, Image, Icon,
 } from 'semantic-ui-react';
 import CardRow from '../CardRow';
+import UpdateCardModal from '../UpdateCardModal';
+import DeleteCardModal from '../DeleteCardModal';
 
 class CardItem extends React.Component {
   getCard = (cardNumber) => {
@@ -24,6 +28,7 @@ class CardItem extends React.Component {
 
   render() {
     const { card } = this.props;
+
     return (
       <Card>
         <Card.Content>
@@ -55,10 +60,10 @@ class CardItem extends React.Component {
           <Grid>
             <Grid.Row columns={2}>
               <Grid.Column>
-                <Button fluid color="blue">Edit</Button>
+                <UpdateCardModal {...this.props}/>
               </Grid.Column>
               <Grid.Column>
-                <Button fluid color="red">Delete</Button>
+                <DeleteCardModal {...this.props}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>

@@ -6,6 +6,12 @@ import {
   SAVE_CARD_SUCCESS,
   SAVE_CARD_ERROR,
   RESET_AUTHED_CARD,
+  UPDATE_CARD_REQUEST,
+  UPDATE_CARD_SUCCESS,
+  UPDATE_CARD_ERROR,
+  DELETE_CARD_REQUEST,
+  DELETE_CARD_SUCCESS,
+  DELETE_CARD_ERROR,
 } from './types';
 
 export const authCardRequest = (payload = {}) => ({
@@ -40,5 +46,35 @@ export const saveCardError = (payload = {}) => ({
 
 export const resetAuthedCard = (payload = {}) => ({
   type: RESET_AUTHED_CARD,
+  payload,
+});
+
+export const deleteCardRequest = (payload = {}) => ({
+  type: DELETE_CARD_REQUEST,
+  payload,
+});
+
+export const deleteCardSuccess = (payload = {}) => ({
+  type: DELETE_CARD_SUCCESS,
+  payload,
+});
+
+export const deleteCardError = (payload = {}) => ({
+  type: DELETE_CARD_ERROR,
+  payload,
+});
+
+export const updateCardRequest = (payload = {}) => ({
+  type: UPDATE_CARD_REQUEST,
+  payload,
+});
+
+export const updateCardSuccess = (payload = {}) => ({
+  type: UPDATE_CARD_SUCCESS,
+  payload,
+});
+
+export const updateCardError = (payload = {}) => ({
+  type: UPDATE_CARD_ERROR,
   payload,
 });

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
@@ -27,9 +28,9 @@ export default class CardsView extends Component {
         </Grid.Row>
         <Grid.Row columns={3} centered>
           {
-          cards.map((card, id) => (
-            <Grid.Column key={id}>
-              <CardItem card={card} />
+          cards.map((card) => (
+            <Grid.Column key={card.id}>
+              <CardItem card={card} {...this.props} />
             </Grid.Column>
           ))
         }

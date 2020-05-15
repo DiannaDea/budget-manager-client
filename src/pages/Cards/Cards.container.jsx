@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prefer-stateless-function */
@@ -5,6 +6,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CardsView from './Cards.view';
 import { getBanksRequest } from '../../redux/actions/banks';
+import { updateCardRequest, deleteCardRequest } from '../../redux/actions/cards';
 
 class CardsContainer extends Component {
   componentDidMount() {
@@ -30,7 +32,12 @@ class CardsContainer extends Component {
   render() {
     const cards = this.getCards();
     return (
-      <CardsView cards={cards} goBackToBanksPage={this.goBackToBanksPage} />
+      <CardsView
+        cards={cards}
+        goBackToBanksPage={this.goBackToBanksPage}
+        handleGroupSelect={this.handleGroupSelect}
+        {...this.props}
+      />
     );
   }
 }
@@ -49,6 +56,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getBanks: (payload) => dispatch(getBanksRequest(payload)),
+  updateCard: (payload) => dispatch(updateCardRequest(payload)),
+  deleteCard: (payload) => dispatch(deleteCardRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);
