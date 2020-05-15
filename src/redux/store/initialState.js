@@ -14,4 +14,8 @@ export default {
       error: null,
     },
   },
+  groups: {
+    data: [],
+    error: null,
+  },
 };
