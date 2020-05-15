@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import { Grid, Header, Message } from 'semantic-ui-react';
 import BankCard from '../../components/BankCard';
 import ConnectCardModal from '../../components/ConnectCardModal';
 
@@ -22,6 +22,15 @@ export default class BanksView extends Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={3} centered>
+          {
+            (!banks.length)
+              ? (
+                <Message
+                  header="Ooops... No banks connected yet!"
+                />
+              )
+              : null
+          }
           {
           banks.map((bank) => (
             <Grid.Column key={bank.bank.id}>

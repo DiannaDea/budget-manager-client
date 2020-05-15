@@ -3,7 +3,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import {
-  Grid, Header, Button, Icon,
+  Grid, Header, Button, Icon, Message,
 } from 'semantic-ui-react';
 import CardItem from '../../components/CardItem';
 
@@ -27,6 +27,15 @@ export default class CardsView extends Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={3} centered>
+          {
+            (!cards.length)
+              ? (
+                <Message
+                  header="Ooops... No cards connected yet!"
+                />
+              )
+              : null
+          }
           {
           cards.map((card) => (
             <Grid.Column key={card.id}>
