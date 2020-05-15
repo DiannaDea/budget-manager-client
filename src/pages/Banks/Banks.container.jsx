@@ -4,16 +4,17 @@ import BanksView from './Banks.view';
 import { getBanksRequest, deleteBankRequest } from '../../redux/actions/banks';
 
 class BanksContainer extends Component {
-  componentDidMount() {
-    const { getBanks } = this.props;
-    getBanks({ groupIds: '1,2' });
-  }
-
   componentDidUpdate(prevProps) {
-    const { getBanks, newCardAdded } = this.props;
+    const { getBanks, newCardAdded, groups } = this.props;
 
-    if (prevProps.newCardAdded !== newCardAdded && newCardAdded) {
-      getBanks({ groupIds: '1,2' });
+    if (prevProps.groups.length !== groups.length) {
+      const groupIds = groups.map((group) => group.id).join(',');
+      getBanks({ groupIds });
+    }
+
+    if (prevProps.newCardAdded !== newCardAdded && newCardAdded && groups.length) {
+      const groupIds = groups.map((group) => group.id).join(',');
+      getBanks({ groupIds });
     }
   }
 
@@ -39,11 +40,15 @@ const mapStateToProps = (state) => {
     cards: {
       newCardAdded,
     },
+    groups: {
+      data: groups,
+    },
   } = state;
 
   return {
     banks,
     newCardAdded,
+    groups,
   };
 };
 
