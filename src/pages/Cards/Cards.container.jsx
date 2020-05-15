@@ -22,10 +22,15 @@ class CardsContainer extends Component {
     return (bank) ? bank.cards : [];
   }
 
+  goBackToBanksPage = () => {
+    const { history } = this.props;
+    history.push('/banks');
+  }
+
   render() {
     const cards = this.getCards();
     return (
-      <CardsView cards={cards} />
+      <CardsView cards={cards} goBackToBanksPage={this.goBackToBanksPage} />
     );
   }
 }

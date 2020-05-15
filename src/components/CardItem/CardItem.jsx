@@ -24,7 +24,6 @@ class CardItem extends React.Component {
 
   render() {
     const { card } = this.props;
-
     return (
       <Card>
         <Card.Content>

@@ -110,7 +110,12 @@ export default class ConnectCardModal extends Component {
 
     return (
       <Modal
-        trigger={<Button onClick={this.handleModalOpen}>Connect card</Button>}
+        trigger={(
+          <Button color="green" circular floated="right" onClick={this.handleModalOpen}>
+            <Icon name="add" />
+            Connect card
+          </Button>
+        )}
         open={modalOpen}
         onClose={this.handleModalClose}
         size="small"
