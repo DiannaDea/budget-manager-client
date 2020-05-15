@@ -3,6 +3,7 @@ import {
   Card, Button, Grid, Image,
 } from 'semantic-ui-react';
 import CardRow from '../CardRow';
+import DeleteBankModal from '../DeleteBankModal';
 
 import monoImg from '../../assets/monobank.jpeg';
 import privatImage from '../../assets/privatbank.jpg';
@@ -49,7 +50,7 @@ class BankCard extends React.Component {
   }
 
   render() {
-    const { bank, viewCards } = this.props;
+    const { bank, viewCards, deleteBank } = this.props;
 
     return (
       <Card>
@@ -76,7 +77,7 @@ class BankCard extends React.Component {
                 <Button fluid color="blue" onClick={() => viewCards(bank.bank.id)}>View Cards</Button>
               </Grid.Column>
               <Grid.Column>
-                <Button fluid color="red">Delete</Button>
+                <DeleteBankModal deleteBank={deleteBank} bank={bank} />
               </Grid.Column>
             </Grid.Row>
           </Grid>

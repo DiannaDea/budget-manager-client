@@ -9,6 +9,9 @@ import {
   DELETE_CARD_REQUEST,
   DELETE_CARD_SUCCESS,
   DELETE_CARD_ERROR,
+  DELETE_BANK_REQUEST,
+  DELETE_BANK_SUCCESS,
+  DELETE_BANK_ERROR,
 } from '../actions/types';
 
 const updateCard = (banks, { cardId, updateFields }) => banks.map((bank) => {
@@ -45,6 +48,13 @@ const deleteCard = (banks, { cardId }) => banks.map((bank) => {
     cards: bankCards,
   };
 });
+
+const deleteBank = (banks, { bankId }) => banks.map((bank) => {
+  if (bank.bank.id === bankId) {
+    return null;
+  }
+  return { ...bank };
+}).filter(Boolean);
 
 export default (state = initialState.banks, action = {}) => {
   const { type } = action;
@@ -89,6 +99,20 @@ export default (state = initialState.banks, action = {}) => {
       data: deleteCard(state.data, action.payload),
     }),
     [DELETE_CARD_ERROR]: () => ({
+      ...state,
+      isFetching: false,
+      error: action.payload,
+    }),
+    [DELETE_BANK_REQUEST]: () => ({
+      ...state,
+      isFetching: true,
+    }),
+    [DELETE_BANK_SUCCESS]: () => ({
+      ...state,
+      isFetching: false,
+      data: deleteBank(state.data, action.payload),
+    }),
+    [DELETE_BANK_ERROR]: () => ({
       ...state,
       isFetching: false,
       error: action.payload,

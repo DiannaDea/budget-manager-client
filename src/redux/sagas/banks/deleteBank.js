@@ -3,11 +3,11 @@ import { deleteBankSuccess, deleteBankError } from '../../actions/banks';
 import requestAPI from '../../../utils/requestAPI';
 
 export default function* deleteBank({ payload }) {
-  const { id } = payload;
+  const { bankId } = payload;
 
   try {
     const response = yield call(requestAPI, {
-      url: `/cards-service/api/banks/${id}`,
+      url: `/cards-service/api/banks/${bankId}`,
       method: 'DELETE',
     });
 
@@ -15,7 +15,10 @@ export default function* deleteBank({ payload }) {
       data: deleteStatus,
     } = response;
 
-    yield put(deleteBankSuccess(deleteStatus));
+    yield put(deleteBankSuccess({
+      bankId,
+      ...deleteStatus,
+    }));
   } catch (error) {
     yield put(deleteBankError(error));
   }

@@ -7,7 +7,7 @@ import ConnectCardModal from '../../components/ConnectCardModal';
 
 export default class BanksView extends Component {
   render() {
-    const { banks, viewCards } = this.props;
+    const { banks, viewCards, deleteBank } = this.props;
 
     return (
       <Grid>
@@ -25,7 +25,7 @@ export default class BanksView extends Component {
           {
           banks.map((bank) => (
             <Grid.Column key={bank.bank.id}>
-              <BankCard bank={bank} viewCards={viewCards} />
+              <BankCard bank={bank} viewCards={viewCards} deleteBank={deleteBank} />
             </Grid.Column>
           ))
         }

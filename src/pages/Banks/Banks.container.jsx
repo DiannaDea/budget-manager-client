@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BanksView from './Banks.view';
-import { getBanksRequest } from '../../redux/actions/banks';
+import { getBanksRequest, deleteBankRequest } from '../../redux/actions/banks';
 
 class BanksContainer extends Component {
   componentDidMount() {
@@ -23,10 +23,10 @@ class BanksContainer extends Component {
   }
 
   render() {
-    const { banks } = this.props;
+    const { banks, deleteBank } = this.props;
 
     return (
-      <BanksView banks={banks} viewCards={this.viewCards} />
+      <BanksView banks={banks} viewCards={this.viewCards} deleteBank={deleteBank} />
     );
   }
 }
@@ -49,6 +49,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getBanks: (payload) => dispatch(getBanksRequest(payload)),
+  deleteBank: (payload) => dispatch(deleteBankRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BanksContainer);
