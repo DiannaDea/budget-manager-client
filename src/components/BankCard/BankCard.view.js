@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Card, Button, Grid, Image,
 } from 'semantic-ui-react';
+import CardRow from '../CardRow';
 
 import monoImg from '../../assets/monobank.jpeg';
 import privatImage from '../../assets/privatbank.jpg';
@@ -16,21 +17,6 @@ const mapping = {
     url: 'https://www.privat24.ua',
   },
 };
-
-const CardRow = ({ leftText, rightText }) => (
-  <Card.Description>
-    <Grid>
-      <Grid.Row columns={2}>
-        <Grid.Column width={6}>
-          <p>{leftText}</p>
-        </Grid.Column>
-        <Grid.Column width={8}>
-          <p>{rightText}</p>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </Card.Description>
-);
 
 class BankCard extends React.Component {
   getBankImage = (bank) => {
@@ -63,7 +49,7 @@ class BankCard extends React.Component {
   }
 
   render() {
-    const { bank } = this.props;
+    const { bank, viewCards } = this.props;
 
     return (
       <Card>
@@ -87,7 +73,7 @@ class BankCard extends React.Component {
           <Grid>
             <Grid.Row columns={2}>
               <Grid.Column>
-                <Button fluid color="blue">View Cards</Button>
+                <Button fluid color="blue" onClick={() => viewCards(bank.bank.id)}>View Cards</Button>
               </Grid.Column>
               <Grid.Column>
                 <Button fluid color="red">Delete</Button>

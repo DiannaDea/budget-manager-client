@@ -17,11 +17,16 @@ class BanksContainer extends Component {
     }
   }
 
+  viewCards = (bankId) => {
+    const { history } = this.props;
+    history.push(`/banks/${bankId}/cards`);
+  }
+
   render() {
     const { banks } = this.props;
 
     return (
-      <BanksView banks={banks} />
+      <BanksView banks={banks} viewCards={this.viewCards} />
     );
   }
 }
