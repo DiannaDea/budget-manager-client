@@ -5,8 +5,8 @@ import requestAPI from '../../../utils/requestAPI';
 export default function* getGroups() {
   try {
     const response = yield call(requestAPI, {
-      url: '/cards-service/api/groups/test',
-      method: 'DELETE',
+      url: '/cards-service/api/test/groups',
+      method: 'GET',
     });
 
     const {

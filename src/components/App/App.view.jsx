@@ -11,6 +11,11 @@ import NavBar from '../NavBar';
 import SideBar from '../SideBar';
 
 export default class App extends React.Component {
+  componentDidMount() {
+    const { getGroups } = this.props;
+    getGroups();
+  }
+
   render() {
     return (
       <div>
