@@ -104,13 +104,10 @@ export default class TransactionsFilter extends Component {
         const { options } = appliedFilter;
 
         const newOptions = options
-          .map((option) => {
-            if (option.key === id && !checked) {
-              return { ...option, applied: false };
-            }
-
-            return { ...option };
-          });
+          .map((option) => (
+            (option.key === id && !checked)
+              ? { ...option, applied: false }
+              : { ...option }));
 
         return {
           ...appliedFilter, options: newOptions,
