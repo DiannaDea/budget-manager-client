@@ -7,6 +7,7 @@ import store from './redux/store';
 import App from './components/App';
 
 import './index.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import 'semantic-ui-css/semantic.min.css';
 
 const AppWithStore = () => (

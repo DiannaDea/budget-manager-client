@@ -1,6 +1,7 @@
 import { chunk, uniqBy } from 'lodash';
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
+import DateFilterBlock from './DateFilterBlock';
 import FilterBlock from './FilterBlock';
 
 const transformation = {
@@ -50,6 +51,10 @@ const transformation = {
 export default class TransactionsFilter extends Component {
   state = {
     appliedFilters: [],
+    dateRange: {
+      min: null,
+      max: null,
+    },
   }
 
   componentDidMount() {
@@ -96,6 +101,7 @@ export default class TransactionsFilter extends Component {
 
     this.setState({
       appliedFilters: filterOptions,
+      dateRange: filters.dates,
     });
   }
 
@@ -155,7 +161,7 @@ export default class TransactionsFilter extends Component {
   }
 
   render() {
-    const { appliedFilters } = this.state;
+    const { appliedFilters, dateRange } = this.state;
 
     const filterBlocks = appliedFilters.map((filter) => (
       (
@@ -174,7 +180,7 @@ export default class TransactionsFilter extends Component {
         {
         filterBlocks.map((block) => block)
         }
-
+        <DateFilterBlock minDate={dateRange.min} maxDate={dateRange.max} />
         <Button onClick={this.applyFilters}>Apply</Button>
         <Button onClick={this.resetFilters}>Reset</Button>
       </>
