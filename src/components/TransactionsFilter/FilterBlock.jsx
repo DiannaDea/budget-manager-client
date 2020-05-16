@@ -27,7 +27,6 @@ export default class FilterBlock extends Component {
                   name={type}
                   checked={option.applied}
                   label={option.value}
-                  defaultChecked
                   onChange={handleCheckBoxChange}
                 />
               </Grid.Column>

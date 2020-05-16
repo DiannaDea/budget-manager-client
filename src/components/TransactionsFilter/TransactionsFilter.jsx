@@ -109,8 +109,8 @@ export default class TransactionsFilter extends Component {
 
         const newOptions = options
           .map((option) => (
-            (option.key === id && !checked)
-              ? { ...option, applied: false }
+            (option.key === id)
+              ? { ...option, applied: checked }
               : { ...option }));
 
         return {
@@ -162,6 +162,7 @@ export default class TransactionsFilter extends Component {
     const filterBlocks = appliedFilters.map((filter) => (
       (
         <FilterBlock
+          key={filter.type}
           type={filter.type}
           title={filter.title}
           options={filter.options}
