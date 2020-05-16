@@ -5,7 +5,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { chunk } from 'lodash';
 import {
-  Card, Button, Grid, Image, Icon,
+  Card, Grid, Image, Icon,
 } from 'semantic-ui-react';
 import CardRow from '../CardRow';
 import UpdateCardModal from '../UpdateCardModal';
@@ -54,7 +54,7 @@ class CardItem extends React.Component {
               ? <CardRow leftText="Owner" rightText={card.clientName} />
               : null
           }
-          <CardRow leftText="Group" rightText="Family" />
+          <CardRow leftText="Group" rightText={card.group.name} />
         </Card.Content>
         <Card.Content>
           <Grid>
