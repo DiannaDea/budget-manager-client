@@ -8,11 +8,31 @@ import CardsView from './Cards.view';
 import { getBanksRequest } from '../../redux/actions/banks';
 import { updateCardRequest, deleteCardRequest } from '../../redux/actions/cards';
 
+const compareCards = (cards1, cards2) => {
+  const res = cards1.every((card1, index) => card1.groupId === cards2[index].groupId);
+  return !res;
+};
+
+const compareBanks = (banks1, banks2) => banks1.every((bank1, index) => {
+  const cards1 = bank1.cards;
+  const cards2 = banks2[index].cards;
+  return compareCards(cards1, cards2);
+});
+
 class CardsContainer extends Component {
   componentDidUpdate(prevProps) {
-    const { getBanks, groups } = this.props;
+    const { getBanks, groups, banks } = this.props;
 
     if (prevProps.groups.length !== groups.length) {
+      const groupIds = groups.map((group) => group.id).join(',');
+      getBanks({ groupIds });
+    }
+
+    if (
+      banks.length
+      && prevProps.banks.length
+      && compareBanks(banks, prevProps.banks)
+    ) {
       const groupIds = groups.map((group) => group.id).join(',');
       getBanks({ groupIds });
     }

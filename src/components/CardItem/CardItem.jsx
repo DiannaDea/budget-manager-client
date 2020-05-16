@@ -28,7 +28,6 @@ class CardItem extends React.Component {
 
   render() {
     const { card } = this.props;
-
     return (
       <Card>
         <Card.Content>
@@ -60,7 +59,7 @@ class CardItem extends React.Component {
           <Grid>
             <Grid.Row columns={2}>
               <Grid.Column>
-                <UpdateCardModal {...this.props}/>
+                <UpdateCardModal {...this.props} />
               </Grid.Column>
               <Grid.Column>
                 <DeleteCardModal {...this.props}/>

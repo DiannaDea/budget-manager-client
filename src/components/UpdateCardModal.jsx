@@ -9,7 +9,7 @@ import GroupsSelect from './ConnectCardModal/GroupsSelect';
 export default class UpdateCardModal extends Component {
   state = {
     modalOpen: false,
-    selectedGroup: 'group1',
+    selectedGroup: this.props.card.groupId,
   }
 
   handleOpen = () => this.setState({ modalOpen: true })
@@ -18,13 +18,18 @@ export default class UpdateCardModal extends Component {
 
   updateCardInfo = () => {
     const { card, updateCard, match: { params: { id: bankId } } } = this.props;
+    const { selectedGroup } = this.state;
 
     updateCard({
       cardId: card.id,
       bankId,
-      groupId: '2',
+      groupId: selectedGroup,
     });
     this.handleClose();
+  }
+
+  handleGroupSelect = (event, { value: group }) => {
+    this.setState({ selectedGroup: group });
   }
 
   render() {
@@ -40,7 +45,10 @@ export default class UpdateCardModal extends Component {
         <Modal.Content>
           <Form success>
 
-            <GroupsSelect selectedGroup={this.state.selectedGroup} />
+            <GroupsSelect
+              selectedGroup={this.state.selectedGroup}
+              handleGroupSelect={this.handleGroupSelect}
+            />
 
             <Button fluid primary onClick={this.updateCardInfo} type="button">
               <Icon name="check" />
