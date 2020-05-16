@@ -1,25 +1,12 @@
+/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { DateTime } from 'luxon';
 import DatePicker from 'react-datepicker';
 
 import { Segment, Grid } from 'semantic-ui-react';
 
 class DateFilterBlock extends Component {
-  handleChange = (date) => {
-    console.log(date);
-  }
-
-  formatDate = (date) => {
-    if (!date) {
-      return null;
-    }
-    return DateTime
-      .fromISO(date)
-      .toFormat('DD.MM.YY');
-  }
-
   render() {
-    const { minDate, maxDate } = this.props;
+    const { minDate, maxDate, handleDateChange } = this.props;
 
     return (
       <Segment>
@@ -36,7 +23,7 @@ class DateFilterBlock extends Component {
             <DatePicker
               dateFormat="MMMM d, yyyy"
               selected={new Date(minDate)}
-              onChange={this.handleChange}
+              onChange={(date) => handleDateChange(date, 'min')}
             />
           </Grid.Column>
         </Grid.Row>
@@ -47,7 +34,7 @@ class DateFilterBlock extends Component {
             <DatePicker
               dateFormat="MMMM d, yyyy"
               selected={new Date(maxDate)}
-              onChange={this.handleChange}
+              onChange={(date) => handleDateChange(date, 'max')}
             />
           </Grid.Column>
         </Grid.Row>

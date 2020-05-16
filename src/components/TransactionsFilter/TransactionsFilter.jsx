@@ -1,4 +1,5 @@
 import { chunk, uniqBy } from 'lodash';
+import { DateTime } from 'luxon';
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 import DateFilterBlock from './DateFilterBlock';
@@ -133,11 +134,16 @@ export default class TransactionsFilter extends Component {
   }
 
   resetFilters = () => {
+    const { filters } = this.props;
+
     this.setFiltersInState();
+    this.setState({
+      dateRange: filters.dates,
+    });
   }
 
   applyFilters = () => {
-    const { appliedFilters } = this.state;
+    const { appliedFilters, dateRange } = this.state;
     const { groups, getTransactions } = this.props;
 
     const groupIds = groups.map((group) => group.id).join(',');
@@ -157,6 +163,24 @@ export default class TransactionsFilter extends Component {
     getTransactions({
       groupIds,
       ...filters,
+      dateStart: DateTime
+        .fromISO(dateRange.min)
+        .toFormat('yyyy-MM-dd'),
+      dateEnd: DateTime
+        .fromISO(dateRange.max)
+        .toFormat('yyyy-MM-dd'),
+    });
+  }
+
+  handleDateChange = (date, type) => {
+    const { dateRange } = this.state;
+    const newDate = (new Date(date)).toISOString();
+
+    this.setState({
+      dateRange: {
+        ...dateRange,
+        [type]: newDate,
+      },
     });
   }
 
@@ -180,7 +204,11 @@ export default class TransactionsFilter extends Component {
         {
         filterBlocks.map((block) => block)
         }
-        <DateFilterBlock minDate={dateRange.min} maxDate={dateRange.max} />
+        <DateFilterBlock
+          minDate={dateRange.min}
+          maxDate={dateRange.max}
+          handleDateChange={this.handleDateChange}
+        />
         <Button onClick={this.applyFilters}>Apply</Button>
         <Button onClick={this.resetFilters}>Reset</Button>
       </>
