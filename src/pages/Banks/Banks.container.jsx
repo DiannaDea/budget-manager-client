@@ -4,6 +4,15 @@ import BanksView from './Banks.view';
 import { getBanksRequest, deleteBankRequest } from '../../redux/actions/banks';
 
 class BanksContainer extends Component {
+  componentDidMount() {
+    const { getBanks, groups } = this.props;
+
+    if (groups.length) {
+      const groupIds = groups.map((group) => group.id).join(',');
+      getBanks({ groupIds });
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { getBanks, newCardAdded, groups } = this.props;
 
