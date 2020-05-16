@@ -23,7 +23,7 @@ export default {
     error: null,
   },
   filters: {
-    data: [],
+    data: null,
     error: null,
   },
 };

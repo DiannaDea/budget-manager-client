@@ -4,7 +4,9 @@ import { Checkbox, Segment, Grid } from 'semantic-ui-react';
 
 export default class FilterBlock extends Component {
   render() {
-    const { title, options } = this.props;
+    const {
+      title, type, options, handleCheckBoxChange,
+    } = this.props;
 
     return (
       <Segment>
@@ -20,7 +22,14 @@ export default class FilterBlock extends Component {
           options.map((option) => (
             <Grid.Row columns={1}>
               <Grid.Column>
-                <Checkbox label={option.value} defaultChecked />
+                <Checkbox
+                  id={option.key}
+                  name={type}
+                  checked={option.applied}
+                  label={option.value}
+                  defaultChecked
+                  onChange={handleCheckBoxChange}
+                />
               </Grid.Column>
             </Grid.Row>
           ))
