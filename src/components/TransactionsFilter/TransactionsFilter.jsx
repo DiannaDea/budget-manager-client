@@ -7,6 +7,7 @@ const transformation = {
   banks: {
     title: 'Banks',
     type: 'banks',
+    requestParam: 'bankIds',
     getOptions: ({ banks }) => {
       const filteredBanks = uniqBy(banks, (bank) => bank.id);
       return filteredBanks.map((bank) => ({
@@ -19,6 +20,7 @@ const transformation = {
   cards: {
     title: 'Cards',
     type: 'cards',
+    requestParam: 'cardIds',
     getOptions: ({ cards }) => cards.map((card) => {
       const arr = card.cardNumber.split('');
       const chunks = chunk(arr, 4);
@@ -36,6 +38,7 @@ const transformation = {
   categories: {
     title: 'Categories',
     type: 'categories',
+    requestParam: 'categoryIds',
     getOptions: ({ categories }) => categories.map((category) => ({
       key: category.id,
       value: category.name,
@@ -86,6 +89,7 @@ export default class TransactionsFilter extends Component {
       return {
         title: config.title,
         type: config.type,
+        requestParam: config.requestParam,
         options,
       };
     }).filter(Boolean);
@@ -122,6 +126,36 @@ export default class TransactionsFilter extends Component {
     });
   }
 
+  resetFilters = () => {
+    this.setFiltersInState();
+  }
+
+  applyFilters = () => {
+    const { appliedFilters } = this.state;
+    const { groups } = this.props;
+
+    const groupIds = groups.map((group) => group.id).join(',');
+
+    const filters = appliedFilters.reduce((res, filterGroup) => {
+      const filter = filterGroup.options
+        .filter((option) => option.applied)
+        .map((option) => option.key)
+        .join(',');
+
+      return {
+        ...res,
+        ...(filter.length && { [filterGroup.requestParam]: filter }),
+      };
+    }, {});
+
+    const res = {
+      groupIds,
+      ...filters,
+    };
+
+    console.log(res)
+  }
+
   render() {
     const { appliedFilters } = this.state;
 
@@ -142,8 +176,8 @@ export default class TransactionsFilter extends Component {
         filterBlocks.map((block) => block)
         }
 
-        <Button>Apply</Button>
-        <Button>Reset</Button>
+        <Button onClick={this.applyFilters}>Apply</Button>
+        <Button onClick={this.resetFilters}>Reset</Button>
       </>
     );
   }
