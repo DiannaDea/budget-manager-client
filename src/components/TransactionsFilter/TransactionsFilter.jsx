@@ -132,7 +132,7 @@ export default class TransactionsFilter extends Component {
 
   applyFilters = () => {
     const { appliedFilters } = this.state;
-    const { groups } = this.props;
+    const { groups, getTransactions } = this.props;
 
     const groupIds = groups.map((group) => group.id).join(',');
 
@@ -148,12 +148,10 @@ export default class TransactionsFilter extends Component {
       };
     }, {});
 
-    const res = {
+    getTransactions({
       groupIds,
       ...filters,
-    };
-
-    console.log(res)
+    });
   }
 
   render() {

@@ -41,7 +41,11 @@ class CardsContainer extends Component {
   getCards = () => {
     const { banks, match: { params: { id: bankId } } } = this.props;
 
-    const bank = banks.find((b) => b.bank.id === parseInt(bankId, 10));
+    if (!banks.length) {
+      return [];
+    }
+
+    const bank = banks.find((b) => b.bank.id === bankId);
     return (bank) ? bank.cards : [];
   }
 
@@ -52,6 +56,7 @@ class CardsContainer extends Component {
 
   render() {
     const cards = this.getCards();
+
     return (
       <CardsView
         cards={cards}

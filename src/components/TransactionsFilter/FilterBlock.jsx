@@ -20,7 +20,7 @@ export default class FilterBlock extends Component {
 
         {
           options.map((option) => (
-            <Grid.Row columns={1}>
+            <Grid.Row columns={1} key={option.key}>
               <Grid.Column>
                 <Checkbox
                   id={option.key}

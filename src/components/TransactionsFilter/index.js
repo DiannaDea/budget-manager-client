@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TransactionsFilter from './TransactionsFilter';
-import { getFiltersRequest } from '../../redux/actions/transactions';
+import { getFiltersRequest, getTransactionsRequest } from '../../redux/actions/transactions';
 
 const mapStateToProps = (state) => {
   const {
@@ -20,6 +20,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getFilters: (payload) => dispatch(getFiltersRequest(payload)),
+  getTransactions: (payload) => dispatch(getTransactionsRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionsFilter);
