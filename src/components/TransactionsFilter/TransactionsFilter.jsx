@@ -1,5 +1,6 @@
 import { chunk, uniqBy } from 'lodash';
 import React, { Component } from 'react';
+import { Button } from 'semantic-ui-react';
 import FilterBlock from './FilterBlock';
 
 const transformation = {
@@ -27,6 +28,13 @@ const transformation = {
         value: cardNumber,
       };
     }),
+  },
+  categories: {
+    title: 'Categories',
+    getOptions: ({ categories }) => categories.map((category) => ({
+      key: category.id,
+      value: category.name,
+    })),
   },
 };
 
@@ -65,6 +73,9 @@ export default class TransactionsFilter extends Component {
         {
         filterBlocks.map((block) => block)
         }
+
+        <Button>Apply</Button>
+        <Button>Reset</Button>
       </>
     );
   }
