@@ -9,11 +9,12 @@ import { getBanksRequest } from '../../redux/actions/banks';
 import { updateCardRequest, deleteCardRequest } from '../../redux/actions/cards';
 
 class CardsContainer extends Component {
-  componentDidMount() {
-    const { banks, getBanks } = this.props;
+  componentDidUpdate(prevProps) {
+    const { getBanks, groups } = this.props;
 
-    if (!banks.length) {
-      getBanks({ groupIds: '1,2' });
+    if (prevProps.groups.length !== groups.length) {
+      const groupIds = groups.map((group) => group.id).join(',');
+      getBanks({ groupIds });
     }
   }
 
@@ -47,10 +48,14 @@ const mapStateToProps = (state) => {
     banks: {
       data: banks,
     },
+    groups: {
+      data: groups,
+    },
   } = state;
 
   return {
     banks,
+    groups,
   };
 };
 
