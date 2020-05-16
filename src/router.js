@@ -1,6 +1,7 @@
 import Banks from './pages/Banks';
 import Groups from './pages/Groups';
 import Cards from './pages/Cards';
+import Transactions from './pages/Transactions';
 
 const appRoutes = [
   {
@@ -12,16 +13,23 @@ const appRoutes = [
   },
   {
     path: '/banks',
-    key: 1,
+    key: 2,
     exact: true,
     component: Banks,
     isProtected: true,
   },
   {
     path: '/groups',
-    key: 2,
+    key: 3,
     exact: true,
     component: Groups,
+    isProtected: true,
+  },
+  {
+    path: '/transactions',
+    key: 4,
+    exact: true,
+    component: Transactions,
     isProtected: true,
   },
 ];
