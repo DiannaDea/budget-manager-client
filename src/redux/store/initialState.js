@@ -18,4 +18,12 @@ export default {
     data: [],
     error: null,
   },
+  transactions: {
+    data: [],
+    error: null,
+  },
+  filters: {
+    data: [],
+    error: null,
+  },
 };

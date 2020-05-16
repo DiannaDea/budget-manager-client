@@ -46,7 +46,7 @@ class BankCard extends React.Component {
       return res;
     }, 0);
 
-    return `${balance} UAH`;
+    return `${Math.round(balance)} UAH`;
   }
 
   render() {
