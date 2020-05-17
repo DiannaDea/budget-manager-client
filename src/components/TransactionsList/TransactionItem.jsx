@@ -16,6 +16,17 @@ const categoriesMapping = {
   other: 'setting',
 };
 
+const colorsMapping = {
+  food: 'orange',
+  sport: 'blue',
+  transport: 'brown',
+  beauty: 'purple',
+  health: 'olive',
+  purchase: 'teal',
+  transfer: 'yellow',
+  other: 'grey',
+};
+
 const TransactionHeader = ({ text, styles }) => (
   <Card.Description>
     <Grid>
@@ -87,7 +98,7 @@ export default class TransactionsItem extends Component {
               floated="left"
               size="big"
               circular
-              color="olive"
+              color={colorsMapping[transaction.category.internalName]}
               inverted
             />
           </Grid.Column>
