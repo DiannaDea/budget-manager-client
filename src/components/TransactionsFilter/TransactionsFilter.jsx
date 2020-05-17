@@ -71,11 +71,21 @@ export default class TransactionsFilter extends Component {
   }
 
   resetFilters = () => {
-    const { filters } = this.props;
+    const {
+      filters, groups, pagination, getTransactions,
+    } = this.props;
 
     this.setFiltersInState();
     this.setState({
       dateRange: filters.dates,
+    });
+
+    const { appliedFilters, dateRange } = flatFilters(filters);
+    const reqParams = transformFiltersToRequestParams(groups, appliedFilters, dateRange);
+
+    getTransactions({
+      ...reqParams,
+      ...pagination,
     });
   }
 
