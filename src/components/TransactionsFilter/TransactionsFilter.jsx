@@ -81,14 +81,14 @@ export default class TransactionsFilter extends Component {
 
   applyFilters = () => {
     const { appliedFilters, dateRange } = this.state;
-    const { groups, getTransactions } = this.props;
+    const { groups, getTransactions, pagination } = this.props;
 
     const requestParams = transformFiltersToRequestParams(
       groups,
       appliedFilters,
       dateRange,
     );
-    getTransactions(requestParams);
+    getTransactions({ ...requestParams, ...pagination });
   }
 
   handleDateChange = (date, type) => {

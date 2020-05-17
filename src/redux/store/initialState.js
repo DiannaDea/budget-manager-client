@@ -19,7 +19,7 @@ export default {
     error: null,
   },
   transactions: {
-    data: [],
+    data: null,
     error: null,
   },
   filters: {

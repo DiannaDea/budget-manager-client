@@ -1,27 +1,73 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import {
-  Grid, Header, Image,
-} from 'semantic-ui-react';
+import { Grid, Header, Pagination } from 'semantic-ui-react';
 import TransactionsFilter from '../../components/TransactionsFilter';
+import TransactionsList from '../../components/TransactionsList';
 
 export default class Transactions extends Component {
+  state = {
+    pagination: {
+      limit: 10,
+      page: 1,
+    },
+  };
+
+  getTotalPages = () => {
+    const { pagination: { limit } } = this.state;
+    const { transactions: { count } } = this.props;
+
+    return Math.ceil(count / limit);
+  }
+
+  onPageChange = (event, { activePage }) => {
+    const { pagination } = this.state;
+
+    this.setState({
+      pagination: {
+        ...pagination,
+        page: activePage,
+      },
+    });
+  }
+
   render() {
+    const { pagination } = this.state;
+    const { transactions } = this.props;
+
     return (
       <Grid>
+
         <Grid.Row columns={1} textAlign="center">
           <Grid.Column>
             <Header as="h2">Transactions</Header>
           </Grid.Column>
         </Grid.Row>
+
         <Grid.Row columns={2}>
           <Grid.Column floated="left" width={9}>
-            <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
+            <TransactionsList pagination={pagination} />
           </Grid.Column>
           <Grid.Column floated="right" width={4}>
-            <TransactionsFilter />
+            <TransactionsFilter pagination={pagination} />
           </Grid.Column>
         </Grid.Row>
+
+        <Grid.Row columns={1} textAlign="center">
+          <Grid.Column>
+            {
+              (transactions)
+                ? (
+                  <Pagination
+                    defaultActivePage={pagination.page}
+                    totalPages={this.getTotalPages()}
+                    onPageChange={this.onPageChange}
+                  />
+                )
+                : null
+            }
+          </Grid.Column>
+        </Grid.Row>
+
       </Grid>
     );
   }
