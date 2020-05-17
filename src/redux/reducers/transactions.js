@@ -71,7 +71,6 @@ export default (state = initialState.transactions, action = {}) => {
     [GET_TRANSACTIONS_SUCCESS]: () => ({
       ...state,
       isFetching: false,
-      transactionsChanged: false,
       data: action.payload,
     }),
     [GET_TRANSACTIONS_ERROR]: () => ({

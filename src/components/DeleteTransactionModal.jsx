@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import {
   Button, Icon, Modal,
 } from 'semantic-ui-react';
-import { deleteTransactionRequest } from '../redux/actions/transactions';
+import { deleteTransactionRequest, resetSavedTransaction } from '../redux/actions/transactions';
 
 class DeleteTransactionModal extends Component {
   state = {
@@ -14,7 +14,12 @@ class DeleteTransactionModal extends Component {
 
   handleOpen = () => this.setState({ modalOpen: true })
 
-  handleClose = () => this.setState({ modalOpen: false })
+  handleClose = () => {
+    const { resetSavedTransaction: reset } = this.props;
+
+    this.setState({ modalOpen: false });
+    reset();
+  }
 
   deleteTransactionInfo = () => {
     const { transactionId, deleteTransaction } = this.props;
@@ -63,6 +68,7 @@ class DeleteTransactionModal extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   deleteTransaction: (payload) => dispatch(deleteTransactionRequest(payload)),
+  resetSavedTransaction: (payload) => dispatch(resetSavedTransaction(payload)),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(DeleteTransactionModal);
