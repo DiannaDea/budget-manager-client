@@ -12,8 +12,9 @@ import SideBar from '../SideBar';
 
 export default class App extends React.Component {
   componentDidMount() {
-    const { getGroups } = this.props;
+    const { getGroups, getCategories } = this.props;
     getGroups();
+    getCategories();
   }
 
   render() {

@@ -26,4 +26,8 @@ export default {
     data: null,
     error: null,
   },
+  categories: {
+    data: [],
+    error: null,
+  },
 };
