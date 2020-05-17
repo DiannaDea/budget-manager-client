@@ -5,12 +5,12 @@ import CreateTransactionModal from './CreateModal';
 const mapStateToProps = (state) => {
   const {
     transactions: {
-      newTransactionAdded,
+      transactionsChanged,
     },
   } = state;
 
   return {
-    newTransactionAdded,
+    transactionsChanged,
   };
 };
 

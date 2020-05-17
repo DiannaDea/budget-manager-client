@@ -11,13 +11,13 @@ const mapStateToProps = (state) => {
       data: groups,
     },
     transactions: {
-      newTransactionAdded,
+      transactionsChanged,
       data: transactions,
     },
   } = state;
 
   return {
-    newTransactionAdded,
+    transactionsChanged,
     filters,
     groups,
     transactions,

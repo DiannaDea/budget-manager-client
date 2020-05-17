@@ -37,7 +37,7 @@ const mapping = {
     header: 'Create transaction',
     successMessage: 'Transaction was successfully created',
     saveAction: ({ saveTransaction }) => saveTransaction(),
-    disabled: ({ newTransactionAdded }) => !!newTransactionAdded,
+    disabled: ({ transactionsChanged }) => !!transactionsChanged,
     saveBtnText: 'Save transaction',
   },
   update: {
@@ -49,7 +49,7 @@ const mapping = {
     header: 'Update transaction',
     successMessage: 'Transaction was successfully updated',
     saveAction: ({ updateTransactionInfo }) => updateTransactionInfo(),
-    disabled: ({ newTransactionAdded }) => !!newTransactionAdded,
+    disabled: ({ transactionsChanged }) => !!transactionsChanged,
     saveBtnText: 'Update transaction',
   },
 };
@@ -134,7 +134,7 @@ export default class CreateTransactionModal extends Component {
 
   render() {
     const { modalOpen } = this.state;
-    const { newTransactionAdded, action = 'create' } = this.props;
+    const { transactionsChanged, action = 'create' } = this.props;
 
     const config = mapping[action];
 
@@ -149,7 +149,7 @@ export default class CreateTransactionModal extends Component {
 
         <Modal.Content>
           {
-            (newTransactionAdded)
+            (transactionsChanged)
               ? (
                 <Message
                   success

@@ -6,13 +6,13 @@ import TransactionsGroups from './TransactionsGroup';
 export default class TransactionsList extends Component {
   componentDidUpdate(prevProps) {
     const {
-      groups, filters, getTransactions, pagination, newTransactionAdded,
+      groups, filters, getTransactions, pagination, transactionsChanged,
     } = this.props;
 
     if (
       (prevProps.filters !== filters)
       || (prevProps.pagination.page !== pagination.page)
-      || (prevProps.newTransactionAdded !== newTransactionAdded)
+      || (prevProps.transactionsChanged !== transactionsChanged)
     ) {
       const { appliedFilters, dateRange } = flatFilters(filters);
       const reqParams = transformFiltersToRequestParams(groups, appliedFilters, dateRange);

@@ -86,17 +86,17 @@ export default (state = initialState.transactions, action = {}) => {
     [SAVE_TRANSACTION_SUCCESS]: () => ({
       ...state,
       isFetching: false,
-      newTransactionAdded: true,
+      transactionsChanged: true,
     }),
     [SAVE_TRANSACTION_ERROR]: () => ({
       ...state,
       isFetching: false,
-      newTransactionAdded: false,
+      transactionsChanged: false,
     }),
     [RESET_SAVED_TRANSACTION]: () => ({
       ...state,
       isFetching: false,
-      newTransactionAdded: false,
+      transactionsChanged: false,
     }),
     [UPDATE_TRANSACTION_REQUEST]: () => ({
       ...state,
@@ -105,7 +105,7 @@ export default (state = initialState.transactions, action = {}) => {
     [UPDATE_TRANSACTION_SUCCESS]: () => ({
       ...state,
       isFetching: false,
-      newTransactionAdded: true,
+      transactionsChanged: true,
       data: updateTransaction(state.data, action.payload),
     }),
     [UPDATE_TRANSACTION_ERROR]: () => ({
