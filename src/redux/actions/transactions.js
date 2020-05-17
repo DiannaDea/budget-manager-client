@@ -9,6 +9,12 @@ import {
   SAVE_TRANSACTION_SUCCESS,
   SAVE_TRANSACTION_ERROR,
   RESET_SAVED_TRANSACTION,
+  UPDATE_TRANSACTION_REQUEST,
+  UPDATE_TRANSACTION_SUCCESS,
+  UPDATE_TRANSACTION_ERROR,
+  DELETE_TRANSACTION_REQUEST,
+  DELETE_TRANSACTION_SUCCESS,
+  DELETE_TRANSACTION_ERROR,
 } from './types';
 
 export const getFiltersRequest = (payload = {}) => ({
@@ -58,5 +64,35 @@ export const saveTransactionError = (payload = {}) => ({
 
 export const resetSavedTransaction = (payload = {}) => ({
   type: RESET_SAVED_TRANSACTION,
+  payload,
+});
+
+export const updateTransactionRequest = (payload = {}) => ({
+  type: UPDATE_TRANSACTION_REQUEST,
+  payload,
+});
+
+export const updateTransactionSuccess = (payload = {}) => ({
+  type: UPDATE_TRANSACTION_SUCCESS,
+  payload,
+});
+
+export const updateTransactionError = (payload = {}) => ({
+  type: UPDATE_TRANSACTION_ERROR,
+  payload,
+});
+
+export const deleteTransactionRequest = (payload = {}) => ({
+  type: DELETE_TRANSACTION_REQUEST,
+  payload,
+});
+
+export const deleteTransactionSuccess = (payload = {}) => ({
+  type: DELETE_TRANSACTION_SUCCESS,
+  payload,
+});
+
+export const deleteTransactionError = (payload = {}) => ({
+  type: DELETE_TRANSACTION_ERROR,
   payload,
 });

@@ -7,7 +7,33 @@ import {
   SAVE_TRANSACTION_SUCCESS,
   SAVE_TRANSACTION_ERROR,
   RESET_SAVED_TRANSACTION,
+  UPDATE_TRANSACTION_REQUEST,
+  UPDATE_TRANSACTION_SUCCESS,
+  UPDATE_TRANSACTION_ERROR,
+  DELETE_TRANSACTION_REQUEST,
+  DELETE_TRANSACTION_SUCCESS,
+  DELETE_TRANSACTION_ERROR,
 } from '../actions/types';
+
+const updateTransaction = (transactions, { transactionId, updateFields }) => transactions
+  .map((transaction) => {
+    if (transaction.id === transactionId) {
+      return {
+        ...transaction,
+        ...updateFields,
+      };
+    }
+    return { ...transaction };
+  });
+
+const deleteTransaction = (transactions, { transactionId }) => transactions
+  .map((transaction) => {
+    if (transaction.id === transactionId) {
+      return null;
+    }
+    return { ...transaction };
+  })
+  .filter(Boolean);
 
 export default (state = initialState.transactions, action = {}) => {
   const { type } = action;
@@ -46,6 +72,36 @@ export default (state = initialState.transactions, action = {}) => {
       ...state,
       isFetching: false,
       newTransactionAdded: false,
+    }),
+    [UPDATE_TRANSACTION_REQUEST]: () => ({
+      ...state,
+      isFetching: true,
+    }),
+    [UPDATE_TRANSACTION_SUCCESS]: () => ({
+      ...state,
+      isFetching: false,
+      data: updateTransaction(state.data, action.payload),
+    }),
+    [UPDATE_TRANSACTION_ERROR]: () => ({
+      ...state,
+      isFetching: false,
+      data: null,
+      error: action.payload,
+    }),
+    [DELETE_TRANSACTION_REQUEST]: () => ({
+      ...state,
+      isFetching: true,
+    }),
+    [DELETE_TRANSACTION_SUCCESS]: () => ({
+      ...state,
+      isFetching: false,
+      data: deleteTransaction(state.data, action.payload),
+    }),
+    [DELETE_TRANSACTION_ERROR]: () => ({
+      ...state,
+      isFetching: false,
+      data: null,
+      error: action.payload,
     }),
   };
 
