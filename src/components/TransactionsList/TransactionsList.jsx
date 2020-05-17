@@ -1,6 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { flatFilters, transformFiltersToRequestParams } from '../../utils/filters';
+import TransactionsGroups from './TransactionsGroup';
 
 export default class TransactionsList extends Component {
   componentDidUpdate(prevProps) {
@@ -19,11 +20,29 @@ export default class TransactionsList extends Component {
     }
   }
 
+  getTransactions = () => {
+    const { transactions } = this.props;
+    if (!transactions) {
+      return [];
+    }
+    return Object.entries(transactions.rows);
+  }
+
   render() {
-    // const { transactions } = this.props;
+    const transactionGroups = this.getTransactions();
 
     return (
-      <p>List</p>
+      <>
+        {
+          transactionGroups.map((group) => (
+            <TransactionsGroups
+              transactions={group[1]}
+              date={group[0]}
+              key={group[0]}
+            />
+          ))
+        }
+      </>
     );
   }
 }

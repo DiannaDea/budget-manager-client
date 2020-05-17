@@ -44,7 +44,7 @@ export default class Transactions extends Component {
         </Grid.Row>
 
         <Grid.Row columns={2}>
-          <Grid.Column floated="left" width={9}>
+          <Grid.Column floated="left" width={12}>
             <TransactionsList pagination={pagination} />
           </Grid.Column>
           <Grid.Column floated="right" width={4}>
