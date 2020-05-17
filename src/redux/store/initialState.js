@@ -19,6 +19,7 @@ export default {
     error: null,
   },
   transactions: {
+    newTransactionAdded: false,
     data: null,
     error: null,
   },

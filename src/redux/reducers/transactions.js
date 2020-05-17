@@ -3,6 +3,10 @@ import {
   GET_TRANSACTIONS_REQUEST,
   GET_TRANSACTIONS_SUCCESS,
   GET_TRANSACTIONS_ERROR,
+  SAVE_TRANSACTION_REQUEST,
+  SAVE_TRANSACTION_SUCCESS,
+  SAVE_TRANSACTION_ERROR,
+  RESET_SAVED_TRANSACTION,
 } from '../actions/types';
 
 export default (state = initialState.transactions, action = {}) => {
@@ -23,6 +27,25 @@ export default (state = initialState.transactions, action = {}) => {
       isFetching: false,
       data: null,
       error: action.payload,
+    }),
+    [SAVE_TRANSACTION_REQUEST]: () => ({
+      ...state,
+      isFetching: true,
+    }),
+    [SAVE_TRANSACTION_SUCCESS]: () => ({
+      ...state,
+      isFetching: false,
+      newTransactionAdded: true,
+    }),
+    [SAVE_TRANSACTION_ERROR]: () => ({
+      ...state,
+      isFetching: false,
+      newTransactionAdded: false,
+    }),
+    [RESET_SAVED_TRANSACTION]: () => ({
+      ...state,
+      isFetching: false,
+      newTransactionAdded: false,
     }),
   };
 
