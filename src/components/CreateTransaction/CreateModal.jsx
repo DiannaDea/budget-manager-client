@@ -3,7 +3,9 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import * as Yup from 'yup';
-import { Button, Icon, Modal } from 'semantic-ui-react';
+import {
+  Button, Icon, Modal, Message,
+} from 'semantic-ui-react';
 import CreateTransactionForm from './CreateForm';
 
 const createTransactionValidation = Yup.object().shape({
@@ -11,26 +13,34 @@ const createTransactionValidation = Yup.object().shape({
     .required('Category is required'),
   description: Yup.string()
     .required('Description is required'),
-  amount: Yup.number()
+  operationAmount: Yup.number()
     .required('Amount is required'),
   groupId: Yup.string()
     .required('Group is required'),
 });
 
+const initialState = {
+  modalOpen: false,
+  groupId: null,
+  categoryId: null,
+  operationAmount: null,
+  description: null,
+  errorField: null,
+  errorMessage: null,
+};
+
 export default class CreateTransactionModal extends Component {
   state = {
-    modalOpen: false,
-    groupId: null,
-    categoryId: null,
-    amount: null,
-    description: null,
-    errorField: null,
-    errorMessage: null,
+    ...initialState,
   }
 
   handleOpen = () => this.setState({ modalOpen: true })
 
-  handleClose = () => this.setState({ modalOpen: false })
+  handleClose = () => {
+    const { resetSavedTransaction } = this.props;
+    this.setState(initialState);
+    resetSavedTransaction();
+  }
 
   handleInputChange = (type, value) => {
     this.setState({
@@ -39,8 +49,10 @@ export default class CreateTransactionModal extends Component {
   }
 
   saveTransaction = () => {
+    const { saveTransaction } = this.props;
+
     const info = {
-      amount: this.state.amount,
+      operationAmount: this.state.operationAmount,
       description: this.state.description,
       groupId: this.state.groupId,
       categoryId: this.state.categoryId,
@@ -48,13 +60,10 @@ export default class CreateTransactionModal extends Component {
 
     createTransactionValidation.validate(info)
       .then(() => {
-        alert('Success');
-        // saveCard({
-        //   groupId: selectedGroup,
-        //   cardNumber: cardAuth.cardNumber,
-        //   bankId: cardAuth.bankId,
-        //   authId: cardAuth.authId,
-        // });
+        saveTransaction({
+          ...info,
+          currency: 'UAH',
+        });
         this.setState({
           errorField: null,
           errorMessage: null,
@@ -72,6 +81,7 @@ export default class CreateTransactionModal extends Component {
 
   render() {
     const { modalOpen } = this.state;
+    const { newTransactionAdded } = this.props;
 
     return (
       <Modal
@@ -88,6 +98,18 @@ export default class CreateTransactionModal extends Component {
         <Modal.Header>Create transaction</Modal.Header>
 
         <Modal.Content>
+          {
+            (newTransactionAdded)
+              ? (
+                <Message
+                  success
+                  header="Success!"
+                  content="Transaction was successfully created"
+                />
+              )
+              : null
+          }
+
           <CreateTransactionForm
             {...this.state}
             handleInputChange={this.handleInputChange}
@@ -95,7 +117,7 @@ export default class CreateTransactionModal extends Component {
         </Modal.Content>
 
         <Modal.Content>
-          <Button fluid primary onClick={this.saveTransaction}>
+          <Button fluid primary onClick={this.saveTransaction} disabled={!!newTransactionAdded}>
             <Icon name="check" />
             {' '}
             Save transaction

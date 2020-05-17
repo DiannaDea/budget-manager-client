@@ -6,7 +6,7 @@ import CategoriesDropdown from './CategoriesDropdown';
 
 const CreateTransactionForm = (props) => {
   const {
-    groupId, amount, description, categoryId, handleInputChange,
+    groupId, operationAmount, description, categoryId, handleInputChange,
     errorField, errorMessage,
   } = props;
 
@@ -28,9 +28,9 @@ const CreateTransactionForm = (props) => {
         label="Amount"
         placeholder="Amount"
         type="number"
-        defaultValue={amount}
-        onChange={(e, { value }) => handleInputChange('amount', value)}
-        {...(errorField === 'amount' ? { error } : {})}
+        defaultValue={operationAmount}
+        onChange={(e, { value }) => handleInputChange('operationAmount', value)}
+        {...(errorField === 'operationAmount' ? { error } : {})}
       />
 
       <Form.Field

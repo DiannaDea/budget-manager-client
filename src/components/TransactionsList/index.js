@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getTransactionsRequest } from '../../redux/actions/transactions';
+import { getTransactionsRequest, resetSavedTransaction } from '../../redux/actions/transactions';
 import TransactionsList from './TransactionsList';
 
 const mapStateToProps = (state) => {
@@ -11,11 +11,13 @@ const mapStateToProps = (state) => {
       data: groups,
     },
     transactions: {
+      newTransactionAdded,
       data: transactions,
     },
   } = state;
 
   return {
+    newTransactionAdded,
     filters,
     groups,
     transactions,
@@ -24,6 +26,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getTransactions: (payload) => dispatch(getTransactionsRequest(payload)),
+  resetSavedTransaction: (payload) => dispatch(resetSavedTransaction(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionsList);

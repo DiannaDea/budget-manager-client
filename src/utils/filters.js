@@ -8,11 +8,21 @@ const transformation = {
     requestParam: 'bankIds',
     getOptions: ({ banks }) => {
       const filteredBanks = uniqBy(banks, (bank) => bank.id);
-      return filteredBanks.map((bank) => ({
-        key: bank.id,
-        value: bank.name,
-        applied: true,
-      }));
+      return filteredBanks.map((bank) => {
+        if (bank.internalName === 'custom') {
+          return {
+            key: bank.id,
+            value: null,
+            applied: true,
+          };
+        }
+
+        return {
+          key: bank.id,
+          value: bank.name,
+          applied: true,
+        };
+      });
     },
   },
   cards: {
@@ -20,6 +30,13 @@ const transformation = {
     type: 'cards',
     requestParam: 'cardIds',
     getOptions: ({ cards }) => cards.map((card) => {
+      if (!card.cardNumber) {
+        return {
+          key: card.id,
+          value: null,
+          applied: true,
+        };
+      }
       const arr = card.cardNumber.split('');
       const chunks = chunk(arr, 4);
       chunks[1] = ['*', '*', '*', '*'];

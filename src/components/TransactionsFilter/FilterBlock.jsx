@@ -19,19 +19,24 @@ export default class FilterBlock extends Component {
         </Grid>
 
         {
-          options.map((option) => (
-            <Grid.Row columns={1} key={option.key}>
-              <Grid.Column>
-                <Checkbox
-                  id={option.key}
-                  name={type}
-                  checked={option.applied}
-                  label={option.value}
-                  onChange={handleCheckBoxChange}
-                />
-              </Grid.Column>
-            </Grid.Row>
-          ))
+          options.map((option) => {
+            if (!option.value) {
+              return null;
+            }
+            return (
+              <Grid.Row columns={1} key={option.key}>
+                <Grid.Column>
+                  <Checkbox
+                    id={option.key}
+                    name={type}
+                    checked={option.applied}
+                    label={option.value}
+                    onChange={handleCheckBoxChange}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            );
+          }).filter(Boolean)
         }
       </Segment>
     );

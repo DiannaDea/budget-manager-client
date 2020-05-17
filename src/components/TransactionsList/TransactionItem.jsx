@@ -72,6 +72,10 @@ export default class TransactionsItem extends Component {
       return '';
     }
 
+    if (transaction.card.owner === 1) {
+      return 'Custom transaction';
+    }
+
     const cardNumber = this.getCardNumber(transaction.card.cardNumber);
     return `${transaction.bank.name}, ${cardNumber}`;
   }
