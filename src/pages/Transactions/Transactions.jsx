@@ -7,7 +7,7 @@ import TransactionsList from '../../components/TransactionsList';
 export default class Transactions extends Component {
   state = {
     pagination: {
-      limit: 10,
+      limit: 5,
       page: 1,
     },
   };

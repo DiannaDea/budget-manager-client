@@ -5,12 +5,23 @@ import {
   Grid, Icon, Image, Card,
 } from 'semantic-ui-react';
 
-const TransactionHeader = ({ text }) => (
+const categoriesMapping = {
+  food: 'food',
+  sport: 'football ball',
+  transport: 'car',
+  beauty: 'star outline',
+  health: 'heart outline',
+  purchase: 'money bill alternate outline',
+  transfer: 'angle double left',
+  other: 'setting',
+};
+
+const TransactionHeader = ({ text, styles }) => (
   <Card.Description>
     <Grid>
       <Grid.Row columns={1}>
         <Grid.Column width={16}>
-          <p>{text}</p>
+          <p style={styles}>{text}</p>
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -57,6 +68,14 @@ export default class TransactionsItem extends Component {
   render() {
     const { transaction } = this.props;
 
+    const amountStyles = {
+      color: (transaction.operationAmount < 0) ? '#e05959' : '#33a933',
+    };
+
+    const descriptionStyles = {
+      fontWeight: 'bold',
+    };
+
     return (
       <Grid padded>
         <Grid.Row columns={3} textAlign="center">
@@ -64,23 +83,23 @@ export default class TransactionsItem extends Component {
           <Grid.Column width={2}>
             <Image
               as={Icon}
-              name="credit card outline"
+              name={categoriesMapping[transaction.category.internalName]}
               floated="left"
               size="big"
               circular
-              color="grey"
+              color="olive"
               inverted
             />
           </Grid.Column>
 
-          <Grid.Column width={12} textAlign="left">
-            <TransactionHeader text={transaction.description} />
+          <Grid.Column width={11} textAlign="left">
+            <TransactionHeader text={transaction.description} styles={descriptionStyles} />
             <TransactionRow leftText="Bank" rightText={this.getBankInfo()} />
             <TransactionRow leftText="Group" rightText={transaction.group.name} />
           </Grid.Column>
 
-          <Grid.Column width={2} textAlign="left">
-            {`${transaction.operationAmount} ${transaction.currency}`}
+          <Grid.Column width={3} textAlign="left">
+            <h4 style={amountStyles}>{`${transaction.operationAmount} ${transaction.currency}`}</h4>
           </Grid.Column>
 
         </Grid.Row>
