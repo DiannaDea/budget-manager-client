@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import DateFilterBlock from './DateFilterBlock';
 import FilterBlock from './FilterBlock';
 
@@ -138,8 +138,18 @@ export default class TransactionsFilter extends Component {
           maxDate={dateRange.max}
           handleDateChange={this.handleDateChange}
         />
-        <Button onClick={this.applyFilters}>Apply</Button>
-        <Button onClick={this.resetFilters}>Reset</Button>
+        <Grid divided="vertically">
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Button fluid onClick={this.applyFilters}>Apply</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid onClick={this.resetFilters}>Reset</Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+
+
       </>
     );
   }

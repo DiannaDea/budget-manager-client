@@ -20,6 +20,7 @@ class DateFilterBlock extends Component {
 
         <Grid.Row columns={1}>
           <Grid.Column>
+            <p>From</p>
             <DatePicker
               dateFormat="MMMM d, yyyy"
               selected={new Date(minDate)}
@@ -31,6 +32,7 @@ class DateFilterBlock extends Component {
 
         <Grid.Row columns={1}>
           <Grid.Column>
+            <p>To</p>
             <DatePicker
               dateFormat="MMMM d, yyyy"
               selected={new Date(maxDate)}
