@@ -2,7 +2,7 @@
 import { chunk } from 'lodash';
 import React, { Component } from 'react';
 import {
-  Grid, Icon, Image, Card,
+  Grid, Icon, Image, Card, Button,
 } from 'semantic-ui-react';
 
 const categoriesMapping = {
@@ -89,7 +89,7 @@ export default class TransactionsItem extends Component {
 
     return (
       <Grid padded>
-        <Grid.Row columns={3} textAlign="center">
+        <Grid.Row columns={4} textAlign="center">
 
           <Grid.Column width={2}>
             <Image
@@ -103,7 +103,7 @@ export default class TransactionsItem extends Component {
             />
           </Grid.Column>
 
-          <Grid.Column width={11} textAlign="left">
+          <Grid.Column width={9} textAlign="left">
             <TransactionHeader text={transaction.description} styles={descriptionStyles} />
             <TransactionRow leftText="Bank" rightText={this.getBankInfo()} />
             <TransactionRow leftText="Group" rightText={transaction.group.name} />
@@ -111,6 +111,17 @@ export default class TransactionsItem extends Component {
 
           <Grid.Column width={3} textAlign="left">
             <h4 style={amountStyles}>{`${transaction.operationAmount} ${transaction.currency}`}</h4>
+          </Grid.Column>
+
+          <Grid.Column width={2}>
+            <Button.Group>
+              <Button icon>
+                <Icon name="edit outline" />
+              </Button>
+              <Button icon>
+                <Icon name="trash alternate outline" />
+              </Button>
+            </Button.Group>
           </Grid.Column>
 
         </Grid.Row>

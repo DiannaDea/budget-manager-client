@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Grid, Header, Pagination } from 'semantic-ui-react';
 import TransactionsFilter from '../../components/TransactionsFilter';
 import TransactionsList from '../../components/TransactionsList';
+import CreateTransactionModal from '../../components/CreateTransaction';
 
 export default class Transactions extends Component {
   state = {
@@ -40,6 +41,12 @@ export default class Transactions extends Component {
         <Grid.Row columns={1} textAlign="center">
           <Grid.Column>
             <Header as="h2">Transactions</Header>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row columns={1} textAlign="right">
+          <Grid.Column>
+            <CreateTransactionModal />
           </Grid.Column>
         </Grid.Row>
 
