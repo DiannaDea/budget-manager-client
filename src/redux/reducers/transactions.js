@@ -15,25 +15,50 @@ import {
   DELETE_TRANSACTION_ERROR,
 } from '../actions/types';
 
-const updateTransaction = (transactions, { transactionId, updateFields }) => transactions
-  .map((transaction) => {
-    if (transaction.id === transactionId) {
-      return {
-        ...transaction,
-        ...updateFields,
-      };
-    }
-    return { ...transaction };
-  });
+const updateTransaction = (data, { transactionId, updateFields }) => {
+  const newRows = Object.keys(data.rows).reduce((transactions, date) => {
+    const newTransactions = data.rows[date]
+      .map((transaction) => {
+        if (transaction.id === transactionId) {
+          return {
+            ...transaction,
+            ...updateFields,
+          };
+        }
+        return { ...transaction };
+      });
 
-const deleteTransaction = (transactions, { transactionId }) => transactions
-  .map((transaction) => {
-    if (transaction.id === transactionId) {
-      return null;
-    }
-    return { ...transaction };
-  })
-  .filter(Boolean);
+    return {
+      ...transactions,
+      [date]: newTransactions,
+    };
+  }, {});
+  return {
+    ...data,
+    rows: newRows,
+  };
+};
+
+const deleteTransaction = (data, { transactionId }) => {
+  const newRows = Object.keys(data.rows).reduce((transactions, date) => {
+    const newTransactions = data.rows[date]
+      .map((transaction) => {
+        if (transaction.id === transactionId) {
+          return null;
+        }
+        return { ...transaction };
+      });
+
+    return {
+      ...transactions,
+      [date]: newTransactions.filter(Boolean),
+    };
+  }, {});
+  return {
+    ...data,
+    rows: newRows,
+  };
+};
 
 export default (state = initialState.transactions, action = {}) => {
   const { type } = action;
@@ -80,6 +105,7 @@ export default (state = initialState.transactions, action = {}) => {
     [UPDATE_TRANSACTION_SUCCESS]: () => ({
       ...state,
       isFetching: false,
+      newTransactionAdded: true,
       data: updateTransaction(state.data, action.payload),
     }),
     [UPDATE_TRANSACTION_ERROR]: () => ({

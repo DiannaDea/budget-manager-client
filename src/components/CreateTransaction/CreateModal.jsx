@@ -19,26 +19,59 @@ const createTransactionValidation = Yup.object().shape({
     .required('Group is required'),
 });
 
-const initialState = {
-  modalOpen: false,
+const defaulTransactionInfo = {
   groupId: null,
   categoryId: null,
   operationAmount: null,
   description: null,
-  errorField: null,
-  errorMessage: null,
+};
+
+const mapping = {
+  create: {
+    trigger: (handleOpen) => (
+      <Button color="green" circular floated="right" onClick={handleOpen}>
+        <Icon name="add" />
+        Create
+      </Button>
+    ),
+    header: 'Create transaction',
+    successMessage: 'Transaction was successfully created',
+    saveAction: ({ saveTransaction }) => saveTransaction(),
+    disabled: ({ newTransactionAdded }) => !!newTransactionAdded,
+    saveBtnText: 'Save transaction',
+  },
+  update: {
+    trigger: (handleOpen) => (
+      <Button icon onClick={handleOpen}>
+        <Icon name="edit outline" />
+      </Button>
+    ),
+    header: 'Update transaction',
+    successMessage: 'Transaction was successfully updated',
+    saveAction: ({ updateTransactionInfo }) => updateTransactionInfo(),
+    disabled: ({ newTransactionAdded }) => !!newTransactionAdded,
+    saveBtnText: 'Update transaction',
+  },
 };
 
 export default class CreateTransactionModal extends Component {
   state = {
-    ...initialState,
+    modalOpen: false,
+    ...(this.props.transactionInfo ? this.props.transactionInfo : defaulTransactionInfo),
+    errorField: null,
+    errorMessage: null,
   }
 
   handleOpen = () => this.setState({ modalOpen: true })
 
   handleClose = () => {
     const { resetSavedTransaction } = this.props;
-    this.setState(initialState);
+    this.setState(defaulTransactionInfo);
+    this.setState({
+      modalOpen: false,
+      errorField: null,
+      errorMessage: null,
+    });
     resetSavedTransaction();
   }
 
@@ -48,9 +81,7 @@ export default class CreateTransactionModal extends Component {
     });
   }
 
-  saveTransaction = () => {
-    const { saveTransaction } = this.props;
-
+  validate = () => {
     const info = {
       operationAmount: this.state.operationAmount,
       description: this.state.description,
@@ -58,16 +89,13 @@ export default class CreateTransactionModal extends Component {
       categoryId: this.state.categoryId,
     };
 
-    createTransactionValidation.validate(info)
+    return createTransactionValidation.validate(info)
       .then(() => {
-        saveTransaction({
-          ...info,
-          currency: 'UAH',
-        });
         this.setState({
           errorField: null,
           errorMessage: null,
         });
+        return info;
       })
       .catch((err) => {
         const { path, message } = err;
@@ -79,23 +107,45 @@ export default class CreateTransactionModal extends Component {
       });
   }
 
+  saveTransaction = () => {
+    const { saveTransaction } = this.props;
+
+    this.validate()
+      .then((info) => {
+        saveTransaction({
+          ...info,
+          currency: 'UAH',
+        });
+      });
+  }
+
+  updateTransactionInfo = () => {
+    const { updateTransaction } = this.props;
+
+    this.validate()
+      .then((info) => {
+        updateTransaction({
+          transactionId: this.state.id,
+          ...info,
+          currency: 'UAH',
+        });
+      });
+  }
+
   render() {
     const { modalOpen } = this.state;
-    const { newTransactionAdded } = this.props;
+    const { newTransactionAdded, action = 'create' } = this.props;
+
+    const config = mapping[action];
 
     return (
       <Modal
-        trigger={(
-          <Button color="green" circular floated="right" onClick={this.handleOpen}>
-            <Icon name="add" />
-            Create
-          </Button>
-        )}
+        trigger={config.trigger(this.handleOpen)}
         open={modalOpen}
         onClose={this.handleClose}
         size="small"
       >
-        <Modal.Header>Create transaction</Modal.Header>
+        <Modal.Header>{config.header}</Modal.Header>
 
         <Modal.Content>
           {
@@ -104,7 +154,7 @@ export default class CreateTransactionModal extends Component {
                 <Message
                   success
                   header="Success!"
-                  content="Transaction was successfully created"
+                  content={config.successMessage}
                 />
               )
               : null
@@ -117,10 +167,15 @@ export default class CreateTransactionModal extends Component {
         </Modal.Content>
 
         <Modal.Content>
-          <Button fluid primary onClick={this.saveTransaction} disabled={!!newTransactionAdded}>
+          <Button
+            fluid
+            primary
+            onClick={() => config.saveAction(this)}
+            disabled={config.disabled(this.props)}
+          >
             <Icon name="check" />
             {' '}
-            Save transaction
+            {config.saveBtnText}
           </Button>
         </Modal.Content>
 
@@ -128,7 +183,7 @@ export default class CreateTransactionModal extends Component {
           <Button color="green" onClick={this.handleClose} inverted>
             <Icon name="checkmark" />
             {' '}
-            Got it
+            Close
           </Button>
         </Modal.Actions>
       </Modal>

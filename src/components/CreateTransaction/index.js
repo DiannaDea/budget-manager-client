@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { saveTransactionRequest, resetSavedTransaction } from '../../redux/actions/transactions';
+import { saveTransactionRequest, resetSavedTransaction, updateTransactionRequest } from '../../redux/actions/transactions';
 import CreateTransactionModal from './CreateModal';
 
 const mapStateToProps = (state) => {
@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   saveTransaction: (payload) => dispatch(saveTransactionRequest(payload)),
+  updateTransaction: (payload) => dispatch(updateTransactionRequest(payload)),
   resetSavedTransaction: (payload) => dispatch(resetSavedTransaction(payload)),
 });
 

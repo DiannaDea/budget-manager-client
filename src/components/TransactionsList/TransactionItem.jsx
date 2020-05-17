@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {
   Grid, Icon, Image, Card, Button,
 } from 'semantic-ui-react';
+import CreateTransactionModal from '../CreateTransaction';
 
 const categoriesMapping = {
   food: 'food',
@@ -91,6 +92,14 @@ export default class TransactionsItem extends Component {
       fontWeight: 'bold',
     };
 
+    const transactionInfo = {
+      id: transaction.id,
+      groupId: transaction.group.id,
+      categoryId: transaction.category.id,
+      operationAmount: transaction.operationAmount,
+      description: transaction.description,
+    };
+
     return (
       <Grid padded>
         <Grid.Row columns={4} textAlign="center">
@@ -119,9 +128,7 @@ export default class TransactionsItem extends Component {
 
           <Grid.Column width={2}>
             <Button.Group>
-              <Button icon>
-                <Icon name="edit outline" />
-              </Button>
+              <CreateTransactionModal action="update" transactionInfo={transactionInfo} />
               <Button icon>
                 <Icon name="trash alternate outline" />
               </Button>
