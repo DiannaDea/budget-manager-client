@@ -71,6 +71,7 @@ export default (state = initialState.transactions, action = {}) => {
     [GET_TRANSACTIONS_SUCCESS]: () => ({
       ...state,
       isFetching: false,
+      transactionsChanged: false,
       data: action.payload,
     }),
     [GET_TRANSACTIONS_ERROR]: () => ({
@@ -121,6 +122,7 @@ export default (state = initialState.transactions, action = {}) => {
     [DELETE_TRANSACTION_SUCCESS]: () => ({
       ...state,
       isFetching: false,
+      transactionsChanged: true,
       data: deleteTransaction(state.data, action.payload),
     }),
     [DELETE_TRANSACTION_ERROR]: () => ({

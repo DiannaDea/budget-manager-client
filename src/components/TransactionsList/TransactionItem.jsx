@@ -5,6 +5,7 @@ import {
   Grid, Icon, Image, Card, Button,
 } from 'semantic-ui-react';
 import CreateTransactionModal from '../CreateTransaction';
+import DeleteTransactionModal from '../DeleteTransactionModal';
 
 const categoriesMapping = {
   food: 'food',
@@ -129,9 +130,7 @@ export default class TransactionsItem extends Component {
           <Grid.Column width={2}>
             <Button.Group>
               <CreateTransactionModal action="update" transactionInfo={transactionInfo} />
-              <Button icon>
-                <Icon name="trash alternate outline" />
-              </Button>
+              <DeleteTransactionModal transactionId={transaction.id} />
             </Button.Group>
           </Grid.Column>
 
