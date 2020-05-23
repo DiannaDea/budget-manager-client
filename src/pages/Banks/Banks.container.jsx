@@ -29,7 +29,7 @@ class BanksContainer extends Component {
 
   viewCards = (bankId) => {
     const { history } = this.props;
-    history.push(`/banks/${bankId}/cards`);
+    history.push(`/manager/banks/${bankId}/cards`);
   }
 
   render() {

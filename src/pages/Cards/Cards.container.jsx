@@ -51,7 +51,7 @@ class CardsContainer extends Component {
 
   goBackToBanksPage = () => {
     const { history } = this.props;
-    history.push('/banks');
+    history.push('/manager/banks');
   }
 
   render() {
