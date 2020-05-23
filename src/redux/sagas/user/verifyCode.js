@@ -15,6 +15,9 @@ export default function* verifyCode({ payload }) {
       data: tokens,
     } = response;
 
+    localStorage.setItem('accessToken', tokens.accessToken);
+    localStorage.setItem('refreshToken', tokens.refreshToken);
+
     yield put(verifyCodeSuccess(tokens));
   } catch (error) {
     yield put(verifyCodeError(error));

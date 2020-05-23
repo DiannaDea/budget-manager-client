@@ -35,8 +35,8 @@ export default {
     info: null,
     qrcode: null,
     tokens: {
-      accessToken: null,
-      refreshToken: null,
+      accessToken: localStorage.getItem('accessToken'),
+      refreshToken: localStorage.getItem('refreshToken'),
     },
   },
 };

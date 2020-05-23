@@ -1,16 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 
-const MainPage = () => (
+const MainPage = ({ tokens }) => (
   <>
     <NavBar />
     {
-      (localStorage.getItem('token'))
+      (tokens.accessToken && tokens.refreshToken)
         ? <Redirect to="/manager/banks" />
         : <Redirect to="/signin" />
     }
   </>
 );
 
-export default MainPage;
+const mapStateToProps = (state) => {
+  const {
+    user: {
+      tokens,
+    },
+  } = state;
+
+  return {
+    tokens,
+  };
+};
+
+const mapDispatchToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
