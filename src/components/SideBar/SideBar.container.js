@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import SideBarView from './SideBar.view';
 
+const urlRegex = /\/manager\/(?<activeItem>[\w-]+)/;
+
 export default class SideBar extends Component {
   state = {
     activeItem: 'banks',
@@ -17,9 +19,12 @@ export default class SideBar extends Component {
   }
 
   changeActiveItem = (pathname) => {
-    this.setState({
-      activeItem: pathname.slice(1),
-    });
+    if (urlRegex.test(pathname)) {
+      const { groups: { activeItem } } = urlRegex.exec(pathname);
+      this.setState({
+        activeItem,
+      });
+    }
   }
 
   render() {
