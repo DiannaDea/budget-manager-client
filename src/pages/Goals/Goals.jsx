@@ -14,6 +14,18 @@ export default class Goals extends React.Component {
     selectedGroup: null,
   }
 
+  componentDidMount() {
+    const { location: { search } } = this.props;
+    const searchRegex = /\?groupId=(?<groupId>[\w-]+)/;
+
+    if (searchRegex.test(search)) {
+      const { groups: { groupId } } = searchRegex.exec(search);
+      this.setState({
+        selectedGroup: groupId,
+      });
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { selectedGroup } = this.state;
     const { getGoals } = this.props;

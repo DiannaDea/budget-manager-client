@@ -5,7 +5,9 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { DateTime } from 'luxon';
-import { Grid, Header, Divider } from 'semantic-ui-react';
+import {
+  Grid, Header, Divider, Button, Icon,
+} from 'semantic-ui-react';
 import { Line } from 'react-chartjs-2';
 import CardRow from '../../components/CardRow';
 
@@ -152,6 +154,19 @@ export default class GoalProgress extends React.Component {
     ];
   }
 
+  goBackToGoalsPage = () => {
+    const { history, location: { search } } = this.props;
+    const searchRegex = /\?groupId=(?<groupId>[\w-]+)/;
+
+    if (searchRegex.test(search)) {
+      const { groups: { groupId } } = searchRegex.exec(search);
+      history.push(`/manager/goals?groupId=${groupId}`);
+      return;
+    }
+
+    history.push('/manager/goals');
+  }
+
   render() {
     const goal = this.getGoal();
     const chart = (goal) ? this.generateChart(goal.progress) : null;
@@ -159,6 +174,14 @@ export default class GoalProgress extends React.Component {
 
     return (
       <Grid relaxed>
+        <Grid.Row columns={1} textAlign="center">
+          <Grid.Column>
+            <Button floated="left" onClick={this.goBackToGoalsPage}>
+              <Icon name="angle left" />
+              Back
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
         <Grid.Row columns={1}>
           <Grid.Column textAlign="center">
             <Header as="h2">{(goal) ? goal.goal.name : ''}</Header>
