@@ -42,7 +42,7 @@ class GoalCard extends React.Component {
           <Grid>
             <Grid.Row columns={2}>
               <Grid.Column>
-                <Button fluid color="blue" onClick={() => viewGoalProgress(DeleteGoalModal.goal._id)}>Progress</Button>
+                <Button fluid color="blue" onClick={() => viewGoalProgress(goal.goal._id)}>Progress</Button>
               </Grid.Column>
               <Grid.Column>
                 <DeleteGoalModal goal={goal} />

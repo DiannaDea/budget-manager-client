@@ -137,7 +137,7 @@ export default class GoalProgress extends React.Component {
       },
       {
         leftText: 'Ideal save per month',
-        rightText: `${goal.progress[0].idealAmountToSave} UAH`,
+        rightText: `${Math.round(goal.progress[0].idealAmountToSave, 2)} UAH`,
       },
       {
         leftText: 'Number of months',
