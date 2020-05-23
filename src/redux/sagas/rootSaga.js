@@ -4,6 +4,7 @@ import cards from './cards';
 import groups from './groups';
 import transactions from './transactions';
 import categories from './categories';
+import user from './user';
 
 export default function* rootSaga() {
   yield fork(banks);
@@ -11,4 +12,5 @@ export default function* rootSaga() {
   yield fork(groups);
   yield fork(transactions);
   yield fork(categories);
+  yield fork(user);
 }

@@ -31,4 +31,12 @@ export default {
     data: [],
     error: null,
   },
+  user: {
+    info: null,
+    qrcode: null,
+    tokens: {
+      accessToken: null,
+      refreshToken: null,
+    },
+  },
 };

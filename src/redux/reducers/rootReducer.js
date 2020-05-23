@@ -5,6 +5,7 @@ import groupsReducer from './groups';
 import filtersReducer from './filters';
 import transactionsReduces from './transactions';
 import categoriesReducer from './categories';
+import userReducer from './user';
 
 const reducer = combineReducers({
   banks: banksReducer,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   filters: filtersReducer,
   transactions: transactionsReduces,
   categories: categoriesReducer,
+  user: userReducer,
 });
 
 export default reducer;

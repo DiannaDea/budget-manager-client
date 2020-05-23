@@ -6,12 +6,18 @@ import App from './App.view';
 
 const mapStateToProps = (state) => {
   const {
+    user: {
+      accessToken,
+      refreshToken,
+    },
     groups: {
       data: groups,
     },
   } = state;
 
   return {
+    accessToken,
+    refreshToken,
     groups,
   };
 };
