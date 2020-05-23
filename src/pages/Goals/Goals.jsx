@@ -57,6 +57,11 @@ export default class Goals extends React.Component {
             <Header as="h2">Goals</Header>
           </Grid.Column>
         </Grid.Row>
+        <Grid.Row columns={1} textAlign="center">
+          <Grid.Column>
+            <CreateGoalModal />
+          </Grid.Column>
+        </Grid.Row>
         <Grid.Row columns={1}>
           <Grid.Column textAlign="center">
             <Form>
@@ -66,11 +71,6 @@ export default class Goals extends React.Component {
                 handleGroupSelect={this.handleGroupSelect}
               />
             </Form>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row columns={1} textAlign="center">
-          <Grid.Column>
-            <CreateGoalModal />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={3} centered>
