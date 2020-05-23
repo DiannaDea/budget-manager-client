@@ -3,10 +3,28 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import { DateTime } from 'luxon';
+import * as Yup from 'yup';
 import {
   Button, Icon, Modal, Message,
 } from 'semantic-ui-react';
 import CreateGoalForm from './CreateForm';
+
+const createGoalValidation = Yup.object().shape({
+  dateEnd: Yup.string()
+    .required('End date is required'),
+  dateStart: Yup.string()
+    .required('Start date is required'),
+  savePerMonth: Yup.string()
+    .required('Save per month is required'),
+  amount: Yup.string()
+    .required('Amount is required'),
+  name: Yup.string()
+    .required('Name is required'),
+  description: Yup.string()
+    .required('Description is required'),
+  groupId: Yup.string()
+    .required('Group is required'),
+});
 
 const initialState = {
   modalOpen: false,
@@ -17,6 +35,8 @@ const initialState = {
   savePerMonth: '',
   dateStart: DateTime.local().toFormat('yyyy-MM-dd'),
   dateEnd: DateTime.local().toFormat('yyyy-MM-dd'),
+  errorField: null,
+  errorMessage: null,
 };
 
 export default class CreateGoalModal extends Component {
@@ -60,7 +80,20 @@ export default class CreateGoalModal extends Component {
       dateEnd: this.state.dateEnd,
     };
 
-    createGoal(payload);
+    createGoalValidation.validate(payload)
+      .then(() => {
+        createGoal(payload);
+        this.setState({
+          errorField: null,
+          errorMessage: null,
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          errorField: err.path,
+          errorMessage: err.message,
+        });
+      });
   }
 
   render() {
