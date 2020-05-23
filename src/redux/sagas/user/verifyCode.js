@@ -12,13 +12,18 @@ export default function* verifyCode({ payload }) {
     });
 
     const {
-      data: tokens,
+      data: {
+        accessToken,
+        refreshToken,
+        user,
+      },
     } = response;
 
-    localStorage.setItem('accessToken', tokens.accessToken);
-    localStorage.setItem('refreshToken', tokens.refreshToken);
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('userId', user.id);
 
-    yield put(verifyCodeSuccess(tokens));
+    yield put(verifyCodeSuccess({ tokens: { accessToken, refreshToken }, user }));
   } catch (error) {
     yield put(verifyCodeError('Invalid verification code'));
   }

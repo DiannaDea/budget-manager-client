@@ -54,7 +54,8 @@ export default (state = initialState.user, action = {}) => {
       ...state,
       isFetching: false,
       error: null,
-      tokens: action.payload,
+      tokens: action.payload.tokens,
+      info: action.payload.user,
     }),
     [VERIFY_CODE_ERROR]: () => ({
       ...state,
