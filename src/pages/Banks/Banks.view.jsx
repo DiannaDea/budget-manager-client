@@ -32,11 +32,13 @@ export default class BanksView extends Component {
               : null
           }
           {
-          banks.map((bank) => (
-            <Grid.Column key={bank.bank.id}>
-              <BankCard bank={bank} viewCards={viewCards} deleteBank={deleteBank} />
-            </Grid.Column>
-          ))
+          banks.map((bank) => ((bank.bank.internalName !== 'custom')
+            ? (
+              <Grid.Column key={bank.bank.id}>
+                <BankCard bank={bank} viewCards={viewCards} deleteBank={deleteBank} />
+              </Grid.Column>
+            )
+            : null))
         }
         </Grid.Row>
       </Grid>
