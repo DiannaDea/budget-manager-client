@@ -1,7 +1,17 @@
-import { chunk, uniqBy } from 'lodash';
+import { uniqBy } from 'lodash';
 import { DateTime } from 'luxon';
 
 const transformation = {
+  groups: {
+    title: 'Groups',
+    type: 'groups',
+    requestParam: 'groupIds',
+    getOptions: ({ groups }) => groups.map((group) => ({
+      key: group.id,
+      value: group.name,
+      applied: true,
+    })),
+  },
   banks: {
     title: 'Banks',
     type: 'banks',
@@ -25,31 +35,31 @@ const transformation = {
       });
     },
   },
-  cards: {
-    title: 'Cards',
-    type: 'cards',
-    requestParam: 'cardIds',
-    getOptions: ({ cards }) => cards.map((card) => {
-      if (!card.cardNumber) {
-        return {
-          key: card.id,
-          value: null,
-          applied: true,
-        };
-      }
-      const arr = card.cardNumber.split('');
-      const chunks = chunk(arr, 4);
-      chunks[1] = ['*', '*', '*', '*'];
-      chunks[2] = ['*', '*', '*', '*'];
-      const cardNumber = chunks.reduce((res, ch) => res.concat(` ${ch.join('')}`), '');
+  // cards: {
+  //   title: 'Cards',
+  //   type: 'cards',
+  //   requestParam: 'cardIds',
+  //   getOptions: ({ cards }) => cards.map((card) => {
+  //     if (!card.cardNumber) {
+  //       return {
+  //         key: card.id,
+  //         value: null,
+  //         applied: true,
+  //       };
+  //     }
+  //     const arr = card.cardNumber.split('');
+  //     const chunks = chunk(arr, 4);
+  //     chunks[1] = ['*', '*', '*', '*'];
+  //     chunks[2] = ['*', '*', '*', '*'];
+  //     const cardNumber = chunks.reduce((res, ch) => res.concat(` ${ch.join('')}`), '');
 
-      return {
-        key: card.id,
-        value: cardNumber,
-        applied: true,
-      };
-    }),
-  },
+  //     return {
+  //       key: card.id,
+  //       value: cardNumber,
+  //       applied: true,
+  //     };
+  //   }),
+  // },
   categories: {
     title: 'Categories',
     type: 'categories',
