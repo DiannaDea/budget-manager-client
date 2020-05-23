@@ -17,6 +17,6 @@ export default function* signIn({ payload }) {
 
     yield put(signInSuccess(authInfo));
   } catch (error) {
-    yield put(signInError(error));
+    yield put(signInError(error.response.data.errors.join(', ')));
   }
 }

@@ -32,6 +32,7 @@ export default {
     error: null,
   },
   user: {
+    error: null,
     info: null,
     qrcode: null,
     tokens: {

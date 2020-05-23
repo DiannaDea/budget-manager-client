@@ -7,12 +7,14 @@ const mapStateToProps = (state) => {
     user: {
       tokens,
       qrcode,
+      error,
     },
   } = state;
 
   return {
     tokens,
     qrcode,
+    error,
   };
 };
 

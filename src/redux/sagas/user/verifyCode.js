@@ -20,6 +20,6 @@ export default function* verifyCode({ payload }) {
 
     yield put(verifyCodeSuccess(tokens));
   } catch (error) {
-    yield put(verifyCodeError(error));
+    yield put(verifyCodeError('Invalid verification code'));
   }
 }

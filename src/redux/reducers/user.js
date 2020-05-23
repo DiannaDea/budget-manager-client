@@ -22,6 +22,7 @@ export default (state = initialState.user, action = {}) => {
     }),
     [SIGN_UP_SUCCESS]: () => ({
       ...state,
+      error: null,
       isFetching: false,
     }),
     [SIGN_UP_ERROR]: () => ({
@@ -36,6 +37,7 @@ export default (state = initialState.user, action = {}) => {
     [SIGN_IN_SUCCESS]: () => ({
       ...state,
       isFetching: false,
+      error: null,
       qrcode: action.payload.qrcode,
     }),
     [SIGN_IN_ERROR]: () => ({
@@ -51,6 +53,7 @@ export default (state = initialState.user, action = {}) => {
     [VERIFY_CODE_SUCCESS]: () => ({
       ...state,
       isFetching: false,
+      error: null,
       tokens: action.payload,
     }),
     [VERIFY_CODE_ERROR]: () => ({
@@ -64,12 +67,12 @@ export default (state = initialState.user, action = {}) => {
     }),
     [LOGOUT]: () => ({
       ...state,
+      error: null,
       isFetching: false,
       tokens: {
         accessToken: null,
         refreshToken: null,
       },
-      error: action.payload,
     }),
   };
 
