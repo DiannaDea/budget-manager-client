@@ -1,7 +1,13 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
+import { DateTime } from 'luxon';
+import { Grid, Header, Divider } from 'semantic-ui-react';
 import { Line } from 'react-chartjs-2';
+import CardRow from '../../components/CardRow';
 
 const months = [
   'January', 'February', 'March', 'April', 'May',
@@ -57,6 +63,10 @@ const commonSettings = {
 export default class GoalProgress extends React.Component {
   getMonthLabels = (progress) => progress.map(({ month }) => months[month - 1])
 
+  getDate = (date) => DateTime
+    .fromISO(date)
+    .toFormat('dd.MM.yyyy')
+
   getGoal = () => {
     const { goals, match: { params: { id: goalId } } } = this.props;
     return goals.find(({ goal }) => goal._id === goalId);
@@ -95,12 +105,81 @@ export default class GoalProgress extends React.Component {
     ],
   })
 
+  generateDescription = (goal) => {
+    if (!goal) {
+      return [];
+    }
+    const alreadySaved = goal.progress.reduce((res, p) => res += p.amountSaved, 0);
+    const saveMore = goal.goal.amount - alreadySaved;
+
+    return [
+      {
+        leftText: 'Description',
+        rightText: goal.goal.description,
+      },
+      {
+        leftText: 'Amount',
+        rightText: `${goal.goal.amount} UAH`,
+      },
+      {
+        leftText: 'Already saved',
+        rightText: `${alreadySaved} UAH`,
+      },
+      {
+        leftText: 'Save more',
+        rightText: `${saveMore} UAH`,
+      },
+      {
+        leftText: 'Real save per month',
+        rightText: `${goal.goal.savePerMonth} UAH`,
+      },
+      {
+        leftText: 'Ideal save per month',
+        rightText: `${goal.progress[0].idealAmountToSave} UAH`,
+      },
+      {
+        leftText: 'Number of months',
+        rightText: goal.goal.monthCount,
+      },
+      {
+        leftText: 'Start date',
+        rightText: this.getDate(goal.goal.dateStart),
+      },
+      {
+        leftText: 'End date',
+        rightText: this.getDate(goal.goal.dateEnd),
+      },
+    ];
+  }
+
   render() {
     const goal = this.getGoal();
     const chart = (goal) ? this.generateChart(goal.progress) : null;
+    const description = this.generateDescription(goal);
 
     return (
-      <Line data={chart} options={options} />
+      <Grid relaxed>
+        <Grid.Row columns={1}>
+          <Grid.Column textAlign="center">
+            <Header as="h2">{(goal) ? goal.goal.name : ''}</Header>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={2}>
+          <Grid.Column width={5} stretched>
+            {
+              description.map((d) => (
+                <>
+                  <CardRow {...d} />
+                  <Divider />
+                </>
+              ))
+            }
+          </Grid.Column>
+          <Grid.Column width={11} stretched>
+            <Line data={chart} options={options} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 }
