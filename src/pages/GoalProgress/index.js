@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { getGoalsRequest } from '../../redux/actions/goals';
 import GoalProgress from './GoalProgress';
 
 const mapStateToProps = (state) => {
@@ -13,6 +14,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) => ({
+  getGoals: (payload) => dispatch(getGoalsRequest(payload)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalProgress);

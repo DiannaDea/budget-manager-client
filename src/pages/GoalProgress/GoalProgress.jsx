@@ -97,7 +97,7 @@ export default class GoalProgress extends React.Component {
 
   render() {
     const goal = this.getGoal();
-    const chart = this.generateChart(goal.progress);
+    const chart = (goal) ? this.generateChart(goal.progress) : null;
 
     return (
       <Line data={chart} options={options} />

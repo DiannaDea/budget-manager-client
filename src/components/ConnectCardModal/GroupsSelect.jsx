@@ -18,7 +18,9 @@ class GroupsSelect extends React.Component {
   }
 
   render() {
-    const { selectedGroup, handleGroupSelect, selectGroupError } = this.props;
+    const {
+      selectedGroup, handleGroupSelect, selectGroupError, inline = false,
+    } = this.props;
     const groupOptions = this.transformGroups();
 
     const error = selectGroupError ? {
@@ -28,6 +30,7 @@ class GroupsSelect extends React.Component {
 
     return (
       <Form.Field
+        inline={inline}
         control={Dropdown}
         label="Group"
         onChange={handleGroupSelect}

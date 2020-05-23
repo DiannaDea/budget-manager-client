@@ -1,25 +1,33 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import { Grid, Header, Message } from 'semantic-ui-react';
+import {
+  Grid, Header, Message, Form,
+} from 'semantic-ui-react';
 import GroupsSelect from '../../components/ConnectCardModal/GroupsSelect';
 import GoalCard from '../../components/GoalCard';
 
 export default class Goals extends React.Component {
   state = {
-    selectedGroup: this.props.groups[0].id,
+    selectedGroup: null,
   }
 
-  componentDidMount() {
+  componentDidUpdate(prevProps, prevState) {
     const { selectedGroup } = this.state;
     const { getGoals } = this.props;
-    getGoals({ groupId: selectedGroup });
+
+    if (selectedGroup !== prevState.selectedGroup) {
+      getGoals({ groupId: selectedGroup });
+    }
   }
 
+
   viewGoalProgress = (goalId) => {
+    const { selectedGroup } = this.state;
     const { history } = this.props;
-    history.push(`/manager/goals/${goalId}`);
+    history.push(`/manager/goals/${goalId}?groupId=${selectedGroup}`);
   }
 
   handleGroupSelect = (event, { value: group }) => {
@@ -37,11 +45,14 @@ export default class Goals extends React.Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1}>
-          <Grid.Column>
-            <GroupsSelect
-              selectedGroup={this.state.selectedGroup}
-              handleGroupSelect={this.handleGroupSelect}
-            />
+          <Grid.Column textAlign="center">
+            <Form>
+              <GroupsSelect
+                inline
+                selectedGroup={this.state.selectedGroup}
+                handleGroupSelect={this.handleGroupSelect}
+              />
+            </Form>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={3} centered>
@@ -56,7 +67,7 @@ export default class Goals extends React.Component {
           }
           {
           goals.map((goal) => (
-            <Grid.Column key={goal.goal.id}>
+            <Grid.Column key={goal.goal._id}>
               <GoalCard goal={goal} viewGoalProgress={this.viewGoalProgress} />
             </Grid.Column>
           ))
