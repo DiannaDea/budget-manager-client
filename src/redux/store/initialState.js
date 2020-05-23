@@ -32,6 +32,7 @@ export default {
     error: null,
   },
   goals: {
+    goalsChanged: false,
     data: [],
     error: null,
   },

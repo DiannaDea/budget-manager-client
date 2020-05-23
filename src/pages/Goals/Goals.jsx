@@ -8,6 +8,7 @@ import {
 } from 'semantic-ui-react';
 import GroupsSelect from '../../components/ConnectCardModal/GroupsSelect';
 import GoalCard from '../../components/GoalCard';
+import CreateGoalModal from '../../components/CreateGoalModal';
 
 export default class Goals extends React.Component {
   state = {
@@ -65,6 +66,11 @@ export default class Goals extends React.Component {
                 handleGroupSelect={this.handleGroupSelect}
               />
             </Form>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={1} textAlign="center">
+          <Grid.Column>
+            <CreateGoalModal />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={3} centered>

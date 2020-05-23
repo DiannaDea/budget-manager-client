@@ -9,6 +9,7 @@ import {
   DELETE_GOAL_REQUEST,
   DELETE_GOAL_SUCCESS,
   DELETE_GOAL_ERROR,
+  RESET_SAVED_GOAL,
 } from '../actions/types';
 
 const createGoal = (goals, goalInfo) => [
@@ -28,6 +29,7 @@ export default (state = initialState.goals, action = {}) => {
     }),
     [GET_GOALS_SUCCESS]: () => ({
       ...state,
+      goalsChanged: false,
       isFetching: false,
       data: action.payload,
     }),
@@ -44,6 +46,7 @@ export default (state = initialState.goals, action = {}) => {
     [CREATE_GOAL_SUCCESS]: () => ({
       ...state,
       isFetching: false,
+      goalsChanged: true,
       data: createGoal(state.data, action.payload),
     }),
     [CREATE_GOAL_ERROR]: () => ({
@@ -58,12 +61,18 @@ export default (state = initialState.goals, action = {}) => {
     [DELETE_GOAL_SUCCESS]: () => ({
       ...state,
       isFetching: false,
+      goalsChanged: true,
       data: deleteGoal(state.data, action.payload),
     }),
     [DELETE_GOAL_ERROR]: () => ({
       ...state,
       isFetching: false,
       error: action.payload,
+    }),
+    [RESET_SAVED_GOAL]: () => ({
+      ...state,
+      isFetching: false,
+      goalsChanged: false,
     }),
   };
 

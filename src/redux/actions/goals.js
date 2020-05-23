@@ -8,6 +8,7 @@ import {
   DELETE_GOAL_REQUEST,
   DELETE_GOAL_SUCCESS,
   DELETE_GOAL_ERROR,
+  RESET_SAVED_GOAL,
 } from './types';
 
 export const getGoalsRequest = (payload = {}) => ({
@@ -52,5 +53,10 @@ export const deleteGoalSuccess = (payload = {}) => ({
 
 export const deleteGoalError = (payload = {}) => ({
   type: DELETE_GOAL_ERROR,
+  payload,
+});
+
+export const resetSavedGoal = (payload = {}) => ({
+  type: RESET_SAVED_GOAL,
   payload,
 });
