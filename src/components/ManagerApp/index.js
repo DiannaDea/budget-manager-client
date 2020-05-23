@@ -1,8 +1,9 @@
+/* eslint-disable import/no-cycle */
 import { connect } from 'react-redux';
 import { getGroupsRequest } from '../../redux/actions/groups';
 import { getCategoriesRequest } from '../../redux/actions/categories';
 
-import App from './App.view';
+import ManagerApp from './ManagerApp.view';
 
 const mapStateToProps = (state) => {
   const {
@@ -27,4 +28,4 @@ const mapDispatchToProps = (dispatch) => ({
   getCategories: (payload) => dispatch(getCategoriesRequest(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(ManagerApp);

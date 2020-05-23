@@ -13,25 +13,25 @@ export default class SideBar extends Component {
           name="banks"
           active={activeItem === 'banks'}
           as={Link}
-          to="/banks"
+          to="/manager/banks"
         />
         <Menu.Item
           name="groups"
           active={activeItem === 'groups'}
           as={Link}
-          to="/groups"
+          to="/manager/groups"
         />
         <Menu.Item
           name="transactions"
           active={activeItem === 'transactions'}
           as={Link}
-          to="/transactions"
+          to="/manager/transactions"
         />
         <Menu.Item
           name="goals"
           active={activeItem === 'goals'}
           as={Link}
-          to="/goals"
+          to="/manager/goals"
         />
       </Menu>
     );
