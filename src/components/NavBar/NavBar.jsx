@@ -1,27 +1,20 @@
+/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { Menu, Dropdown, Button } from 'semantic-ui-react';
 
 export default class NavBarView extends Component {
-  state = { activeItem: 'home' }
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleLogout = () => {
+    const { history, logout } = this.props;
+    localStorage.clear();
+    logout();
+    history.push('/signin');
+  }
 
   render() {
-    const { activeItem } = this.state;
+    const { tokens } = this.props;
 
     return (
       <Menu size="small">
-        <Menu.Item
-          name="home"
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name="messages"
-          active={activeItem === 'messages'}
-          onClick={this.handleItemClick}
-        />
-
         <Menu.Menu position="right">
           <Dropdown item text="Language">
             <Dropdown.Menu>
@@ -32,7 +25,11 @@ export default class NavBarView extends Component {
           </Dropdown>
 
           <Menu.Item>
-            <Button primary>Sign Up</Button>
+            {
+              (tokens.accessToken && tokens.refreshToken)
+                ? <Button primary onClick={this.handleLogout}>Logout</Button>
+                : <Button primary>Sign in</Button>
+            }
           </Menu.Item>
         </Menu.Menu>
       </Menu>

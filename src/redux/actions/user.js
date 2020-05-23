@@ -8,6 +8,7 @@ import {
   VERIFY_CODE_REQUEST,
   VERIFY_CODE_SUCCESS,
   VERIFY_CODE_ERROR,
+  LOGOUT,
 } from './types';
 
 export const signUpRequest = (payload = {}) => ({
@@ -52,5 +53,10 @@ export const verifyCodeSuccess = (payload = {}) => ({
 
 export const verifyCodeError = (payload = {}) => ({
   type: VERIFY_CODE_ERROR,
+  payload,
+});
+
+export const logout = (payload = {}) => ({
+  type: LOGOUT,
   payload,
 });

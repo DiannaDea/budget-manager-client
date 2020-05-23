@@ -9,6 +9,7 @@ import {
   VERIFY_CODE_REQUEST,
   VERIFY_CODE_SUCCESS,
   VERIFY_CODE_ERROR,
+  LOGOUT,
 } from '../actions/types';
 
 export default (state = initialState.user, action = {}) => {
@@ -55,7 +56,19 @@ export default (state = initialState.user, action = {}) => {
     [VERIFY_CODE_ERROR]: () => ({
       ...state,
       isFetching: false,
-      tokens: null,
+      tokens: {
+        accessToken: null,
+        refreshToken: null,
+      },
+      error: action.payload,
+    }),
+    [LOGOUT]: () => ({
+      ...state,
+      isFetching: false,
+      tokens: {
+        accessToken: null,
+        refreshToken: null,
+      },
       error: action.payload,
     }),
   };
