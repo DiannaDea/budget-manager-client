@@ -17,6 +17,11 @@ export default class Goals extends React.Component {
     getGoals({ groupId: selectedGroup });
   }
 
+  viewGoalProgress = (goalId) => {
+    const { history } = this.props;
+    history.push(`/manager/goals/${goalId}`);
+  }
+
   handleGroupSelect = (event, { value: group }) => {
     this.setState({ selectedGroup: group });
   }
@@ -52,7 +57,7 @@ export default class Goals extends React.Component {
           {
           goals.map((goal) => (
             <Grid.Column key={goal.goal.id}>
-              <GoalCard goal={goal} />
+              <GoalCard goal={goal} viewGoalProgress={this.viewGoalProgress} />
             </Grid.Column>
           ))
         }

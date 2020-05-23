@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { DateTime } from 'luxon';
@@ -12,7 +13,7 @@ class GoalCard extends React.Component {
     .toFormat('dd.MM.yyyy')
 
   render() {
-    const { goal } = this.props;
+    const { goal, viewGoalProgress } = this.props;
 
     return (
       <Card>
@@ -40,7 +41,7 @@ class GoalCard extends React.Component {
           <Grid>
             <Grid.Row columns={1}>
               <Grid.Column>
-                <Button fluid color="blue">View Progress</Button>
+                <Button fluid color="blue" onClick={() => viewGoalProgress(goal.goal._id)}>View Progress</Button>
               </Grid.Column>
             </Grid.Row>
           </Grid>
