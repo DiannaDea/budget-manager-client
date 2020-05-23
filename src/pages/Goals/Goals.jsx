@@ -1,8 +1,26 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/no-unused-state */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { Grid, Header, Message } from 'semantic-ui-react';
+import GroupsSelect from '../../components/ConnectCardModal/GroupsSelect';
+import GoalCard from '../../components/GoalCard';
 
 export default class Goals extends React.Component {
+  state = {
+    selectedGroup: this.props.groups[0].id,
+  }
+
+  componentDidMount() {
+    const { selectedGroup } = this.state;
+    const { getGoals } = this.props;
+    getGoals({ groupId: selectedGroup });
+  }
+
+  handleGroupSelect = (event, { value: group }) => {
+    this.setState({ selectedGroup: group });
+  }
+
   render() {
     const { goals = [] } = this.props;
 
@@ -13,16 +31,31 @@ export default class Goals extends React.Component {
             <Header as="h2">Goals</Header>
           </Grid.Column>
         </Grid.Row>
+        <Grid.Row columns={1}>
+          <Grid.Column>
+            <GroupsSelect
+              selectedGroup={this.state.selectedGroup}
+              handleGroupSelect={this.handleGroupSelect}
+            />
+          </Grid.Column>
+        </Grid.Row>
         <Grid.Row columns={3} centered>
           {
             (!goals.length)
               ? (
                 <Message
-                  header="Ooops... No goals created yet!"
+                  header="Please select group!"
                 />
               )
               : null
           }
+          {
+          goals.map((goal) => (
+            <Grid.Column key={goal.goal.id}>
+              <GoalCard goal={goal} />
+            </Grid.Column>
+          ))
+        }
         </Grid.Row>
       </Grid>
     );

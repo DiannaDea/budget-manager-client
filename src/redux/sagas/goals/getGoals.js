@@ -4,6 +4,9 @@ import { getGoalsSuccess, getGoalsError } from '../../actions/goals';
 import requestAPI from '../../../utils/requestAPI';
 
 export default function* getGoals({ payload }) {
+  Object.assign(payload, {
+    groupId: '5ec300f016901b0028ba2421',
+  });
   const queryParams = querystring.stringify(payload);
 
   try {
