@@ -31,6 +31,10 @@ export default {
     data: [],
     error: null,
   },
+  goals: {
+    data: [],
+    error: null,
+  },
   user: {
     error: null,
     info: null,
