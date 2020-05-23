@@ -14,7 +14,7 @@ const VerifyCode = ({
 
   return (
     <>
-      <Image src={qrcode} size="small" />
+      <Image src={qrcode} size="small" centered />
       <Form.Field
         control={Input}
         label="Verification code"
