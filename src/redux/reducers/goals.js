@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import initialState from '../store/initialState';
 import {
   GET_GOALS_REQUEST,
@@ -17,7 +18,7 @@ const createGoal = (goals, goalInfo) => [
   goalInfo,
 ];
 
-const deleteGoal = (goals, { goalId }) => goals.filter((goal) => goal.goal.id === goalId);
+const deleteGoal = (goals, { goalId }) => goals.filter((goal) => goal.goal._id !== goalId);
 
 export default (state = initialState.goals, action = {}) => {
   const { type } = action;

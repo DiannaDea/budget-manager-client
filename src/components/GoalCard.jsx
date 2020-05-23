@@ -6,6 +6,7 @@ import {
   Card, Button, Grid, Image, Icon,
 } from 'semantic-ui-react';
 import CardRow from './CardRow';
+import DeleteGoalModal from './DeleteGoalModal';
 
 class GoalCard extends React.Component {
   getDate = (date) => DateTime
@@ -39,9 +40,12 @@ class GoalCard extends React.Component {
         </Card.Content>
         <Card.Content>
           <Grid>
-            <Grid.Row columns={1}>
+            <Grid.Row columns={2}>
               <Grid.Column>
-                <Button fluid color="blue" onClick={() => viewGoalProgress(goal.goal._id)}>View Progress</Button>
+                <Button fluid color="blue" onClick={() => viewGoalProgress(DeleteGoalModal.goal._id)}>Progress</Button>
+              </Grid.Column>
+              <Grid.Column>
+                <DeleteGoalModal goal={goal} />
               </Grid.Column>
             </Grid.Row>
           </Grid>

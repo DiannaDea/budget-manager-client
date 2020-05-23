@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import { createGoalSuccess, createGoalError } from '../../actions/goals';
+import { deleteGoalSuccess, deleteGoalError } from '../../actions/goals';
 import requestAPI from '../../../utils/requestAPI';
 
 export default function* createGoal({ payload }) {
@@ -12,8 +12,8 @@ export default function* createGoal({ payload }) {
       port: '7000',
     });
 
-    yield put(createGoalSuccess({ goalId }));
+    yield put(deleteGoalSuccess({ goalId }));
   } catch (error) {
-    yield put(createGoalError(error));
+    yield put(deleteGoalError(error));
   }
 }
