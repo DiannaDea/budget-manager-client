@@ -10,6 +10,11 @@ export default class NavBarView extends Component {
     history.push('/signin');
   }
 
+  goToSignUp = () => {
+    const { history } = this.props;
+    history.push('/signup');
+  }
+
   render() {
     const { tokens } = this.props;
 
@@ -28,7 +33,7 @@ export default class NavBarView extends Component {
             {
               (tokens.accessToken && tokens.refreshToken)
                 ? <Button primary onClick={this.handleLogout}>Logout</Button>
-                : <Button primary>Sign in</Button>
+                : <Button primary onClick={this.goToSignUp}>Sign up</Button>
             }
           </Menu.Item>
         </Menu.Menu>

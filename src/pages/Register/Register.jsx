@@ -1,0 +1,10 @@
+/* eslint-disable react/prefer-stateless-function */
+import React from 'react';
+
+export default class Register extends React.Component {
+  render() {
+    return (
+      <p>Sign up</p>
+    );
+  }
+}

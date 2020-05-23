@@ -9,6 +9,7 @@ import { Route } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import ManagerApp from './components/ManagerApp';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 import Banks from './pages/Banks';
 import Groups from './pages/Groups';
@@ -58,6 +59,10 @@ export const appRoutes = [
   {
     path: '/signin',
     component: Login,
+  },
+  {
+    path: '/signup',
+    component: Register,
   },
 ];
 
