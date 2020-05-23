@@ -13,6 +13,7 @@ import Register from './pages/Register';
 
 import Banks from './pages/Banks';
 import Groups from './pages/Groups';
+import Goals from './pages/Goals';
 import Cards from './pages/Cards';
 import Transactions from './pages/Transactions';
 
@@ -43,6 +44,13 @@ export const managerRoutes = [
     key: 4,
     exact: true,
     component: Transactions,
+    isProtected: true,
+  },
+  {
+    path: '/manager/goals',
+    key: 5,
+    exact: true,
+    component: Goals,
     isProtected: true,
   },
 ];
