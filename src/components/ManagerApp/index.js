@@ -8,8 +8,10 @@ import ManagerApp from './ManagerApp.view';
 const mapStateToProps = (state) => {
   const {
     user: {
-      accessToken,
-      refreshToken,
+      tokens: {
+        accessToken,
+        refreshToken,
+      },
     },
     groups: {
       data: groups,

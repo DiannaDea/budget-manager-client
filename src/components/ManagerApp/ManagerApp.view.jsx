@@ -6,8 +6,11 @@ import SideBar from '../SideBar';
 
 export default class ManagerApp extends React.Component {
   componentDidMount() {
+    const userId = localStorage.getItem('userId');
+
     const { getGroups, getCategories } = this.props;
-    getGroups();
+
+    getGroups({ userId });
     getCategories();
   }
 

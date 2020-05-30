@@ -1,12 +1,16 @@
 import { put, call } from 'redux-saga/effects';
+import querystring from 'querystring';
 import { getGroupsSuccess, getGroupsError } from '../../actions/groups';
 import requestAPI from '../../../utils/requestAPI';
 
-export default function* getGroups() {
+export default function* getGroups({ payload }) {
+  const queryParams = querystring.stringify(payload);
+
   try {
     const response = yield call(requestAPI, {
-      url: '/cards-service/api/test/groups',
+      url: `/api/users-service/groups?${queryParams}`,
       method: 'GET',
+      port: 7000,
     });
 
     const {
