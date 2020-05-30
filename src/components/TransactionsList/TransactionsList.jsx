@@ -20,6 +20,7 @@ export default class TransactionsList extends Component {
       getTransactions({
         ...reqParams,
         ...pagination,
+        userId: localStorage.getItem('userId'),
       });
     }
   }

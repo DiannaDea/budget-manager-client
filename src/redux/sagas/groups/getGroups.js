@@ -10,7 +10,7 @@ export default function* getGroups({ payload }) {
     const response = yield call(requestAPI, {
       url: `/api/users-service/groups?${queryParams}`,
       method: 'GET',
-      port: 7000,
+      port: '7000',
     });
 
     const {

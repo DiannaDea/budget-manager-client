@@ -22,10 +22,11 @@ const compareBanks = (banks1, banks2) => banks1.every((bank1, index) => {
 class CardsContainer extends Component {
   componentDidUpdate(prevProps) {
     const { getBanks, groups, banks } = this.props;
+    const userId = localStorage.getItem('userId');
 
     if (prevProps.groups.length !== groups.length) {
       const groupIds = groups.map((group) => group.id).join(',');
-      getBanks({ groupIds });
+      getBanks({ groupIds, userId });
     }
 
     if (
@@ -34,7 +35,7 @@ class CardsContainer extends Component {
       && compareBanks(banks, prevProps.banks)
     ) {
       const groupIds = groups.map((group) => group.id).join(',');
-      getBanks({ groupIds });
+      getBanks({ groupIds, userId });
     }
   }
 

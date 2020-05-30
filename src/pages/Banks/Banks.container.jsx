@@ -6,24 +6,26 @@ import { getBanksRequest, deleteBankRequest } from '../../redux/actions/banks';
 class BanksContainer extends Component {
   componentDidMount() {
     const { getBanks, groups } = this.props;
+    const userId = localStorage.getItem('userId');
 
     if (groups.length) {
       const groupIds = groups.map((group) => group.id).join(',');
-      getBanks({ groupIds });
+      getBanks({ groupIds, userId });
     }
   }
 
   componentDidUpdate(prevProps) {
     const { getBanks, newCardAdded, groups } = this.props;
+    const userId = localStorage.getItem('userId');
 
     if (prevProps.groups.length !== groups.length) {
       const groupIds = groups.map((group) => group.id).join(',');
-      getBanks({ groupIds });
+      getBanks({ groupIds, userId });
     }
 
     if (prevProps.newCardAdded !== newCardAdded && newCardAdded && groups.length) {
       const groupIds = groups.map((group) => group.id).join(',');
-      getBanks({ groupIds });
+      getBanks({ groupIds, userId });
     }
   }
 

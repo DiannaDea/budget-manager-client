@@ -19,7 +19,7 @@ export default class TransactionsFilter extends Component {
 
     if (groups.length) {
       const groupIds = groups.map((group) => group.id).join(',');
-      getFilters({ groupIds });
+      getFilters({ groupIds, userId: localStorage.getItem('userId') });
     }
   }
 
@@ -28,7 +28,7 @@ export default class TransactionsFilter extends Component {
 
     if (prevProps.groups.length !== groups.length) {
       const groupIds = groups.map((group) => group.id).join(',');
-      getFilters({ groupIds });
+      getFilters({ groupIds, userId: localStorage.getItem('userId') });
     }
 
     if (prevProps.filters !== filters) {
@@ -86,6 +86,7 @@ export default class TransactionsFilter extends Component {
     getTransactions({
       ...reqParams,
       ...pagination,
+      userId: localStorage.getItem('userId'),
     });
   }
 
@@ -98,7 +99,7 @@ export default class TransactionsFilter extends Component {
       appliedFilters,
       dateRange,
     );
-    getTransactions({ ...requestParams, ...pagination });
+    getTransactions({ ...requestParams, ...pagination, userId: localStorage.getItem('userId') });
   }
 
   handleDateChange = (date, type) => {
