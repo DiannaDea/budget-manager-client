@@ -84,7 +84,7 @@ export default class GoalProgress extends React.Component {
 
   generateIdealProgress = (progress) => ({
     label: 'Ideal progress',
-    data: progress.map((p) => p.idealAmountToSave).filter(Boolean),
+    data: progress.map((p) => Math.round(p.idealAmountToSave)).filter(Boolean),
     ...commonSettings,
     backgroundColor: chartColors.green,
     borderColor: chartColors.green,
