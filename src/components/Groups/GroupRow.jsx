@@ -1,8 +1,9 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import {
-  Grid, Icon, Image, Button, Segment, Card,
+  Grid, Icon, Image, Segment, Card,
 } from 'semantic-ui-react';
+import GroupModal from './GroupModal';
 
 const Row = ({ leftText, rightText }) => (
   <Card.Description>
@@ -55,10 +56,7 @@ class GroupRow extends React.Component {
             </Grid.Column>
 
             <Grid.Column width={3}>
-              <Button icon>
-                More
-                <Icon name="angle right" />
-              </Button>
+              <GroupModal group={group} />
             </Grid.Column>
 
           </Grid.Row>
