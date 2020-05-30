@@ -21,7 +21,7 @@ class GoalCard extends React.Component {
         <Card.Content>
           <Image
             as={Icon}
-            name="users"
+            name="star outline"
             floated="left"
             size="big"
             circular

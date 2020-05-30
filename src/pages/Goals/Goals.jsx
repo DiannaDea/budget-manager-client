@@ -48,6 +48,7 @@ export default class Goals extends React.Component {
   }
 
   render() {
+    const { selectedGroup } = this.state;
     const { goals = [] } = this.props;
 
     return (
@@ -63,7 +64,7 @@ export default class Goals extends React.Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1}>
-          <Grid.Column textAlign="center">
+          <Grid.Column>
             <Form>
               <GroupsSelect
                 inline
@@ -78,7 +79,7 @@ export default class Goals extends React.Component {
             (!goals.length)
               ? (
                 <Message
-                  header="Please select group!"
+                  header={selectedGroup ? 'No goals for this group!' : 'Please select group!'}
                 />
               )
               : null

@@ -3,10 +3,6 @@ import { createGoalSuccess, createGoalError } from '../../actions/goals';
 import requestAPI from '../../../utils/requestAPI';
 
 export default function* createGoal({ payload }) {
-  Object.assign(payload, {
-    groupId: '5ec300f016901b0028ba2421',
-  });
-
   try {
     const response = yield call(requestAPI, {
       url: '/api/users-service/goals',

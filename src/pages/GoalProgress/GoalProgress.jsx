@@ -63,7 +63,7 @@ const commonSettings = {
 };
 
 export default class GoalProgress extends React.Component {
-  getMonthLabels = (progress) => progress.map(({ month }) => months[month - 1])
+  getMonthLabels = (progress) => progress.map(({ month, year }) => `${months[month - 1]}, ${year}`)
 
   getDate = (date) => DateTime
     .fromISO(date)
