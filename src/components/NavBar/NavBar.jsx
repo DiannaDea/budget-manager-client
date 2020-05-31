@@ -1,8 +1,19 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { Menu, Dropdown, Button } from 'semantic-ui-react';
 
-export default class NavBarView extends Component {
+const languanges = [
+  { key: 'en', text: 'English', value: 'en' },
+  { key: 'ua', text: 'Ukrainian', value: 'ua' },
+];
+
+class NavBarView extends Component {
+  state = {
+    lang: localStorage.getItem('i18nextLng') || 'en',
+  }
+
   handleLogout = () => {
     const { history, logout } = this.props;
     localStorage.clear();
@@ -15,24 +26,32 @@ export default class NavBarView extends Component {
     history.push('/signup');
   }
 
+  handleLanguageChange = (event, { value: lang }) => {
+    const { i18n } = this.props;
+    i18n.changeLanguage(lang);
+    this.setState({
+      lang,
+    });
+  }
+
   render() {
-    const { tokens } = this.props;
+    const { lang } = this.state;
+    const { tokens, t } = this.props;
 
     return (
       <Menu size="small">
         <Menu.Menu position="right">
-          <Dropdown item text="Language">
-            <Dropdown.Menu>
-              <Dropdown.Item>English</Dropdown.Item>
-              <Dropdown.Item>Russian</Dropdown.Item>
-              <Dropdown.Item>Spanish</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <Dropdown
+            options={languanges}
+            item
+            onChange={this.handleLanguageChange}
+            value={lang}
+          />
 
           <Menu.Item>
             {
               (tokens.accessToken && tokens.refreshToken)
-                ? <Button primary onClick={this.handleLogout}>Logout</Button>
+                ? <Button primary onClick={this.handleLogout}>{t('logout')}</Button>
                 : <Button primary onClick={this.goToSignUp}>Sign up</Button>
             }
           </Menu.Item>
@@ -41,3 +60,5 @@ export default class NavBarView extends Component {
     );
   }
 }
+
+export default withTranslation()(NavBarView);
