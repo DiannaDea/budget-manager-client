@@ -8,12 +8,18 @@ import { DateTime } from 'luxon';
 import {
   Grid, Header, Divider, Button, Icon, Statistic,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import { Line } from 'react-chartjs-2';
 import CardRow from '../../components/CardRow';
 
 const months = [
   'January', 'February', 'March', 'April', 'May',
   'June', 'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+const monthsUA = [
+  'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень',
+  'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень',
 ];
 
 const chartColors = {
@@ -62,8 +68,11 @@ const commonSettings = {
   fill: false,
 };
 
-export default class GoalProgress extends React.Component {
-  getMonthLabels = (progress) => progress.map(({ month, year }) => `${months[month - 1]}, ${year}`)
+export default withTranslation()(class GoalProgress extends React.Component {
+  getMonthLabels = (progress) => {
+    const m = localStorage.getItem('lang') === 'ua' ? monthsUA : months;
+    return progress.map(({ month, year }) => `${m[month - 1]}, ${year}`);
+  }
 
   getDate = (date) => DateTime
     .fromISO(date)
@@ -74,36 +83,36 @@ export default class GoalProgress extends React.Component {
     return goals.find(({ goal }) => goal._id === goalId);
   }
 
-  generateRealProgress = (progress) => ({
-    label: 'Worst progress',
+  generateRealProgress = (progress, t) => ({
+    label: t('goalChartWorstProgress'),
     data: progress.map((p) => p.amountToSave),
     ...commonSettings,
     backgroundColor: chartColors.red,
     borderColor: chartColors.red,
   })
 
-  generateIdealProgress = (progress) => ({
-    label: 'Best progress',
+  generateIdealProgress = (progress, t) => ({
+    label: t('goalChartBestProgress'),
     data: progress.map((p) => Math.round(p.idealAmountToSave)).filter(Boolean),
     ...commonSettings,
     backgroundColor: chartColors.green,
     borderColor: chartColors.green,
   })
 
-  generareLiveProgress = (progress) => ({
-    label: 'Live progress',
+  generareLiveProgress = (progress, t) => ({
+    label: t('goalChartLiveProgress'),
     data: progress.map((p) => p.amountSaved),
     ...commonSettings,
     backgroundColor: chartColors.yellow,
     borderColor: chartColors.yellow,
   })
 
-  generateChart = (progress) => ({
+  generateChart = (progress, t) => ({
     labels: this.getMonthLabels(progress),
     datasets: [
-      this.generateIdealProgress(progress),
-      this.generareLiveProgress(progress),
-      this.generateRealProgress(progress),
+      this.generateIdealProgress(progress, t),
+      this.generareLiveProgress(progress, t),
+      this.generateRealProgress(progress, t),
     ],
   })
 
@@ -124,36 +133,36 @@ export default class GoalProgress extends React.Component {
     return goal.goal.amount - alreadySaved;
   }
 
-  generateDescription = (goal) => {
+  generateDescription = (goal, t) => {
     if (!goal) {
       return [];
     }
 
     return [
       {
-        leftText: 'Description',
+        leftText: t('goalDescriprion'),
         rightText: goal.goal.description,
       },
       {
-        leftText: 'Best save per month',
+        leftText: t('goalBestSavePerMonth'),
         rightText: `${Math.round(goal.progress[0].idealAmountToSave, 2)} UAH`,
         id: 'best-save',
       },
       {
-        leftText: 'Worst save per month',
+        leftText: t('goalWorstSavePerMonth'),
         rightText: `${goal.goal.savePerMonth} UAH`,
         id: 'worst-save',
       },
       {
-        leftText: 'Number of months',
+        leftText: t('goalNumberOfMonths'),
         rightText: goal.goal.monthCount,
       },
       {
-        leftText: 'Start date',
+        leftText: t('goalStartDate'),
         rightText: this.getDate(goal.goal.dateStart),
       },
       {
-        leftText: 'End date',
+        leftText: t('goalEndDate'),
         rightText: this.getDate(goal.goal.dateEnd),
       },
     ];
@@ -173,9 +182,11 @@ export default class GoalProgress extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
+
     const goal = this.getGoal();
-    const chart = (goal) ? this.generateChart(goal.progress) : null;
-    const description = this.generateDescription(goal);
+    const chart = (goal) ? this.generateChart(goal.progress, t) : null;
+    const description = this.generateDescription(goal, t);
 
     return (
       <Grid relaxed>
@@ -183,13 +194,13 @@ export default class GoalProgress extends React.Component {
           <Grid.Column>
             <Button floated="left" onClick={this.goBackToGoalsPage}>
               <Icon name="angle left" />
-              Back
+              {t('btnBack')}
             </Button>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1}>
           <Grid.Column textAlign="center">
-            <Header as="h2">{(goal) ? `Goal: ${goal.goal.name}` : ''}</Header>
+            <Header as="h2">{(goal) ? `${t('goalTitle')}: ${goal.goal.name}` : ''}</Header>
           </Grid.Column>
         </Grid.Row>
 
@@ -200,21 +211,21 @@ export default class GoalProgress extends React.Component {
           <Grid.Column textAlign="center">
             <Statistic color="green">
               <Statistic.Value>{ goal ? goal.goal.amount : '' }</Statistic.Value>
-              <Statistic.Label>Goal amount (UAH)</Statistic.Label>
+              <Statistic.Label>{t('goalAmount')}</Statistic.Label>
             </Statistic>
           </Grid.Column>
 
           <Grid.Column textAlign="center">
             <Statistic color="yellow">
               <Statistic.Value>{ this.getAlreadySaved(goal) }</Statistic.Value>
-              <Statistic.Label>Already saved (UAH)</Statistic.Label>
+              <Statistic.Label>{t('goalAlreadySaved')}</Statistic.Label>
             </Statistic>
           </Grid.Column>
 
           <Grid.Column textAlign="center">
             <Statistic color="red">
               <Statistic.Value>{ this.getSaveMore(goal) }</Statistic.Value>
-              <Statistic.Label>To save (UAH)</Statistic.Label>
+              <Statistic.Label>{t('goalToSave')}</Statistic.Label>
             </Statistic>
           </Grid.Column>
 
@@ -241,4 +252,4 @@ export default class GoalProgress extends React.Component {
       </Grid>
     );
   }
-}
+});
