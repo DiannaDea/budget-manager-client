@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Card, Button, Grid, Image,
 } from 'semantic-ui-react';
+import { DateTime } from 'luxon';
 import { withTranslation } from 'react-i18next';
 import CardRow from '../CardRow';
 import DeleteBankModal from '../DeleteBankModal';
@@ -50,6 +51,8 @@ class BankCard extends React.Component {
     return `${Math.round(balance)} UAH`;
   }
 
+  getDate = () => DateTime.local().toFormat('dd.MM.yyyy')
+
   render() {
     const {
       bank, viewCards, deleteBank, t,
@@ -71,7 +74,7 @@ class BankCard extends React.Component {
           <CardRow leftText={t('bankCardBalance')} rightText={this.getBankBalance(bank)} />
         </Card.Content>
         <Card.Content>
-          <CardRow leftText={t('bankCardLastUpdate')} rightText="20.12.2020" />
+          <CardRow leftText={t('bankCardLastUpdate')} rightText={this.getDate()} />
         </Card.Content>
         <Card.Content>
           <Grid>
