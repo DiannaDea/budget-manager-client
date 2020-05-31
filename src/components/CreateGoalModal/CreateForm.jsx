@@ -3,16 +3,17 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { Form, Input, Grid } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import DatePicker from 'react-datepicker';
 import GroupsSelect from '../ConnectCardModal/GroupsSelect';
 
-export default class CreateGoalForm extends React.Component {
+export default withTranslation()(class CreateGoalForm extends React.Component {
   render() {
     const {
       groupId, name, description, amount,
       savePerMonth, handleInputChange,
       dateStart, dateEnd,
-      errorField, errorMessage,
+      errorField, errorMessage, t,
     } = this.props;
 
     const error = {
@@ -34,8 +35,8 @@ export default class CreateGoalForm extends React.Component {
 
               <Form.Field
                 control={Input}
-                label="Name"
-                placeholder="Name"
+                label={t('goalName')}
+                placeholder={t('goalName')}
                 defaultValue={name}
                 onChange={(e, { value }) => handleInputChange('name', value)}
                 {...(errorField === 'name' ? { error } : {})}
@@ -43,8 +44,8 @@ export default class CreateGoalForm extends React.Component {
 
               <Form.Field
                 control={Input}
-                label="Description"
-                placeholder="Description"
+                label={t('goalDescriprion')}
+                placeholder={t('goalDescriprion')}
                 defaultValue={description}
                 onChange={(e, { value }) => handleInputChange('description', value)}
                 {...(errorField === 'description' ? { error } : {})}
@@ -53,8 +54,8 @@ export default class CreateGoalForm extends React.Component {
               <Form.Field
                 control={Input}
                 type="number"
-                label="Amount"
-                placeholder="Amount"
+                label={t('goalAmount')}
+                placeholder={t('goalAmount')}
                 defaultValue={amount}
                 onChange={(e, { value }) => handleInputChange('amount', value)}
                 {...(errorField === 'amount' ? { error } : {})}
@@ -63,8 +64,8 @@ export default class CreateGoalForm extends React.Component {
               <Form.Field
                 control={Input}
                 type="number"
-                label="Save per month"
-                placeholder="Save per month"
+                label={t('goalSavePerMonth')}
+                placeholder={t('goalSavePerMonth')}
                 defaultValue={savePerMonth}
                 onChange={(e, { value }) => handleInputChange('savePerMonth', value)}
                 {...(errorField === 'savePerMonth' ? { error } : {})}
@@ -75,7 +76,7 @@ export default class CreateGoalForm extends React.Component {
             <Grid.Column>
 
               <div className="field">
-                <label>Start date</label>
+                <label>{t('goalStartDate')}</label>
                 <DatePicker
                   dateFormat="MMMM d, yyyy"
                   selected={new Date(dateStart)}
@@ -84,7 +85,7 @@ export default class CreateGoalForm extends React.Component {
               </div>
 
               <div className="field">
-                <label>End date</label>
+                <label>{t('goalEndDate')}</label>
                 <DatePicker
                   dateFormat="MMMM d, yyyy"
                   selected={new Date(dateEnd)}
@@ -99,4 +100,4 @@ export default class CreateGoalForm extends React.Component {
       </Form>
     );
   }
-}
+});

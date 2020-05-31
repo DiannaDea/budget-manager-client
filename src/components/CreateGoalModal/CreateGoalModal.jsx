@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import {
   Button, Icon, Modal, Message,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import CreateGoalForm from './CreateForm';
 
 const createGoalValidation = Yup.object().shape({
@@ -39,7 +40,7 @@ const initialState = {
   errorMessage: null,
 };
 
-export default class CreateGoalModal extends Component {
+export default withTranslation()(class CreateGoalModal extends Component {
   state = {
     ...initialState,
   }
@@ -97,7 +98,7 @@ export default class CreateGoalModal extends Component {
   }
 
   render() {
-    const { goalsChanged } = this.props;
+    const { goalsChanged, t } = this.props;
     const { modalOpen } = this.state;
 
     return (
@@ -105,14 +106,14 @@ export default class CreateGoalModal extends Component {
         trigger={(
           <Button color="green" circular floated="right" onClick={this.handleOpen}>
             <Icon name="add" />
-            Create goal
+            {t('createGoalBtn')}
           </Button>
         )}
         open={modalOpen}
         onClose={this.handleClose}
         size="small"
       >
-        <Modal.Header>Create financial goal</Modal.Header>
+        <Modal.Header>{t('createGoalHeader')}</Modal.Header>
         <Modal.Content>
 
           {
@@ -120,8 +121,8 @@ export default class CreateGoalModal extends Component {
               ? (
                 <Message
                   success
-                  header="Success!"
-                  content="Financial goal was added"
+                  header={t('successMessageTitle')}
+                  content={t('createGoalMessage')}
                 />
               )
               : null
@@ -142,7 +143,7 @@ export default class CreateGoalModal extends Component {
           >
             <Icon name="check" />
             {' '}
-            Create
+            {t('saveBtn')}
           </Button>
         </Modal.Content>
 
@@ -150,10 +151,10 @@ export default class CreateGoalModal extends Component {
           <Button onClick={this.handleClose} color="grey">
             <Icon name="close" />
             {' '}
-            Close
+            {t('closeBtn')}
           </Button>
         </Modal.Actions>
       </Modal>
     );
   }
-}
+});
