@@ -1,6 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import { chunk } from 'lodash';
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import {
   Grid, Icon, Image, Card, Button,
 } from 'semantic-ui-react';
@@ -56,7 +57,7 @@ const TransactionRow = ({ leftText, rightText }) => (
   </Card.Description>
 );
 
-export default class TransactionsItem extends Component {
+export default withTranslation()(class TransactionsItem extends Component {
   getCardNumber = (cardNumber) => {
     if (!cardNumber) {
       return '';
@@ -68,14 +69,14 @@ export default class TransactionsItem extends Component {
   }
 
   getBankInfo = () => {
-    const { transaction } = this.props;
+    const { transaction, t } = this.props;
 
     if (!transaction) {
       return '';
     }
 
     if (transaction.card.owner === 1) {
-      return 'Custom transaction';
+      return t('customTransaction');
     }
 
     const cardNumber = this.getCardNumber(transaction.card.cardNumber);
@@ -83,7 +84,7 @@ export default class TransactionsItem extends Component {
   }
 
   render() {
-    const { transaction } = this.props;
+    const { transaction, t } = this.props;
 
     const amountStyles = {
       color: (transaction.operationAmount < 0) ? '#e05959' : '#33a933',
@@ -119,8 +120,8 @@ export default class TransactionsItem extends Component {
 
           <Grid.Column width={9} textAlign="left">
             <TransactionHeader text={transaction.description} styles={descriptionStyles} />
-            <TransactionRow leftText="Bank" rightText={this.getBankInfo()} />
-            <TransactionRow leftText="Group" rightText={transaction.group.name} />
+            <TransactionRow leftText={t('bankSelect')} rightText={this.getBankInfo()} />
+            <TransactionRow leftText={t('cardItemGroup')} rightText={transaction.group.name} />
           </Grid.Column>
 
           <Grid.Column width={3} textAlign="left">
@@ -138,4 +139,4 @@ export default class TransactionsItem extends Component {
       </Grid>
     );
   }
-}
+});

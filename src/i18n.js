@@ -79,6 +79,7 @@ i18n.use(LanguageDetector).init({
         createTransaction: 'Create transaction',
         deleteTransactionTitle: 'Delete transaction',
         deleteTransactionDescription: 'Are you sure that you want to delete transaction?',
+        customTransaction: 'Custom transaction',
       },
     },
     ua: {
@@ -157,6 +158,7 @@ i18n.use(LanguageDetector).init({
         createTransaction: 'Створити транзакцію',
         deleteTransactionTitle: 'Видалити транзакцію',
         deleteTransactionDescription: 'Ви впевнені, що хочете видалити транзакцію?',
+        customTransaction: 'Користувацьа транзакція',
       },
     },
   },
