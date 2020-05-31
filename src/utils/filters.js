@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 
 const transformation = {
   groups: {
-    title: 'Groups',
+    title: (t) => t('groupsTab'),
     type: 'groups',
     requestParam: 'groupIds',
     getOptions: ({ groups }) => groups.map((group) => ({
@@ -13,7 +13,7 @@ const transformation = {
     })),
   },
   banks: {
-    title: 'Banks',
+    title: (t) => t('banksTab'),
     type: 'banks',
     requestParam: 'bankIds',
     getOptions: ({ banks }) => {
@@ -61,7 +61,7 @@ const transformation = {
   //   }),
   // },
   categories: {
-    title: 'Categories',
+    title: (t) => t('categoriesTab'),
     type: 'categories',
     requestParam: 'categoryIds',
     getOptions: ({ categories }) => categories.map((category) => ({
@@ -72,7 +72,7 @@ const transformation = {
   },
 };
 
-export function flatFilters(filters) {
+export function flatFilters(filters, t) {
   const filterOptions = Object.keys(filters).map((filterName) => {
     const config = transformation[filterName];
 
@@ -83,7 +83,7 @@ export function flatFilters(filters) {
     const options = config.getOptions(filters);
 
     return {
-      title: config.title,
+      title: config.title(t),
       type: config.type,
       requestParam: config.requestParam,
       options,

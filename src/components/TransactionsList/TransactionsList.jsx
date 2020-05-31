@@ -1,12 +1,13 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { flatFilters, transformFiltersToRequestParams } from '../../utils/filters';
 import TransactionsGroups from './TransactionsGroup';
 
-export default class TransactionsList extends Component {
+export default withTranslation()(class TransactionsList extends Component {
   componentDidUpdate(prevProps) {
     const {
-      groups, filters, getTransactions, pagination, transactionsChanged,
+      groups, filters, getTransactions, pagination, transactionsChanged, t,
     } = this.props;
 
     if (
@@ -14,7 +15,7 @@ export default class TransactionsList extends Component {
       || (prevProps.pagination.page !== pagination.page)
       || (prevProps.transactionsChanged !== transactionsChanged)
     ) {
-      const { appliedFilters, dateRange } = flatFilters(filters);
+      const { appliedFilters, dateRange } = flatFilters(filters, t);
       const reqParams = transformFiltersToRequestParams(groups, appliedFilters, dateRange);
 
       getTransactions({
@@ -50,4 +51,4 @@ export default class TransactionsList extends Component {
       </>
     );
   }
-}
+});

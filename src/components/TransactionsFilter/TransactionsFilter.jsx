@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Grid } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import DateFilterBlock from './DateFilterBlock';
 import FilterBlock from './FilterBlock';
 
 import { flatFilters, transformFiltersToRequestParams } from '../../utils/filters';
 
-export default class TransactionsFilter extends Component {
+export default withTranslation()(class TransactionsFilter extends Component {
   state = {
     appliedFilters: [],
     dateRange: {
@@ -37,9 +38,9 @@ export default class TransactionsFilter extends Component {
   }
 
   setFiltersInState = () => {
-    const { filters } = this.props;
+    const { filters, t } = this.props;
 
-    const flatten = flatFilters(filters);
+    const flatten = flatFilters(filters, t);
     this.setState(flatten);
   }
 
@@ -72,7 +73,7 @@ export default class TransactionsFilter extends Component {
 
   resetFilters = () => {
     const {
-      filters, groups, pagination, getTransactions,
+      filters, groups, pagination, getTransactions, t,
     } = this.props;
 
     this.setFiltersInState();
@@ -80,7 +81,7 @@ export default class TransactionsFilter extends Component {
       dateRange: filters.dates,
     });
 
-    const { appliedFilters, dateRange } = flatFilters(filters);
+    const { appliedFilters, dateRange } = flatFilters(filters, t);
     const reqParams = transformFiltersToRequestParams(groups, appliedFilters, dateRange);
 
     getTransactions({
@@ -116,6 +117,7 @@ export default class TransactionsFilter extends Component {
 
   render() {
     const { appliedFilters, dateRange } = this.state;
+    const { t } = this.props;
 
     const filterBlocks = appliedFilters.map((filter) => (
       (
@@ -142,10 +144,10 @@ export default class TransactionsFilter extends Component {
         <Grid divided="vertically">
           <Grid.Row columns={2}>
             <Grid.Column>
-              <Button fluid onClick={this.applyFilters}>Apply</Button>
+              <Button fluid onClick={this.applyFilters}>{t('applyFiltersBtn')}</Button>
             </Grid.Column>
             <Grid.Column>
-              <Button fluid onClick={this.resetFilters}>Reset</Button>
+              <Button fluid onClick={this.resetFilters}>{t('resetFiltersBtn')}</Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -154,4 +156,4 @@ export default class TransactionsFilter extends Component {
       </>
     );
   }
-}
+});
