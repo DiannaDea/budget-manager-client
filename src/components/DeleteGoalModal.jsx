@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import {
   Button, Icon, Modal,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import { deleteGoalRequest } from '../redux/actions/goals';
 
 class DeleteGoalModal extends Component {
@@ -26,20 +27,20 @@ class DeleteGoalModal extends Component {
   }
 
   render() {
-    const { goal } = this.props;
+    const { goal, t } = this.props;
 
     return (
       <Modal
-        trigger={<Button fluid color="red" onClick={this.handleOpen}>Delete</Button>}
+        trigger={<Button fluid color="red" onClick={this.handleOpen}>{t('deleteBtn')}</Button>}
         open={this.state.modalOpen}
         onClose={this.handleClose}
         size="mini"
       >
-        <Modal.Header>Delete goal</Modal.Header>
+        <Modal.Header>{t('deleteGoalTitle')}</Modal.Header>
 
         <Modal.Content>
           <p>
-            Are you sure that you want to delete goal:
+            {t('deleteGoalMessage')}
             {' '}
             {(goal) ? goal.goal.name : ''}
             ?
@@ -49,12 +50,12 @@ class DeleteGoalModal extends Component {
           <Button color="red" inverted onClick={this.handleClose}>
             <Icon name="remove" />
             {' '}
-            No
+            {t('btnNo')}
           </Button>
           <Button color="green" inverted onClick={this.deleteGoal}>
             <Icon name="checkmark" />
             {' '}
-            Yes
+            {t('btnYes')}
           </Button>
         </Modal.Actions>
       </Modal>
@@ -66,4 +67,4 @@ const mapDispatchToProps = (dispatch) => ({
   deleteGoal: (payload) => dispatch(deleteGoalRequest(payload)),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(DeleteGoalModal);
+export default withTranslation()(connect(() => ({}), mapDispatchToProps)(DeleteGoalModal));

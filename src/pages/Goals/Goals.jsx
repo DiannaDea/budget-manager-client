@@ -6,11 +6,12 @@ import React from 'react';
 import {
   Grid, Header, Message, Form,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import GroupsSelect from '../../components/ConnectCardModal/GroupsSelect';
 import GoalCard from '../../components/GoalCard';
 import CreateGoalModal from '../../components/CreateGoalModal';
 
-export default class Goals extends React.Component {
+export default withTranslation()(class Goals extends React.Component {
   state = {
     selectedGroup: null,
   }
@@ -49,13 +50,13 @@ export default class Goals extends React.Component {
 
   render() {
     const { selectedGroup } = this.state;
-    const { goals = [] } = this.props;
+    const { goals = [], t } = this.props;
 
     return (
       <Grid>
         <Grid.Row columns={1} textAlign="center">
           <Grid.Column>
-            <Header as="h2">Goals</Header>
+            <Header as="h2">{t('goalsTab')}</Header>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1} textAlign="center">
@@ -79,7 +80,7 @@ export default class Goals extends React.Component {
             (!goals.length)
               ? (
                 <Message
-                  header={selectedGroup ? 'No goals for this group!' : 'Please select group!'}
+                  header={selectedGroup ? t('noGoalsMessage') : t('goalSelectGroupMessage')}
                 />
               )
               : null
@@ -95,4 +96,4 @@ export default class Goals extends React.Component {
       </Grid>
     );
   }
-}
+});

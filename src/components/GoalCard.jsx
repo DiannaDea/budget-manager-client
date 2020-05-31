@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import {
   Card, Button, Grid, Image, Icon,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import CardRow from './CardRow';
 import DeleteGoalModal from './DeleteGoalModal';
 
@@ -14,7 +15,7 @@ class GoalCard extends React.Component {
     .toFormat('dd.MM.yyyy')
 
   render() {
-    const { goal, viewGoalProgress } = this.props;
+    const { goal, viewGoalProgress, t } = this.props;
 
     return (
       <Card>
@@ -32,17 +33,17 @@ class GoalCard extends React.Component {
           <Card.Meta>{goal.goal.description}</Card.Meta>
         </Card.Content>
         <Card.Content>
-          <CardRow leftText="Goal start" rightText={this.getDate(goal.goal.dateStart)} />
-          <CardRow leftText="Goal end" rightText={this.getDate(goal.goal.dateEnd)} />
+          <CardRow leftText={t('goalStart')} rightText={this.getDate(goal.goal.dateStart)} />
+          <CardRow leftText={t('goalEnd')} rightText={this.getDate(goal.goal.dateEnd)} />
         </Card.Content>
         <Card.Content>
-          <CardRow leftText="Amount" rightText={`${goal.goal.amount} UAH`} />
+          <CardRow leftText={t('goalAmountLine')} rightText={`${goal.goal.amount} UAH`} />
         </Card.Content>
         <Card.Content>
           <Grid>
             <Grid.Row columns={2}>
               <Grid.Column>
-                <Button fluid color="blue" onClick={() => viewGoalProgress(goal.goal._id)}>Progress</Button>
+                <Button fluid color="blue" onClick={() => viewGoalProgress(goal.goal._id)}>{t('goalProgress')}</Button>
               </Grid.Column>
               <Grid.Column>
                 <DeleteGoalModal goal={goal} />
@@ -55,4 +56,4 @@ class GoalCard extends React.Component {
   }
 }
 
-export default GoalCard;
+export default withTranslation()(GoalCard);
