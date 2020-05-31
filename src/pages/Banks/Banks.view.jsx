@@ -2,18 +2,21 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { Grid, Header, Message } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import BankCard from '../../components/BankCard';
 import ConnectCardModal from '../../components/ConnectCardModal';
 
-export default class BanksView extends Component {
+class BanksView extends Component {
   render() {
-    const { banks, viewCards, deleteBank } = this.props;
+    const {
+      banks, viewCards, deleteBank, t,
+    } = this.props;
 
     return (
       <Grid>
         <Grid.Row columns={1} textAlign="center">
           <Grid.Column>
-            <Header as="h2">Banks</Header>
+            <Header as="h2">{t('banksTab')}</Header>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1} textAlign="center">
@@ -26,7 +29,7 @@ export default class BanksView extends Component {
             (!banks.length)
               ? (
                 <Message
-                  header="Ooops... No banks connected yet!"
+                  header={t('messageNoBanks')}
                 />
               )
               : null
@@ -45,3 +48,5 @@ export default class BanksView extends Component {
     );
   }
 }
+
+export default withTranslation()(BanksView);

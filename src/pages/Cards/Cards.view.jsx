@@ -5,11 +5,12 @@ import React, { Component } from 'react';
 import {
   Grid, Header, Button, Icon, Message,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import CardItem from '../../components/CardItem';
 
-export default class CardsView extends Component {
+export default withTranslation()(class CardsView extends Component {
   render() {
-    const { cards, goBackToBanksPage } = this.props;
+    const { cards, goBackToBanksPage, t } = this.props;
 
     return (
       <Grid>
@@ -17,13 +18,13 @@ export default class CardsView extends Component {
           <Grid.Column>
             <Button floated="left" onClick={goBackToBanksPage}>
               <Icon name="angle left" />
-              Back
+              {t('btnBack')}
             </Button>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1} textAlign="center">
           <Grid.Column>
-            <Header as="h2">Cards</Header>
+            <Header as="h2">{t('cardsTab')}</Header>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={3} centered>
@@ -31,7 +32,7 @@ export default class CardsView extends Component {
             (!cards.length)
               ? (
                 <Message
-                  header="Ooops... No cards connected yet!"
+                  header={t('messageNoCards')}
                 />
               )
               : null
@@ -47,4 +48,4 @@ export default class CardsView extends Component {
       </Grid>
     );
   }
-}
+});

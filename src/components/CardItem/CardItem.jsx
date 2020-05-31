@@ -7,6 +7,7 @@ import { chunk } from 'lodash';
 import {
   Card, Grid, Image, Icon,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import CardRow from '../CardRow';
 import UpdateCardModal from '../UpdateCardModal';
 import DeleteCardModal from '../DeleteCardModal';
@@ -27,7 +28,7 @@ class CardItem extends React.Component {
     .toFormat('dd.MM.yyyy')
 
   render() {
-    const { card } = this.props;
+    const { card, t } = this.props;
     return (
       <Card>
         <Card.Content>
@@ -44,16 +45,16 @@ class CardItem extends React.Component {
           <Card.Meta>{ this.getConnectedDate(card.createdAt) }</Card.Meta>
         </Card.Content>
         <Card.Content>
-          <CardRow leftText="Balance" rightText={`${card.balance} ${card.currency}`} />
-          <CardRow leftText="Credit limit" rightText={`${card.limit} ${card.currency}`} />
+          <CardRow leftText={t('cardItemBalance')} rightText={`${card.balance} ${card.currency}`} />
+          <CardRow leftText={t('cardItemCreditLimit')} rightText={`${card.limit} ${card.currency}`} />
         </Card.Content>
         <Card.Content>
           {
             (card.clientName)
-              ? <CardRow leftText="Owner" rightText={card.clientName} />
+              ? <CardRow leftText={t('cardItemOwner')} rightText={card.clientName} />
               : null
           }
-          <CardRow leftText="Group" rightText={card.group.name} />
+          <CardRow leftText={t('cardItemGroup')} rightText={card.group.name} />
         </Card.Content>
         <Card.Content>
           <Grid>
@@ -72,4 +73,4 @@ class CardItem extends React.Component {
   }
 }
 
-export default CardItem;
+export default withTranslation()(CardItem);

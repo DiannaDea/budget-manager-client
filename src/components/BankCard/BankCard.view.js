@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Card, Button, Grid, Image,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import CardRow from '../CardRow';
 import DeleteBankModal from '../DeleteBankModal';
 
@@ -50,7 +51,9 @@ class BankCard extends React.Component {
   }
 
   render() {
-    const { bank, viewCards, deleteBank } = this.props;
+    const {
+      bank, viewCards, deleteBank, t,
+    } = this.props;
 
     return (
       <Card>
@@ -64,17 +67,17 @@ class BankCard extends React.Component {
           <Card.Meta>{this.getBankUrl(bank)}</Card.Meta>
         </Card.Content>
         <Card.Content>
-          <CardRow leftText="Cards count" rightText={bank.cards.length} />
-          <CardRow leftText="Balance" rightText={this.getBankBalance(bank)} />
+          <CardRow leftText={t('bankCardCardsCount')} rightText={bank.cards.length} />
+          <CardRow leftText={t('bankCardBalance')} rightText={this.getBankBalance(bank)} />
         </Card.Content>
         <Card.Content>
-          <CardRow leftText="Last update" rightText="20.12.2020" />
+          <CardRow leftText={t('bankCardLastUpdate')} rightText="20.12.2020" />
         </Card.Content>
         <Card.Content>
           <Grid>
             <Grid.Row columns={2}>
               <Grid.Column>
-                <Button fluid color="blue" onClick={() => viewCards(bank.bank.id)}>View Cards</Button>
+                <Button fluid color="blue" onClick={() => viewCards(bank.bank.id)}>{t('viewCardsBtn')}</Button>
               </Grid.Column>
               <Grid.Column>
                 <DeleteBankModal deleteBank={deleteBank} bank={bank} />
@@ -87,4 +90,4 @@ class BankCard extends React.Component {
   }
 }
 
-export default BankCard;
+export default withTranslation()(BankCard);

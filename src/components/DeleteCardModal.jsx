@@ -4,8 +4,9 @@ import React, { Component } from 'react';
 import {
   Button, Icon, Modal,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 
-export default class DeleteCardModal extends Component {
+export default withTranslation()(class DeleteCardModal extends Component {
   state = {
     modalOpen: false,
   }
@@ -25,20 +26,20 @@ export default class DeleteCardModal extends Component {
   }
 
   render() {
-    const { card } = this.props;
+    const { card, t } = this.props;
 
     return (
       <Modal
-        trigger={<Button fluid color="red" onClick={this.handleOpen}>Delete</Button>}
+        trigger={<Button fluid color="red" onClick={this.handleOpen}>{t('deleteBtn')}</Button>}
         open={this.state.modalOpen}
         onClose={this.handleClose}
         size="mini"
       >
-        <Modal.Header>Delete card</Modal.Header>
+        <Modal.Header>{t('deleteCardTitle')}</Modal.Header>
 
         <Modal.Content>
           <p>
-            Are you sure that you want to delete card:
+            {t('deleteCardText')}
             {' '}
             {(card) ? card.cardNumber : ''}
             ?
@@ -48,15 +49,15 @@ export default class DeleteCardModal extends Component {
           <Button color="red" inverted onClick={this.handleClose}>
             <Icon name="remove" />
             {' '}
-            No
+            {t('btnNo')}
           </Button>
           <Button color="green" inverted onClick={this.deleteCardInfo}>
             <Icon name="checkmark" />
             {' '}
-            Yes
+            {t('btnYes')}
           </Button>
         </Modal.Actions>
       </Modal>
     );
   }
-}
+});

@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import {
   Button, Icon, Modal, Message,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import ConnectCardStep from '../ConnectCardStep';
 import BankForm from './forms/BankForm';
@@ -48,7 +49,7 @@ const initialState = {
   selectGroupError: null,
 };
 
-export default class ConnectCardModal extends Component {
+class ConnectCardModal extends Component {
   state = initialState
 
   componentDidUpdate(prevProps, prevState) {
@@ -124,7 +125,7 @@ export default class ConnectCardModal extends Component {
       modalOpen, activeStep, currentBank, cardInfo, selectedGroup, selectGroupError,
     } = this.state;
     const {
-      cardAuth, savedCard, cardAuthError,
+      cardAuth, savedCard, cardAuthError, t,
     } = this.props;
 
     return (
@@ -132,7 +133,7 @@ export default class ConnectCardModal extends Component {
         trigger={(
           <Button color="green" circular floated="right" onClick={this.handleModalOpen}>
             <Icon name="add" />
-            Connect card
+            {t('connectCardBtn')}
           </Button>
         )}
         open={modalOpen}
@@ -175,10 +176,12 @@ export default class ConnectCardModal extends Component {
           <Button onClick={this.handleModalClose} color="grey">
             <Icon name="close" />
             {' '}
-            Close
+            {t('closeBtn')}
           </Button>
         </Modal.Actions>
       </Modal>
     );
   }
 }
+
+export default withTranslation()(ConnectCardModal);

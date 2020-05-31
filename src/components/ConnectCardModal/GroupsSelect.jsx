@@ -3,6 +3,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { Dropdown, Form } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 
 class GroupsSelect extends React.Component {
   transformGroups = () => {
@@ -19,7 +20,7 @@ class GroupsSelect extends React.Component {
 
   render() {
     const {
-      selectedGroup, handleGroupSelect, selectGroupError, inline = false,
+      selectedGroup, handleGroupSelect, selectGroupError, inline = false, t,
     } = this.props;
     const groupOptions = this.transformGroups();
 
@@ -32,10 +33,10 @@ class GroupsSelect extends React.Component {
       <Form.Field
         inline={inline}
         control={Dropdown}
-        label="Group"
+        label={t('cardItemGroup')}
         onChange={handleGroupSelect}
         options={groupOptions}
-        placeholder="Choose group"
+        placeholder={t('chooseGroupPlaceholder')}
         selection
         value={selectedGroup}
         error={error}
@@ -58,4 +59,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = () => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupsSelect);
+export default withTranslation()(connect(mapStateToProps, mapDispatchToProps)(GroupsSelect));

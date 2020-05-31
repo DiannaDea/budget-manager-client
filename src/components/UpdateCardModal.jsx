@@ -4,9 +4,10 @@ import React, { Component } from 'react';
 import {
   Button, Form, Icon, Modal,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import GroupsSelect from './ConnectCardModal/GroupsSelect';
 
-export default class UpdateCardModal extends Component {
+export default withTranslation()(class UpdateCardModal extends Component {
   state = {
     modalOpen: false,
     selectedGroup: this.props.card.groupId,
@@ -33,14 +34,16 @@ export default class UpdateCardModal extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <Modal
-        trigger={<Button fluid color="blue" onClick={this.handleOpen}>Edit</Button>}
+        trigger={<Button fluid color="blue" onClick={this.handleOpen}>{t('editBtn')}</Button>}
         open={this.state.modalOpen}
         onClose={this.handleClose}
         size="mini"
       >
-        <Modal.Header>Update card</Modal.Header>
+        <Modal.Header>{t('editCardTitle')}</Modal.Header>
 
         <Modal.Content>
           <Form success>
@@ -53,7 +56,7 @@ export default class UpdateCardModal extends Component {
             <Button fluid primary onClick={this.updateCardInfo} type="button">
               <Icon name="check" />
               {' '}
-              Update card
+              {t('saveBtn')}
             </Button>
 
           </Form>
@@ -61,4 +64,4 @@ export default class UpdateCardModal extends Component {
       </Modal>
     );
   }
-}
+});
