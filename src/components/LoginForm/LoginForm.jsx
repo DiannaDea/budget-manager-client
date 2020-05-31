@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import {
   Form, Segment, Header, Message,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import LoginStep from './LoginStep';
 import VerifyCodeForm from './VerifyCode';
 import AuthForm from './AuthForm';
@@ -27,7 +28,7 @@ const modalContent = {
   2: (props) => (<VerifyCodeForm {...props} />),
 };
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   state = {
     activeStep: 1,
     email: '',
@@ -96,12 +97,12 @@ export default class LoginForm extends React.Component {
 
   render() {
     const { activeStep } = this.state;
-    const { error } = this.props;
+    const { error, t } = this.props;
 
     return (
       <Segment>
         <Form success>
-          <Header as="h2">Sign in</Header>
+          <Header as="h2">{t('signInTitle')}</Header>
           <LoginStep activeStep={activeStep} />
           {
             (error)
@@ -127,3 +128,5 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+
+export default withTranslation()(LoginForm);

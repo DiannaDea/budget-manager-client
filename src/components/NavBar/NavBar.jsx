@@ -11,7 +11,7 @@ const languanges = [
 
 class NavBarView extends Component {
   state = {
-    lang: localStorage.getItem('i18nextLng') || 'en',
+    lang: localStorage.getItem('lang') || 'en',
   }
 
   handleLogout = () => {
@@ -29,6 +29,7 @@ class NavBarView extends Component {
   handleLanguageChange = (event, { value: lang }) => {
     const { i18n } = this.props;
     i18n.changeLanguage(lang);
+    localStorage.setItem('lang', lang);
     this.setState({
       lang,
     });

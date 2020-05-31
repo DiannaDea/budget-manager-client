@@ -3,9 +3,10 @@ import React from 'react';
 import {
   Form, Input, Button, Icon, Image,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 
 const VerifyCode = ({
-  errorMessage, errorField, verificationCode, handleInputChange, handleVerification, qrcode,
+  errorMessage, errorField, verificationCode, handleInputChange, handleVerification, qrcode, t,
 }) => {
   const error = {
     content: errorMessage,
@@ -17,8 +18,8 @@ const VerifyCode = ({
       <Image src={qrcode} size="small" centered />
       <Form.Field
         control={Input}
-        label="Verification code"
-        placeholder="Verification code"
+        label={t('verificationCodeLabel')}
+        placeholder={t('verificationCodeLabel')}
         defaultValue={verificationCode}
         onChange={(e, { value }) => handleInputChange('verificationCode', value)}
         {...(errorField === 'verificationCode' ? { error } : {})}
@@ -27,10 +28,10 @@ const VerifyCode = ({
       <Button fluid onClick={handleVerification} primary>
         <Icon name="checkmark" />
         {' '}
-        Verify code
+        {t('verifyCodeBtn')}
       </Button>
     </>
   );
 };
 
-export default VerifyCode;
+export default withTranslation()(VerifyCode);

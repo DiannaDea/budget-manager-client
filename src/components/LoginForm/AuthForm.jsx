@@ -3,9 +3,10 @@ import React from 'react';
 import {
   Form, Input, Button, Icon,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 
 const AuthForm = ({
-  errorMessage, errorField, email, password, handleInputChange, handleSignIn,
+  errorMessage, errorField, email, password, handleInputChange, handleSignIn, t,
 }) => {
   const error = {
     content: errorMessage,
@@ -16,9 +17,9 @@ const AuthForm = ({
     <>
       <Form.Field
         control={Input}
-        label="Email"
+        label={t('emailLabel')}
         type="email"
-        placeholder="Email"
+        placeholder={t('emailLabel')}
         defaultValue={email}
         onChange={(e, { value }) => handleInputChange('email', value)}
         {...(errorField === 'email' ? { error } : {})}
@@ -26,8 +27,8 @@ const AuthForm = ({
 
       <Form.Field
         control={Input}
-        label="Password"
-        placeholder="Password"
+        label={t('passwordLabel')}
+        placeholder={t('passwordLabel')}
         type="password"
         defaultValue={password}
         onChange={(e, { value }) => handleInputChange('password', value)}
@@ -37,10 +38,10 @@ const AuthForm = ({
       <Button fluid onClick={handleSignIn} primary>
         <Icon name="checkmark" />
         {' '}
-        Sign in
+        {t('signInBtn')}
       </Button>
     </>
   );
 };
 
-export default AuthForm;
+export default withTranslation()(AuthForm);
