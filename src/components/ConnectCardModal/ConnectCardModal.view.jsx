@@ -140,7 +140,7 @@ class ConnectCardModal extends Component {
         onClose={this.handleModalClose}
         size="small"
       >
-        <Modal.Header>Connect your card</Modal.Header>
+        <Modal.Header>{t('connectCardTitle')}</Modal.Header>
         <Modal.Content>
           <ConnectCardStep activeStep={activeStep} savedCard={savedCard} />
           {
@@ -148,8 +148,8 @@ class ConnectCardModal extends Component {
               ? (
                 <Message
                   negative
-                  header="Ooops!"
-                  content="Bank can not validate card. Please try again"
+                  header={t('errorMessageTitle')}
+                  content={t('unableToValidateCardMessage')}
                 />
               )
               : null

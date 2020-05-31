@@ -2,9 +2,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Form, Input } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 
 const MonobankForm = ({
-  token, cardNumber, handleInputChange, errorField, errorMessage,
+  token, cardNumber, handleInputChange, errorField, errorMessage, t,
 }) => {
   const error = {
     content: errorMessage,
@@ -15,8 +16,8 @@ const MonobankForm = ({
     <>
       <Form.Field
         control={Input}
-        label="Card number"
-        placeholder="Card number"
+        label={t('cardNumberLabel')}
+        placeholder={t('cardNumberLabel')}
         defaultValue={cardNumber}
         onChange={(e, { value }) => handleInputChange('cardNumber', value)}
         {...(errorField === 'cardNumber' ? { error } : {})}
@@ -24,8 +25,8 @@ const MonobankForm = ({
 
       <Form.Field
         control={Input}
-        label="Access token"
-        placeholder="Access token"
+        label={t('accessTokenLabel')}
+        placeholder={t('accessTokenLabel')}
         type="password"
         defaultValue={token}
         onChange={(e, { value }) => handleInputChange('token', value)}
@@ -36,4 +37,4 @@ const MonobankForm = ({
   );
 };
 
-export default MonobankForm;
+export default withTranslation()(MonobankForm);

@@ -2,9 +2,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Form, Input } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 
 const PrivatBankForm = ({
-  merchantId, password, cardNumber, handleInputChange, errorField, errorMessage,
+  merchantId, password, cardNumber, handleInputChange, errorField, errorMessage, t,
 }) => {
   const error = {
     content: errorMessage,
@@ -15,8 +16,8 @@ const PrivatBankForm = ({
     <>
       <Form.Field
         control={Input}
-        label="Card number"
-        placeholder="Card number"
+        label={t('cardNumberLabel')}
+        placeholder={t('cardNumberLabel')}
         defaultValue={cardNumber}
         onChange={(e, { value }) => handleInputChange('cardNumber', value)}
         {...(errorField === 'cardNumber' ? { error } : {})}
@@ -24,8 +25,8 @@ const PrivatBankForm = ({
 
       <Form.Field
         control={Input}
-        label="Merchant ID"
-        placeholder="Merchant ID"
+        label={t('merchantIdLabel')}
+        placeholder={t('merchantIdLabel')}
         defaultValue={merchantId}
         onChange={(e, { value }) => handleInputChange('merchantId', value)}
         {...(errorField === 'merchantId' ? { error } : {})}
@@ -33,8 +34,8 @@ const PrivatBankForm = ({
 
       <Form.Field
         control={Input}
-        label="Merchant password"
-        placeholder="Merchant password"
+        label={t('merchatPasswordLabel')}
+        placeholder={t('merchatPasswordLabel')}
         defaultValue={password}
         type="password"
         onChange={(e, { value }) => handleInputChange('password', value)}
@@ -45,4 +46,4 @@ const PrivatBankForm = ({
   );
 };
 
-export default PrivatBankForm;
+export default withTranslation()(PrivatBankForm);

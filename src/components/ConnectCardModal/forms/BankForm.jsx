@@ -2,6 +2,7 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { Button, Form, Icon } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import BankSelect from '../BankSelect';
 import MonobankForm from './MonobankForm';
 import PrivatBankForm from './PrivatBankForm';
@@ -52,7 +53,9 @@ class BankForm extends React.Component {
   }
 
   render() {
-    const { currentBank, handleBankChange, ...props } = this.props;
+    const {
+      currentBank, handleBankChange, t, ...props
+    } = this.props;
 
     const BANK_FORM = {
       privatbank: <PrivatBankForm {...props} {...this.state} />,
@@ -66,11 +69,11 @@ class BankForm extends React.Component {
         <Button fluid onClick={this.validateForm} primary>
           <Icon name="checkmark" />
           {' '}
-          Validate card
+          {t('validateCardBtn')}
         </Button>
       </Form>
     );
   }
 }
 
-export default BankForm;
+export default withTranslation()(BankForm);

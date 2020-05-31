@@ -5,17 +5,20 @@ import React from 'react';
 import {
   Form, Message, Button, Icon,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import GroupsSelect from '../GroupsSelect';
 
-const ChooseGroupForm = ({ cardAuth, saveCardInfo, ...props }) => (
+const ChooseGroupForm = ({
+  cardAuth, saveCardInfo, t, ...props
+}) => (
   <Form success>
     {
       (cardAuth && !props.savedCard && !props.savedCardError)
         ? (
           <Message
             success
-            header="Success!"
-            content={cardAuth ? `Card ${cardAuth.cardNumber} has successfully been verified` : ''}
+            header={t('successMessageTitle')}
+            content={cardAuth ? `${t('cardMessagePrefix')} ${cardAuth.cardNumber} ${t('successCardVerificationMessage')}` : ''}
           />
         )
         : null
@@ -25,8 +28,8 @@ const ChooseGroupForm = ({ cardAuth, saveCardInfo, ...props }) => (
         ? (
           <Message
             negative
-            header="Ooops!"
-            content={cardAuth ? `Something went wrong: can't save card ${cardAuth.cardNumber}` : ''}
+            header={t('errorMessageTitle')}
+            content={cardAuth ? `${t('errorCardVerificationMessage')} ${cardAuth.cardNumber}` : ''}
           />
         )
         : null
@@ -36,8 +39,8 @@ const ChooseGroupForm = ({ cardAuth, saveCardInfo, ...props }) => (
         ? (
           <Message
             success
-            header="Success!"
-            content={cardAuth ? `Card ${cardAuth.cardNumber} was saved` : ''}
+            header={t('successMessageTitle')}
+            content={cardAuth ? `${t('cardMessagePrefix')} ${cardAuth.cardNumber} ${t('successSaveCardMessage')}` : ''}
           />
         )
         : null
@@ -46,9 +49,9 @@ const ChooseGroupForm = ({ cardAuth, saveCardInfo, ...props }) => (
     <Button fluid primary disabled={!!props.savedCard} onClick={saveCardInfo}>
       <Icon name="check" />
       {' '}
-      Save card
+      {t('btnSaveCard')}
     </Button>
   </Form>
 );
 
-export default ChooseGroupForm;
+export default withTranslation()(ChooseGroupForm);
