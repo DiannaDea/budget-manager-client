@@ -123,6 +123,7 @@ i18n.use(LanguageDetector).init({
         manageGroup: 'Manage group',
         changeNameBtn: 'Change name',
         leaveGroupBtn: 'Leave',
+        signUp: 'Sign up',
       },
     },
     ua: {
@@ -245,6 +246,7 @@ i18n.use(LanguageDetector).init({
         manageGroup: 'Управління групою',
         changeNameBtn: 'Змінити назву',
         leaveGroupBtn: 'Покинути',
+        signUp: 'Реєстрація',
       },
     },
   },

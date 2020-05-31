@@ -6,7 +6,7 @@ import { Menu, Dropdown, Button } from 'semantic-ui-react';
 
 const languanges = [
   { key: 'en', text: 'English', value: 'en' },
-  { key: 'ua', text: 'Ukrainian', value: 'ua' },
+  { key: 'ua', text: 'Українська', value: 'ua' },
 ];
 
 class NavBarView extends Component {
