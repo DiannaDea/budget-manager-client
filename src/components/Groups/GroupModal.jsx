@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import {
   Button, Icon, Modal, Segment, Grid, Header, List, Image,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 
-export default class GroupModal extends Component {
+export default withTranslation()(class GroupModal extends Component {
   state = { modalOpen: false }
 
   handleOpen = () => this.setState({ modalOpen: true })
@@ -12,13 +13,13 @@ export default class GroupModal extends Component {
 
   render() {
     const { modalOpen } = this.state;
-    const { group } = this.props;
+    const { group, t } = this.props;
 
     return (
       <Modal
         trigger={(
           <Button color="blue" icon onClick={this.handleOpen}>
-            More
+            {t('moreBtn')}
             <Icon name="angle right" />
           </Button>
 )}
@@ -33,7 +34,7 @@ export default class GroupModal extends Component {
 
               <Grid.Row columns={1} textAlign="center" stretched>
                 <Grid.Column>
-                  <p>Share this code to invite group memebers</p>
+                  <p>{t('shareCodeMessage')}</p>
                 </Grid.Column>
               </Grid.Row>
 
@@ -51,7 +52,7 @@ export default class GroupModal extends Component {
 
               <Grid.Row columns={1} textAlign="center" stretched>
                 <Grid.Column textAlign="center">
-                  <p>Group members</p>
+                  <p>{t('groupMembers')}</p>
                 </Grid.Column>
               </Grid.Row>
 
@@ -79,16 +80,16 @@ export default class GroupModal extends Component {
 
               <Grid.Row columns={1} textAlign="center" stretched>
                 <Grid.Column textAlign="center">
-                  <p>Manage group</p>
+                  <p>{t('manageGroup')}</p>
                 </Grid.Column>
               </Grid.Row>
 
               <Grid.Row columns={2}>
                 <Grid.Column>
-                  <Button fluid color="green">Change name</Button>
+                  <Button fluid color="green">{t('changeNameBtn')}</Button>
                 </Grid.Column>
                 <Grid.Column>
-                  <Button fluid color="red">Leave</Button>
+                  <Button fluid color="red">{t('leaveGroupBtn')}</Button>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
@@ -100,10 +101,10 @@ export default class GroupModal extends Component {
           <Button onClick={this.handleClose} color="grey">
             <Icon name="close" />
             {' '}
-            Close
+            {t('closeBtn')}
           </Button>
         </Modal.Actions>
       </Modal>
     );
   }
-}
+});
