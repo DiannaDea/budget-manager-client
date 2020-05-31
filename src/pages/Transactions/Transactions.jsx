@@ -1,11 +1,12 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { Grid, Header, Pagination } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import TransactionsFilter from '../../components/TransactionsFilter';
 import TransactionsList from '../../components/TransactionsList';
 import CreateTransactionModal from '../../components/CreateTransaction';
 
-export default class Transactions extends Component {
+export default withTranslation()(class Transactions extends Component {
   state = {
     pagination: {
       limit: 5,
@@ -33,14 +34,14 @@ export default class Transactions extends Component {
 
   render() {
     const { pagination } = this.state;
-    const { transactions } = this.props;
+    const { transactions, t } = this.props;
 
     return (
       <Grid>
 
         <Grid.Row columns={1} textAlign="center">
           <Grid.Column>
-            <Header as="h2">Transactions</Header>
+            <Header as="h2">{t('transactionsTab')}</Header>
           </Grid.Column>
         </Grid.Row>
 
@@ -78,4 +79,4 @@ export default class Transactions extends Component {
       </Grid>
     );
   }
-}
+});

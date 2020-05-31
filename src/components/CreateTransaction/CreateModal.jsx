@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import {
   Button, Icon, Modal, Message,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import CreateTransactionForm from './CreateForm';
 
 const createTransactionValidation = Yup.object().shape({
@@ -28,17 +29,17 @@ const defaulTransactionInfo = {
 
 const mapping = {
   create: {
-    trigger: (handleOpen) => (
+    trigger: (handleOpen, t) => (
       <Button color="green" circular floated="right" onClick={handleOpen}>
         <Icon name="add" />
-        Create
+        {t('createTransaction')}
       </Button>
     ),
-    header: 'Create transaction',
-    successMessage: 'Transaction was successfully created',
+    header: (t) => t('createTransactionTittle'),
+    successMessage: (t) => t('createTransactionSuccess'),
     saveAction: ({ saveTransaction }) => saveTransaction(),
     disabled: ({ transactionsChanged }) => !!transactionsChanged,
-    saveBtnText: 'Save transaction',
+    saveBtnText: (t) => t('saveTransactionBtn'),
   },
   update: {
     trigger: (handleOpen) => (
@@ -46,15 +47,15 @@ const mapping = {
         <Icon name="edit outline" />
       </Button>
     ),
-    header: 'Update transaction',
-    successMessage: 'Transaction was successfully updated',
+    header: (t) => t('updateTransactionTittle'),
+    successMessage: (t) => t('updateTransactionSuccess'),
     saveAction: ({ updateTransactionInfo }) => updateTransactionInfo(),
     disabled: ({ transactionsChanged }) => !!transactionsChanged,
-    saveBtnText: 'Update transaction',
+    saveBtnText: (t) => t('updateTransactionBtn'),
   },
 };
 
-export default class CreateTransactionModal extends Component {
+export default withTranslation()(class CreateTransactionModal extends Component {
   state = {
     modalOpen: false,
     ...(this.props.transactionInfo ? this.props.transactionInfo : defaulTransactionInfo),
@@ -134,18 +135,18 @@ export default class CreateTransactionModal extends Component {
 
   render() {
     const { modalOpen } = this.state;
-    const { transactionsChanged, action = 'create' } = this.props;
+    const { transactionsChanged, action = 'create', t } = this.props;
 
     const config = mapping[action];
 
     return (
       <Modal
-        trigger={config.trigger(this.handleOpen)}
+        trigger={config.trigger(this.handleOpen, t)}
         open={modalOpen}
         onClose={this.handleClose}
         size="small"
       >
-        <Modal.Header>{config.header}</Modal.Header>
+        <Modal.Header>{config.header(t)}</Modal.Header>
 
         <Modal.Content>
           {
@@ -154,7 +155,7 @@ export default class CreateTransactionModal extends Component {
                 <Message
                   success
                   header="Success!"
-                  content={config.successMessage}
+                  content={config.successMessage(t)}
                 />
               )
               : null
@@ -175,18 +176,18 @@ export default class CreateTransactionModal extends Component {
           >
             <Icon name="check" />
             {' '}
-            {config.saveBtnText}
+            {config.saveBtnText(t)}
           </Button>
         </Modal.Content>
 
         <Modal.Actions>
-          <Button color="green" onClick={this.handleClose} inverted>
+          <Button onClick={this.handleClose} color="grey">
             <Icon name="checkmark" />
             {' '}
-            Close
+            {t('closeBtn')}
           </Button>
         </Modal.Actions>
       </Modal>
     );
   }
-}
+});

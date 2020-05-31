@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Form, Input } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import GroupsSelect from '../ConnectCardModal/GroupsSelect';
 import CategoriesDropdown from './CategoriesDropdown';
 
 const CreateTransactionForm = (props) => {
   const {
     groupId, operationAmount, description, categoryId, handleInputChange,
-    errorField, errorMessage,
+    errorField, errorMessage, t,
   } = props;
 
   const error = {
@@ -25,8 +26,8 @@ const CreateTransactionForm = (props) => {
 
       <Form.Field
         control={Input}
-        label="Amount"
-        placeholder="Amount"
+        label={t('amountLabel')}
+        placeholder={t('amountLabel')}
         type="number"
         defaultValue={operationAmount}
         onChange={(e, { value }) => handleInputChange('operationAmount', value)}
@@ -35,8 +36,8 @@ const CreateTransactionForm = (props) => {
 
       <Form.Field
         control={Input}
-        label="Description"
-        placeholder="Description"
+        label={t('descriptionLabel')}
+        placeholder={t('descriptionLabel')}
         defaultValue={description}
         onChange={(e, { value }) => handleInputChange('description', value)}
         {...(errorField === 'description' ? { error } : {})}
@@ -52,4 +53,4 @@ const CreateTransactionForm = (props) => {
   );
 };
 
-export default CreateTransactionForm;
+export default withTranslation()(CreateTransactionForm);

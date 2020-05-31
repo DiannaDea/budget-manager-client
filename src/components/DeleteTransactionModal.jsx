@@ -2,6 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import {
   Button, Icon, Modal,
 } from 'semantic-ui-react';
@@ -31,6 +32,8 @@ class DeleteTransactionModal extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <Modal
         trigger={(
@@ -42,23 +45,23 @@ class DeleteTransactionModal extends Component {
         onClose={this.handleClose}
         size="mini"
       >
-        <Modal.Header>Delete transaction</Modal.Header>
+        <Modal.Header>{t('deleteTransactionTitle')}</Modal.Header>
 
         <Modal.Content>
           <p>
-            Are you sure that you want to delete transaction?
+            {t('deleteTransactionDescription')}
           </p>
         </Modal.Content>
         <Modal.Actions>
           <Button color="red" inverted onClick={this.handleClose}>
             <Icon name="remove" />
             {' '}
-            No
+            {t('btnNo')}
           </Button>
           <Button color="green" inverted onClick={this.deleteTransactionInfo}>
             <Icon name="checkmark" />
             {' '}
-            Yes
+            {t('btnYes')}
           </Button>
         </Modal.Actions>
       </Modal>
@@ -71,4 +74,4 @@ const mapDispatchToProps = (dispatch) => ({
   resetSavedTransaction: (payload) => dispatch(resetSavedTransaction(payload)),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(DeleteTransactionModal);
+export default withTranslation()(connect(() => ({}), mapDispatchToProps)(DeleteTransactionModal));

@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { connect } from 'react-redux';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Dropdown, Form } from 'semantic-ui-react';
 
 class CategoriesSelect extends React.Component {
@@ -18,7 +19,7 @@ class CategoriesSelect extends React.Component {
   }
 
   render() {
-    const { selectedCategory, handleCategorySelect, selectCategoryError } = this.props;
+    const { selectedCategory, handleCategorySelect, selectCategoryError, t } = this.props;
     const categoriesOptions = this.transformCategories();
 
     const error = selectCategoryError ? {
@@ -29,10 +30,10 @@ class CategoriesSelect extends React.Component {
     return (
       <Form.Field
         control={Dropdown}
-        label="Category"
+        label={t('categoryLabel')}
         onChange={handleCategorySelect}
         options={categoriesOptions}
-        placeholder="Choose category"
+        placeholder={t('categoryPlaceholder')}
         selection
         value={selectedCategory}
         error={error}
@@ -55,4 +56,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = () => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriesSelect);
+export default withTranslation()(connect(mapStateToProps, mapDispatchToProps)(CategoriesSelect));
