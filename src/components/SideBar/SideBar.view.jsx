@@ -2,33 +2,34 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 
-export default class SideBar extends Component {
+class SideBar extends Component {
   render() {
-    const { activeItem } = this.props;
+    const { activeItem, t } = this.props;
 
     return (
       <Menu fluid vertical tabular>
         <Menu.Item
-          name="banks"
+          name={t('banksTab')}
           active={activeItem === 'banks'}
           as={Link}
           to="/manager/banks"
         />
         <Menu.Item
-          name="groups"
+          name={t('groupsTab')}
           active={activeItem === 'groups'}
           as={Link}
           to="/manager/groups"
         />
         <Menu.Item
-          name="transactions"
+          name={t('transactionsTab')}
           active={activeItem === 'transactions'}
           as={Link}
           to="/manager/transactions"
         />
         <Menu.Item
-          name="goals"
+          name={t('goalsTab')}
           active={activeItem === 'goals'}
           as={Link}
           to="/manager/goals"
@@ -37,3 +38,5 @@ export default class SideBar extends Component {
     );
   }
 }
+
+export default withTranslation()(SideBar);
