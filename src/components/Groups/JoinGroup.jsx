@@ -3,10 +3,11 @@ import React from 'react';
 import {
   Segment, Grid, Form, Input, Button, Header,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 
 class JoinGroup extends React.Component {
   render() {
-    const { inviteCode = '' } = this.props;
+    const { inviteCode = '', t } = this.props;
 
     return (
       <Segment>
@@ -14,14 +15,14 @@ class JoinGroup extends React.Component {
 
           <Grid.Row columns={1} textAlign="center">
             <Grid.Column>
-              <Header as="h3">Join group</Header>
+              <Header as="h3">{t('joinGroupTitle')}</Header>
             </Grid.Column>
           </Grid.Row>
 
 
           <Grid.Row stretched columns={1} textAlign="center">
             <Grid.Column>
-              <p>Enter invitation code to join group</p>
+              <p>{t('joinGroupDescription')}</p>
             </Grid.Column>
           </Grid.Row>
 
@@ -30,7 +31,7 @@ class JoinGroup extends React.Component {
               <Form>
                 <Form.Field
                   control={Input}
-                  placeholder="Invitation code"
+                  placeholder={t('invitationCodeField')}
                   defaultValue={inviteCode}
                 />
               </Form>
@@ -39,7 +40,7 @@ class JoinGroup extends React.Component {
 
           <Grid.Row stretched columns={1} textAlign="center">
             <Grid.Column>
-              <Button color="green">Check code</Button>
+              <Button color="green">{t('checkCodeBtn')}</Button>
             </Grid.Column>
           </Grid.Row>
 
@@ -49,4 +50,4 @@ class JoinGroup extends React.Component {
   }
 }
 
-export default JoinGroup;
+export default withTranslation()(JoinGroup);

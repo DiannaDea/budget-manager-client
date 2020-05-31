@@ -3,6 +3,7 @@ import React from 'react';
 import {
   Grid, Icon, Image, Segment, Card,
 } from 'semantic-ui-react';
+import { withTranslation } from 'react-i18next';
 import GroupModal from './GroupModal';
 
 const Row = ({ leftText, rightText }) => (
@@ -28,7 +29,7 @@ const Row = ({ leftText, rightText }) => (
 
 class GroupRow extends React.Component {
   render() {
-    const { group } = this.props;
+    const { group, t } = this.props;
 
     return (
       <Segment>
@@ -55,7 +56,7 @@ class GroupRow extends React.Component {
               <Row rightText={group.name} />
               {
                   (group.accessLevel)
-                    ? <Row rightText={group.users.length} leftText="Members" />
+                    ? <Row rightText={group.users.length} leftText={t('membersText')} />
                     : null
                 }
             </Grid.Column>
@@ -71,4 +72,4 @@ class GroupRow extends React.Component {
   }
 }
 
-export default GroupRow;
+export default withTranslation()(GroupRow);
