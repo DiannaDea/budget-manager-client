@@ -34,16 +34,21 @@ class GroupRow extends React.Component {
       <Segment>
         <Grid>
           <Grid.Row columns={3} textAlign="center">
-
             <Grid.Column width={3} stretched>
-              <Image
-                as={Icon}
-                name={!group.accessLevel ? 'lock' : 'lock open'}
-                floated="left"
-                size="huge"
-                circular
-                color="grey"
-              />
+              {
+                (!group.accessLevel)
+                  ? (
+                    <Image
+                      as={Icon}
+                      name="lock"
+                      floated="left"
+                      size="huge"
+                      circular
+                      color="grey"
+                    />
+                  )
+                  : <div className="group-name">{group.name.slice(0, 2).toUpperCase()}</div>
+              }
             </Grid.Column>
 
             <Grid.Column width={10} textAlign="left" stretched>

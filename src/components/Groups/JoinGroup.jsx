@@ -39,7 +39,7 @@ class JoinGroup extends React.Component {
 
           <Grid.Row stretched columns={1} textAlign="center">
             <Grid.Column>
-              <Button>Check code</Button>
+              <Button color="green">Check code</Button>
             </Grid.Column>
           </Grid.Row>
 

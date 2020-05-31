@@ -17,7 +17,7 @@ export default class GroupModal extends Component {
     return (
       <Modal
         trigger={(
-          <Button icon onClick={this.handleOpen}>
+          <Button color="blue" icon onClick={this.handleOpen}>
             More
             <Icon name="angle right" />
           </Button>

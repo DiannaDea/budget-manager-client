@@ -32,3 +32,16 @@ code {
   color: #db2828;
   font-weight: bold;
 }
+
+.group-name {
+  border-radius: 500em!important;
+  line-height: 1!important;
+  padding: .5em 0!important;    box-shadow: 0 0 0 0.1em rgba(0,0,0,.1) inset;
+  width: 3em!important;
+  height: 3em!important;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2185d0;
+}
