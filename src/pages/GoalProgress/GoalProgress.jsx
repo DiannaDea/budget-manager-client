@@ -155,7 +155,7 @@ export default withTranslation()(class GoalProgress extends React.Component {
       },
       {
         leftText: t('goalNumberOfMonths'),
-        rightText: goal.goal.monthCount,
+        rightText: Math.ceil(goal.goal.monthCount),
       },
       {
         leftText: t('goalStartDate'),
