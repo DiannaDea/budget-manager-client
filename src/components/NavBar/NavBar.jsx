@@ -53,7 +53,7 @@ class NavBarView extends Component {
             {
               (tokens.accessToken && tokens.refreshToken)
                 ? <Button primary onClick={this.handleLogout}>{t('logout')}</Button>
-                : <Button primary onClick={this.goToSignUp}>Sign up</Button>
+                : <Button primary onClick={this.goToSignUp}>{t('signUp')}</Button>
             }
           </Menu.Item>
         </Menu.Menu>
